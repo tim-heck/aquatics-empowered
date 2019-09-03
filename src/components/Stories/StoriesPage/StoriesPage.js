@@ -6,6 +6,7 @@ class StoriesPage extends Component {
     render() {
         return (
             <>
+                
             </>
         )
     }
