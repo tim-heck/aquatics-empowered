@@ -25,6 +25,9 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 
+const shareRouter = require('./routes/share.router.js');
+app.use('/api/share', shareRouter);
+
 // Serve static files
 app.use(express.static('build'));
 
