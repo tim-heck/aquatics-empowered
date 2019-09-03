@@ -9,10 +9,10 @@ class StoryCard extends Component {
         this.props.dispatch({ type: 'FETCH_IMAGES', payload: this.props.story.id });
     }
 
-    getFeaturedImage = (image) => {
-        if (image.featured_img) {
+    checkImage = (image) => {
+        if (image) {
             return (
-                <Image src={image.img_link} wrapped ui={false} />
+                <Image src={image} wrapped ui={false} />
             );
         }
     }
@@ -21,9 +21,7 @@ class StoryCard extends Component {
         return (
             <>
                 <Card>
-                    {this.props.reduxStore.images.imagesReducer.map(item => 
-                        this.getFeaturedImage(item)
-                    )}
+                    {this.checkImage(this.props.story.img_link)}
                     <Card.Content>
                         <Card.Header>{this.props.story.title}<a className="flag" href="/"><Icon name="flag" /></a></Card.Header>
                         <Card.Meta>

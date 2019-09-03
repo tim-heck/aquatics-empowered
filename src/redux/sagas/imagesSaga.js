@@ -10,7 +10,6 @@ export default function* imagesSaga() {
  * Sends a GET request to /api/images to get all images
  */
 function* fetchImages(action) {
-    console.log(action.payload);
     try {
         const response = yield axios.get(`/api/images/${action.payload}`);
         // Stores all data received in the stories reducer
