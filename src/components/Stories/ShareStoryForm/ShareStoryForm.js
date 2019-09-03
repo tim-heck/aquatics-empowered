@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 class ShareStoryForm extends Component {
 
 
-    
+
 
     render() {
         return (
             <>
             <p>Share your aquatic therapy story below!</p>
-            <div className="add-bar-form">
-                <form onSubmit={this.handleSubmit}>
+            <div>
 
                 <input required placeholder="Bar Name"
                     id="bar-name-input"
@@ -32,10 +31,9 @@ class ShareStoryForm extends Component {
                     // value={this.state.notes}
                     onChange={(event) => this.handleChangeFor('notes', event)} maxLength="200" />
                 <br />
-                <button type="submit">
+                <button>
                     Submit Story
                 </button>
-            </form>
             </div>
           
             </>
