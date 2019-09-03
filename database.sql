@@ -30,3 +30,4 @@ CREATE TABLE "stories" (
 	"category_id" INT REFERENCES "categories",
 	"flagged" BOOLEAN DEFAULT false	
 );
+
