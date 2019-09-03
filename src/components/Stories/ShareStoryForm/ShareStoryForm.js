@@ -9,33 +9,35 @@ class ShareStoryForm extends Component {
     render() {
         return (
             <>
-            <p>Share your aquatic therapy story below!</p>
-            <div>
+                <h3>Share your aquatic therapy story below!</h3>
+                    <div>
+                        <p>*What's your name?</p>
+                        <input required placeholder="Name"
+                        onChange={(event) => this.handleChangeFor('name', event)} />
 
-                <input required placeholder="Bar Name"
-                    id="bar-name-input"
-                    // value={this.state.bar_name}
-                    onChange={(event) => this.handleChangeFor('bar_name', event)} />
-                <br/>
-                <input required placeholder="Address, City"
-                    id = "address-input"
-                    // value={this.state.street_address}
-                    onChange={(event) => this.handleChangeFor('street_address', event)} />
-                <br/>
-                <input required placeholder="Phone"
-                    id = "phone-input"
-                    // value={this.state.phone}
-                    onChange={(event) => this.handleChangeFor('phone', event)} />
-                <br/>
-                <textarea rows="4" cols="40" id="add-bar-input" required placeholder="Hamm's Information"
-                    // value={this.state.notes}
-                    onChange={(event) => this.handleChangeFor('notes', event)} maxLength="200" />
-                <br />
-                <button>
-                    Submit Story
-                </button>
-            </div>
-          
+                        <p>*Where do you live?</p>
+                        <input required placeholder="Location"
+                        onChange={(event) => this.handleChangeFor('location', event)} />
+
+                        <p>*Give your story a title!</p>
+                        <input required placeholder="Title"
+                        onChange={(event) => this.handleChangeFor('title', event)} />
+
+                        <p>Want to share the name of your therapist?</p>
+                        <input placeholder="Therapist"
+                        onChange={(event) => this.handleChangeFor('aquatic_therapist', event)} />
+
+                        <p>*Please share your story.</p>
+                        <textarea rows="4" cols="40" id="add-bar-input" required placeholder="Share your story!"
+                        onChange={(event) => this.handleChangeFor('notes', event)} maxLength="200" />
+
+                        <p>Share images of your story?</p>
+                        <input placeholder="Images go here"
+                        onChange={(event) => this.handleChangeFor('phone', event)} />
+                        <button>
+                            Submit Story
+                        </button>
+                </div>
             </>
         )
     }
