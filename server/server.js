@@ -29,6 +29,9 @@ app.use('/api/user', userRouter);
 app.use('/api/stories', storiesRouter);
 app.use('/api/images', imagesRouter);
 
+const shareRouter = require('./routes/share.router.js');
+app.use('/api/share', shareRouter);
+
 // Serve static files
 app.use(express.static('build'));
 

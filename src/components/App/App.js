@@ -13,12 +13,15 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+import AquaticsEmpoweredAboutPage from '../AquaticsEmpoweredAboutPage/AquaticsEmpoweredAboutPage';
+import HTFHAboutPage from '../HTFHAboutPage/HTFHAboutPage';
+import ShareStoryForm from '../Stories/ShareStoryForm/ShareStoryForm';
+import StoriesPage from '../Stories/StoriesPage/StoriesPage';
+import MobileNav from '../Menus/MobileNav/MobileNav';
 
 import './App.css';
-import StoriesPage from '../Stories/StoriesPage/StoriesPage';
 
 class App extends Component {
   componentDidMount () {
@@ -30,6 +33,7 @@ class App extends Component {
       <Router>
         <div>
           <Nav />
+          <MobileNav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -37,8 +41,18 @@ class App extends Component {
             This is a route anyone can see, no login necessary */}
             <Route
               exact
-              path="/about"
-              component={AboutPage}
+              path="/aquatics-empowered-about"
+              component={AquaticsEmpoweredAboutPage}
+            />
+            <Route
+              exact
+              path="/hot-tubbing-for-hope-about"
+              component={HTFHAboutPage}
+            />
+            <Route
+              exact
+              path="/share"
+              component={ShareStoryForm}
             />
             <Route
               exact

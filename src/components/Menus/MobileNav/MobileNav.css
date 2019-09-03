@@ -1,0 +1,60 @@
+.mobile-header {
+    height: 60px;
+    background-color: #36599c;
+}
+
+.bars {
+    color: #fff;
+    padding: 16px;
+}
+
+.mobile-nav {
+    height: 100vh;
+    width: 0;
+    background-color: #36599c;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: .7s ease-in-out;
+}
+
+.mobile-nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-nav ul li {
+    padding: 16px;
+}
+
+.mobile-nav-link {
+    color: #fff;
+    display: block;
+    min-width: 250px;
+}
+
+.mobile-nav-closebtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 16px;
+    color: #fff;
+}
+
+.donate {
+    background-color: #ffa969;
+}
+
+@media all and (min-width: 800px) {
+    .mobile-header {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: none;
+    }
+}
