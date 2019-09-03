@@ -18,6 +18,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 
 import './App.css';
+import MobileNav from '../Menus/MobileNav/MobileNav';
 
 class App extends Component {
   componentDidMount () {
@@ -29,6 +30,7 @@ class App extends Component {
       <Router>
         <div>
           <Nav />
+          <MobileNav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
