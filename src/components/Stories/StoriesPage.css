@@ -2,3 +2,9 @@
     float: right;
     color: #000;
 }
+
+.description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 80px;
+}

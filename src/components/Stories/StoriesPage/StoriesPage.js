@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import StoryCard from './StoryCard';
+import LandingPageModal from '../../LandingPageModal/LandingPageModal';
 
 import { Card } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
@@ -17,6 +18,7 @@ class StoriesPage extends Component {
     render() {
         return (
             <>
+                <LandingPageModal />
                 <Card.Group centered>
                     {this.props.reduxStore.stories.storiesReducer.map(item => 
                         <StoryCard key={item.id} story={item}/>

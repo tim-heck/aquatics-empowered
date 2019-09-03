@@ -1,24 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Icon, Image, Button } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
 class StoryCard extends Component {
+
+    componentDidMount() {
+
+    }
 
     render() {
         return (
             <>
                 <Card>
-                    <Image src='images/stay-greasy-t-shirt-black-12.png' wrapped ui={false} />
+                    {/* <Image src={this.props.story.} wrapped ui={false} /> */}
                     <Card.Content>
-                        <Card.Header>John Doe<a className="flag" href="/"><Icon name="flag" /></a></Card.Header>
+                        <Card.Header>{this.props.story.title}<a className="flag" href="/"><Icon name="flag" /></a></Card.Header>
                         <Card.Meta>
-                            <span className="location">Minneapolis, MN</span>
+                            {this.props.story.name}
                         </Card.Meta>
-                        <Card.Description>
-                            Matthew is a musician living in Nashville. Matthew is a musician living in Nashville.
-                            Matthew is a musician living in Nashville. Matthew is a musician living in Nashville.
+                        <Card.Meta>
+                            <span className="location">{this.props.story.location}</span>
+                        </Card.Meta>
+                        <Card.Meta>
+                            <span>{this.props.story.category}</span>
+                        </Card.Meta>
+                        <Card.Description className="description">
+                            {this.props.story.message}
                         </Card.Description>
+                    </Card.Content>
+                    <Card.Content extra>
+                        <Button basic>
+                            View Story
+                        </Button>
                     </Card.Content>
                 </Card>
             </>
