@@ -4,12 +4,29 @@ import { Checkbox } from 'semantic-ui-react';
 
 class ShareStoryForm extends Component {
 
+    state = {
+        name: '',
+        location: '',
+        title: '',
+        aquatic_therapist: '',
+        message: '',
+        email: '',
+        flagged: false,
+    }
 
+    // This method sets our state through the form below
+    handleChangeFor = (propertyName, event) => {
+        this.setState({
+            ...this.state,
+            [propertyName]: event.target.value
+        })
+    }
 
 
     render() {
         return (
             <>
+                <h4>{JSON.stringify(this.state)}</h4>
                 <h3>Share your aquatic therapy story below!</h3>
                     <div>
                         <p>*What's your name?</p>
@@ -30,14 +47,15 @@ class ShareStoryForm extends Component {
 
                         <p>*Please share your story.</p>
                         <textarea rows="4" cols="40" id="add-bar-input" required placeholder="Share your story!"
-                        onChange={(event) => this.handleChangeFor('notes', event)} maxLength="200" />
+                        onChange={(event) => this.handleChangeFor('message', event)} maxLength="200" />
 
                         <p>Share images of your story?</p>
                         <input placeholder="Images go here"
-                        onChange={(event) => this.handleChangeFor('phone', event)} />
+                        onChange={(event) => this.handleChangeFor('images', event)} />
                         <Checkbox label="I agree to share my images on H2Whoa" />
                         <Checkbox label="I'd like to sign up for the Aquatics Empowered Newsletter" />
-                        <input placeholder="E-mail address"></input>
+                        <input placeholder="E-mail address"
+                        onChange={(event) => this.handleChangeFor('email', event)} />
                         <br />
                         <button>
                             Submit Story
