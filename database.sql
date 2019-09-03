@@ -11,6 +11,19 @@ CREATE TABLE "categories" (
     "hide_cat" BOOLEAN DEFAULT false
 );
 
+CREATE TABLE "stories" (
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR (100) NOT NULL,
+    "location" VARCHAR (300) NOT NULL,
+    "title" VARCHAR (200) NOT NULL,
+    "aquatic_therapist" VARCHAR (100),
+    "message" VARCHAR (5000) NOT NULL,
+    "email" VARCHAR (200),
+    "post_date" DATE NOT NULL DEFAULT CURRENT_DATE,
+    "category_id" INT REFERENCES "categories",
+    "flagged" BOOLEAN DEFAULT false 
+);
+
 CREATE TABLE "images" (
     "id" SERIAL PRIMARY KEY,
     "img_link" VARCHAR (100) NOT NULL,
@@ -18,15 +31,11 @@ CREATE TABLE "images" (
     "featured_img" BOOLEAN DEFAULT false
 );
 
-CREATE TABLE "stories" (
-	"id" SERIAL PRIMARY KEY,
-	"name" VARCHAR (100) NOT NULL,
-	"location" VARCHAR (300) NOT NULL,
-	"title" VARCHAR (200) NOT NULL,
-	"aquatic_therapist" VARCHAR (100),
-	"message" VARCHAR (5000) NOT NULL,
-	"email" VARCHAR (200),
-	"post_date" DATE NOT NULL,
-	"category_id" INT REFERENCES "categories",
-	"flagged" BOOLEAN DEFAULT false	
-);
+INSERT INTO "categories" ("category")
+VALUES ('Public Service'),
+('Seniors'),
+('Youth'),
+('Rehabilitation'),
+('Animals'),
+('Athletes');
+
