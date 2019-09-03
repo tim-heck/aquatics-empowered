@@ -8,14 +8,15 @@ import {
 
 import {connect} from 'react-redux';
 
-import Nav from '../Nav/Nav';
+import Nav from '../Menus/Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+import AquaticsEmpoweredAboutPage from '../AquaticsEmpoweredAboutPage/AquaticsEmpoweredAboutPage';
+import HTFHAboutPage from '../HTFHAboutPage/HTFHAboutPage';
 
 import './App.css';
 
@@ -36,8 +37,13 @@ class App extends Component {
             This is a route anyone can see, no login necessary */}
             <Route
               exact
-              path="/about"
-              component={AboutPage}
+              path="/aquatics-empowered-about"
+              component={AquaticsEmpoweredAboutPage}
+            />
+            <Route
+              exact
+              path="/hot-tubbing-for-hope-about"
+              component={HTFHAboutPage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
