@@ -13,10 +13,14 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+
+import AquaticsEmpoweredAboutPage from '../AquaticsEmpoweredAboutPage/AquaticsEmpoweredAboutPage';
+import HTFHAboutPage from '../HTFHAboutPage/HTFHAboutPage';
+
 import ShareStoryForm from '../Stories/ShareStoryForm/ShareStoryForm';
+
 
 import './App.css';
 import MobileNav from '../Menus/MobileNav/MobileNav';
@@ -39,8 +43,13 @@ class App extends Component {
             This is a route anyone can see, no login necessary */}
             <Route
               exact
-              path="/about"
-              component={AboutPage}
+              path="/aquatics-empowered-about"
+              component={AquaticsEmpoweredAboutPage}
+            />
+            <Route
+              exact
+              path="/hot-tubbing-for-hope-about"
+              component={HTFHAboutPage}
             />
 
             <Route

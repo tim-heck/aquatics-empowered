@@ -31,7 +31,6 @@ CREATE TABLE "images" (
     "featured_img" BOOLEAN DEFAULT false
 );
 
-
 INSERT INTO "categories" ("category")
 VALUES ('Public Service'),
 ('Seniors'),
@@ -39,3 +38,4 @@ VALUES ('Public Service'),
 ('Rehabilitation'),
 ('Animals'),
 ('Athletes');
+
