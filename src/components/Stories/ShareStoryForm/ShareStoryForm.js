@@ -57,7 +57,6 @@ class ShareStoryForm extends Component {
 
         return (
             <>
-                <h3>{JSON.stringify(this.state)}</h3>
                 <h3>Share your aquatic therapy story below!</h3>
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Group>
