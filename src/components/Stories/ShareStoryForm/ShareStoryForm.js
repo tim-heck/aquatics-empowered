@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Checkbox, Form, Select } from 'semantic-ui-react';
+import { Checkbox, Form, Select, Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 class ShareStoryForm extends Component {
@@ -49,7 +49,6 @@ class ShareStoryForm extends Component {
         return (
             <>
                 <h3>Share your aquatic therapy story below!</h3>
-            
                         <Form>
                             <Form.Group>
                                 <Form.Input label="What's your name?" required placeholder="Name" width={4}
@@ -78,9 +77,9 @@ class ShareStoryForm extends Component {
                                 <Checkbox label="I'd like to sign up for the Aquatics Empowered Newsletter" />
                                 <Form.Input placeholder="E-mail address" label="Enter E-mail" width = {4}
                                 onChange={(event) => this.handleChangeFor('email', event)} />
-                                <button>
-                                    Submit Story
-                                </button>
+                                <Button primary>
+                                    Submit
+                                </Button>
                                 <p>* indicates a required field</p>     
                         </Form>      
             </>
