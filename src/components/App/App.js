@@ -8,7 +8,7 @@ import {
 
 import {connect} from 'react-redux';
 
-import Nav from '../Nav/Nav';
+import Nav from '../Menus/Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
@@ -18,6 +18,7 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 
 import './App.css';
+import StoriesPage from '../Stories/StoriesPage/StoriesPage';
 
 class App extends Component {
   componentDidMount () {
@@ -34,6 +35,16 @@ class App extends Component {
             <Redirect exact from="/" to="/home" />
             {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
+            <Route
+              exact
+              path="/about"
+              component={AboutPage}
+            />
+            <Route
+              exact
+              path="/stories"
+              component={StoriesPage}
+            />
             <Route
               exact
               path="/about"
