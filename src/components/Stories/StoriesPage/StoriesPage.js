@@ -10,6 +10,10 @@ import '../StoriesPage.css'
 
 class StoriesPage extends Component {
 
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_STORIES' });
+    }
+
     render() {
         return (
             <>
