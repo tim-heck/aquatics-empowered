@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Checkbox } from 'semantic-ui-react';
 
 class ShareStoryForm extends Component {
 
@@ -34,9 +35,14 @@ class ShareStoryForm extends Component {
                         <p>Share images of your story?</p>
                         <input placeholder="Images go here"
                         onChange={(event) => this.handleChangeFor('phone', event)} />
+                        <Checkbox label="I agree to share my images on H2Whoa" />
+                        <Checkbox label="I'd like to sign up for the Aquatics Empowered Newsletter" />
+                        <input placeholder="E-mail address"></input>
+                        <br />
                         <button>
                             Submit Story
                         </button>
+                        <p>* indicates a required field</p>
                 </div>
             </>
         )
