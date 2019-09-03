@@ -15,10 +15,15 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+
 import AquaticsEmpoweredAboutPage from '../AquaticsEmpoweredAboutPage/AquaticsEmpoweredAboutPage';
 import HTFHAboutPage from '../HTFHAboutPage/HTFHAboutPage';
 
+import ShareStoryForm from '../Stories/ShareStoryForm/ShareStoryForm';
+
+
 import './App.css';
+import MobileNav from '../Menus/MobileNav/MobileNav';
 
 class App extends Component {
   componentDidMount () {
@@ -30,6 +35,7 @@ class App extends Component {
       <Router>
         <div>
           <Nav />
+          <MobileNav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -44,6 +50,12 @@ class App extends Component {
               exact
               path="/hot-tubbing-for-hope-about"
               component={HTFHAboutPage}
+            />
+
+            <Route
+              exact
+              path="/share"
+              component={ShareStoryForm}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.

@@ -9,6 +9,7 @@
 .nav {
   overflow: hidden;
   background-color: #00acb0;
+  display: none;
 }
 
 .nav-link {
@@ -33,4 +34,10 @@
 
 .nav-right {
   float: right;
+}
+
+@media all and (min-width: 800px) {
+  .nav {
+    display: block;
+  }
 }
