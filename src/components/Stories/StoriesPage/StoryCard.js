@@ -6,14 +6,24 @@ import 'semantic-ui-css/semantic.min.css'
 class StoryCard extends Component {
 
     componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_IMAGES', payload: this.props.story.id });
+    }
 
+    getFeaturedImage = (image) => {
+        if (image.featured_img) {
+            return (
+                <Image src={image.img_link} wrapped ui={false} />
+            );
+        }
     }
 
     render() {
         return (
             <>
                 <Card>
-                    {/* <Image src={this.props.story.} wrapped ui={false} /> */}
+                    {this.props.reduxStore.images.imagesReducer.map(item => 
+                        this.getFeaturedImage(item)
+                    )}
                     <Card.Content>
                         <Card.Header>{this.props.story.title}<a className="flag" href="/"><Icon name="flag" /></a></Card.Header>
                         <Card.Meta>
@@ -40,4 +50,8 @@ class StoryCard extends Component {
     }
 }
 
-export default connect()(StoryCard);
+const stateToProps = (reduxStore) => ({
+    reduxStore
+})
+
+export default connect(stateToProps)(StoryCard);
