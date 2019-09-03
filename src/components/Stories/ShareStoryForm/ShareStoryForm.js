@@ -31,7 +31,16 @@ class ShareStoryForm extends Component {
             ...this.state,
             category_id: value
         })
-        console.log(this.state);
+    }
+
+    handleSubmit = (event) => {
+        console.log(this.state)
+        event.preventDefault();
+        this.props.dispatch({
+            type: 'ADD_STORY',
+            payload: this.state,
+        })
+
     }
 
     render() {
@@ -48,8 +57,9 @@ class ShareStoryForm extends Component {
 
         return (
             <>
+                <h3>{JSON.stringify(this.state)}</h3>
                 <h3>Share your aquatic therapy story below!</h3>
-                        <Form>
+                        <Form onSubmit={this.handleSubmit}>
                             <Form.Group>
                                 <Form.Input label="What's your name?" required placeholder="Name" width={4}
                                 onChange={(event) => this.handleChangeFor('name', event)} />
