@@ -43,7 +43,7 @@ class App extends Component {
 
             <Route
               exact
-              path="/sharestory"
+              path="/share"
               component={ShareStoryForm}
             />
             {/* For protected routes, the view could show one of several things on the same route.
