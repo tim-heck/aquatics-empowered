@@ -40,6 +40,16 @@ class ShareStoryForm extends Component {
             type: 'ADD_STORY',
             payload: this.state,
         })
+        this.setState({
+            name: '',
+            location: '',
+            title: '',
+            aquatic_therapist: '',
+            message: '',
+            email: '',
+            category_id: 0,
+            flagged: false,
+        })
 
     }
 
@@ -61,9 +71,11 @@ class ShareStoryForm extends Component {
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Group>
                                 <Form.Input label="What's your name?" required placeholder="Name" width={4}
-                                onChange={(event) => this.handleChangeFor('name', event)} />
+                                onChange={(event) => this.handleChangeFor('name', event)} 
+                                value={this.state.name}/>
                                 <Form.Input label="Where do you live?" required placeholder="Location" width={5}
-                                onChange={(event) => this.handleChangeFor('location', event)} />
+                                onChange={(event) => this.handleChangeFor('location', event)} 
+                                value={this.state.location} />
                                 {/* Select field that uses the categories variable above for the options */}
                                 <Form.Field control={Select} required label='Choose a category'
                                 options={categories} value={this.state.category_id}
@@ -71,12 +83,15 @@ class ShareStoryForm extends Component {
                             </Form.Group>
                             <Form.Group>
                                 <Form.Input label="Give your story a title." required placeholder="Title" width={6}
-                                onChange={(event) => this.handleChangeFor('title', event)} />
+                                onChange={(event) => this.handleChangeFor('title', event)} 
+                                value={this.state.title} />
                                 <Form.Input label="Want to share the name of your therapist?" placeholder="Therapist" width={6}
-                                onChange={(event) => this.handleChangeFor('aquatic_therapist', event)} />
+                                onChange={(event) => this.handleChangeFor('aquatic_therapist', event)} 
+                                value={this.state.aquatic_therapist} />
                             </Form.Group>
                                 <Form.Input label="Please share your story" required placeholder="Share your story!" width={12}
-                                onChange={(event) => this.handleChangeFor('message', event)} />
+                                onChange={(event) => this.handleChangeFor('message', event)} 
+                                value={this.state.message} />
                                 <Form.Input label="Share images of your story?" placeholder="Images go here"
                                 onChange={(event) => this.handleChangeFor('images', event)} />
                                 <a href="http://www.google.com">Picture Terms and Conditions</a>
@@ -85,7 +100,8 @@ class ShareStoryForm extends Component {
                                 <br />
                                 <Checkbox label="I'd like to sign up for the Aquatics Empowered Newsletter" />
                                 <Form.Input placeholder="E-mail address" label="Enter E-mail" width = {4}
-                                onChange={(event) => this.handleChangeFor('email', event)} />
+                                onChange={(event) => this.handleChangeFor('email', event)} 
+                                value={this.state.email} />
                                 <Button primary>
                                     Submit
                                 </Button>
