@@ -10,6 +10,8 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router');
+const storiesRouter = require('./routes/stories.router');
+const imagesRouter = require('./routes/images.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -24,6 +26,8 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
+app.use('/api/stories', storiesRouter);
+app.use('/api/images', imagesRouter);
 
 const shareRouter = require('./routes/share.router.js');
 app.use('/api/share', shareRouter);

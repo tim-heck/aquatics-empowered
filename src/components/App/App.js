@@ -15,15 +15,13 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-
 import AquaticsEmpoweredAboutPage from '../AquaticsEmpoweredAboutPage/AquaticsEmpoweredAboutPage';
 import HTFHAboutPage from '../HTFHAboutPage/HTFHAboutPage';
-
 import ShareStoryForm from '../Stories/ShareStoryForm/ShareStoryForm';
-
+import StoriesPage from '../Stories/StoriesPage/StoriesPage';
+import MobileNav from '../Menus/MobileNav/MobileNav';
 
 import './App.css';
-import MobileNav from '../Menus/MobileNav/MobileNav';
 
 class App extends Component {
   componentDidMount () {
@@ -51,11 +49,15 @@ class App extends Component {
               path="/hot-tubbing-for-hope-about"
               component={HTFHAboutPage}
             />
-
             <Route
               exact
               path="/share"
               component={ShareStoryForm}
+            />
+            <Route
+              exact
+              path="/stories"
+              component={StoriesPage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
