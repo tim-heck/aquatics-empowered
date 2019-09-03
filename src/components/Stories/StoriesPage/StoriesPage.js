@@ -18,16 +18,17 @@ class StoriesPage extends Component {
         return (
             <>
                 <Card.Group centered>
-                    <StoryCard />
-                    <StoryCard />
-                    <StoryCard />
-                    <StoryCard />
-                    <StoryCard />
-                    <StoryCard />
+                    {this.props.reduxStore.stories.storiesReducer.map(item => 
+                        <StoryCard key={item.id} story={item}/>
+                    )}
                 </Card.Group>
             </>
         )
     }
 }
 
-export default connect()(StoriesPage);
+const stateToProps = (reduxStore) => ({
+    reduxStore
+});
+
+export default connect(stateToProps)(StoriesPage);

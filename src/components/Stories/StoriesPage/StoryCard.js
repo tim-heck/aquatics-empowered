@@ -11,7 +11,7 @@ class StoryCard extends Component {
                 <Card>
                     <Image src='images/stay-greasy-t-shirt-black-12.png' wrapped ui={false} />
                     <Card.Content>
-                        <Card.Header>John Doe<a className="flag" href="#"><Icon name="flag" /></a></Card.Header>
+                        <Card.Header>John Doe<a className="flag" href="/"><Icon name="flag" /></a></Card.Header>
                         <Card.Meta>
                             <span className="location">Minneapolis, MN</span>
                         </Card.Meta>
