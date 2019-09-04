@@ -18,6 +18,8 @@ import HTFHAboutPage from '../HTFHAboutPage/HTFHAboutPage';
 import ShareStoryForm from '../Stories/ShareStoryForm/ShareStoryForm';
 import StoriesPage from '../Stories/StoriesPage/StoriesPage';
 import MobileNav from '../Menus/MobileNav/MobileNav';
+import AdminCategoriesPage from '../Admin/AdminCategoriesPage/AdminCategoriesPage';
+import AdminFlaggedList from '../Admin/AdminCategoriesPage/AdminFlaggedList';
 
 import './App.css';
 
@@ -57,6 +59,20 @@ class App extends Component {
               path="/stories"
               component={StoriesPage}
             />
+
+
+            {/* ---------TEMPORARY ADMIN ROUTES BELOW, CHANGE TO PROTECTED LATER------------ */}
+            <Route
+              exact
+              path="/admin-categories"
+              component={AdminCategoriesPage}
+            />
+
+             <Route
+             exact
+             path = "/admin-flagged-list"
+             component = {AdminFlaggedList}
+             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.

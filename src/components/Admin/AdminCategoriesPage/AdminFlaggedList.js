@@ -5,8 +5,8 @@ import 'semantic-ui-css/semantic.min.css';
 
 class AdminCategoriesPage extends Component {
 
-    handleFlaggedClick = (event) => {
-        this.props.history.push('/admin-flagged-list')
+    handleCategoriesClick = (event) => {
+        this.props.history.push('/admin-categories')
     }
 
 
@@ -14,9 +14,9 @@ class AdminCategoriesPage extends Component {
         return (
             <>
                 <p>Click a button below to toggle between Categories and Flagged Posts</p>
-                <Button Primary>Categories </Button><Button Primary onClick={this.handleFlaggedClick}>Flagged</Button >
+                <Button Primary onClick={this.handleCategoriesClick}>Categories </Button><Button Primary>Flagged</Button >
                 <br />
-                <h1> CAAAAAT </h1>      
+                <h1> FLAAAAG </h1>      
             </>
         )
     }
