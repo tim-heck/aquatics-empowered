@@ -5,12 +5,10 @@ import 'semantic-ui-css/semantic.min.css'
 
 class LandingPageModal extends Component {
 
-
     // THIS COMPONENT NEEDS A SESSION COOKIE INTEGRATED TO 
     // PREVENT MODAL FROM APPEARING AFTER FIRST SESSION
 
     state = {
-
         active: true,
     }
 
@@ -32,27 +30,13 @@ class LandingPageModal extends Component {
     render() {
         return (
             <>
-
-
-
-
-
                 {/* THIS CODE IS BASED ON MODAL WINDOW EXAMPLES FROM SEMANTIC UI DOCS */}
-
                 {/*     https://react.semantic-ui.com/      */}
-
                 {/*  THANKS TO THEM FOR GREAT EXAMPLES THAT WERE RELEVANT :)  */}
-
                 <Modal open={this.state.active} >
-
                     <Icon name="close" onClick={this.onCloseModal} />
-
-
                     <Modal.Header className='modalHeader'>Welcome to H2WOAH!</Modal.Header>
-
                     <Modal.Content image>
-
-
                         {/*????? NEED TO CHANGE IMAGE HERE TO DIFFERENT IMAGE, POSSIBLY ART OR POSTER FOR EVENT???? */}
 
                         <Image size="medium"
@@ -68,14 +52,11 @@ class LandingPageModal extends Component {
                         <Button primary onClick={this.onCloseModal}>
                             Head To Stories <Icon name="chevron right" />
                         </Button>
-
                         {/* >UNTESTED< THE CODE BELOW IS A BEGINNING TO ADD HISTORY.PUSH METHOD ROUTING TO ABOUT PAGES >UNTESTED< */}
-
                         {/* <Button emphasis="negative" onClick={this.aboutAEButton}
                                 >Learn about Aquatics Empowered</Button>
                         <Button emphasis="negative" onClick={this.aboutHFHButton}
                                 >Learn about Hot Tubbing For Hope</Button> */}
-
                     </Modal.Actions>
                 </Modal>
 
@@ -86,5 +67,3 @@ class LandingPageModal extends Component {
 
 
 export default connect()(LandingPageModal);
-
-// Jacob Knecht 2019: 09/03 - 09/04

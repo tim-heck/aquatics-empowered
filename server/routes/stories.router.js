@@ -38,4 +38,18 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     })
 })
 
+/**
+ * PUT route for flagging a specific story
+ * Flags a specific story based on the id
+ */
+router.put('/flag/:id', (req, res) => {
+    const sqlText = `UPDATE stories SET flagged = true WHERE id = $1;`;
+    pool.query(sqlText, [req.params.id]).then(result => {
+        res.sendStatus(200);
+    }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+    })
+})
+
 module.exports = router;
