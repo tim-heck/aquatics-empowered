@@ -13,6 +13,7 @@ class StoriesPage extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_STORIES' });
+        this.props.dispatch({ type: 'FETCH_USER' });
     }
 
     render() {

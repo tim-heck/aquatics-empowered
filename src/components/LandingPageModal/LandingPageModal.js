@@ -5,27 +5,17 @@ import 'semantic-ui-css/semantic.min.css'
 
 class LandingPageModal extends Component {
 
-
-state = {
+    state = {
         active: true,
-
     }
 
-    componentDidMount(){
-
-        console.log(this.state.active);
-        
-    }
-
-    onCloseModal =()=> {
+    onCloseModal = () => {
         this.setState({
             active: false
-         })
-         
+        })
     }
 
-
-// >UNTESTED< These functions are not used - history.push method routing >UNTESTED<
+    // >UNTESTED< These functions are not used - history.push method routing >UNTESTED<
     // aboutAEButton =()=> {
     //     this.props.history.push('/aquatics-empowered-about')
     // }
@@ -34,25 +24,20 @@ state = {
     //     this.props.history.push('/hot-tubbing-for-hope-about')
     // }
 
-
     render() {
-        
-   
-
         return (
+            <>
+                <Modal open={this.state.active} >
 
-            <div>
-                <Modal open = {this.state.active} >
+                    <Icon name="close" onClick={this.onCloseModal} />
 
-                    <Icon name="close" onClick={this.onCloseModal}/>
-
-                            <Modal.Header className='modalHeader'>Welcome to H2WOAH!</Modal.Header>
+                    <Modal.Header className='modalHeader'>Welcome to H2WOAH!</Modal.Header>
 
                     <Modal.Content image>
-                            
-                            <Image size = "medium"
-                           src = "http://aquaticsempowered.org/wp-content/uploads/2019/07/hot-tubbing-for-hope.jpg"/>
-                        
+
+                        <Image size="medium"
+                            src="http://aquaticsempowered.org/wp-content/uploads/2019/07/hot-tubbing-for-hope.jpg" />
+
                         <Modal.Description>
                             <Header>Hot Tubbing For Hope! 11/15/19 - 11/17/19</Header>
                             <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -61,11 +46,11 @@ state = {
                     </Modal.Content>
                     <Modal.Actions>
                         <Button primary onClick={this.onCloseModal}>
-                            Head To Stories! <Icon name="chevron right" /> 
+                            Head To Stories <Icon name="chevron right" />
                         </Button>
 
-            {/* >UNTESTED< THE CODE BELOW IS A BEGINNING TO ADD HISTORY.PUSH METHOD ROUTING TO ABOUT PAGES >UNTESTED< */}
-                        
+                        {/* >UNTESTED< THE CODE BELOW IS A BEGINNING TO ADD HISTORY.PUSH METHOD ROUTING TO ABOUT PAGES >UNTESTED< */}
+
                         {/* <Button emphasis="negative" onClick={this.aboutAEButton}
                                 >Learn about Aquatics Empowered</Button>
                         <Button emphasis="negative" onClick={this.aboutHFHButton}
@@ -73,12 +58,9 @@ state = {
 
                     </Modal.Actions>
                 </Modal>
-                    
-            </div>
-
+            </>
         )
     }
-
 }
 
 
