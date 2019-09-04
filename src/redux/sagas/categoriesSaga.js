@@ -13,7 +13,7 @@ function* fetchCategories(action) {
     try {
         const response = yield axios.get(`/api/images/${action.payload}`);
         // Stores all data received in the stories reducer
-        yield put({ type: 'SET_FLAGGED', payload: response.data });
+        yield put({ type: 'SET_CATEGORIES', payload: response.data });
     } catch (error) {
         console.log('Error with getting stories', error);
     }
