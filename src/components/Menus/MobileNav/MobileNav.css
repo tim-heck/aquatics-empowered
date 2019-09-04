@@ -1,6 +1,7 @@
 .mobile-header {
     height: 60px;
     background-color: #36599c;
+    margin-bottom: 30px;
 }
 
 .bars {
@@ -18,7 +19,7 @@
     left: 0;
     overflow-x: hidden;
     padding-top: 60px;
-    transition: .7s ease-in-out;
+    transition: .5s ease-in-out;
 }
 
 .mobile-nav ul {

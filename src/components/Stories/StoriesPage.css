@@ -3,8 +3,12 @@
     color: #000;
 }
 
-.description {
+.card .description {
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 80px;
+    max-height: 79px;
+}
+
+.card .image:hover {
+    cursor: pointer;
 }
