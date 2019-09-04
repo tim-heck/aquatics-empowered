@@ -3,8 +3,67 @@
     color: #000;
 }
 
-.description {
+.card .description {
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 80px;
+    max-height: 79px;
+}
+
+.card .image:hover {
+    cursor: pointer;
+}
+
+.card .header {
+    margin-bottom: 8px;
+}
+
+.card .meta {
+    margin: 4px 0;
+}
+
+.card .ui.buttons {
+    margin-top: 10px;
+    display: block;
+}
+
+.extra.content {
+    text-align: center;
+}
+
+.story-modal .actions {
+    text-align: center!important;
+}
+
+.story-modal .actions .ui.buttons {
+    margin-top: 10px;
+    display: block;
+}
+
+.carousel {
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+.carousel__slider {
+    margin: 15px 0;
+}
+
+.modals.dimmer .ui.scrolling.modal {
+    max-width: 800px;
+}
+
+.modal-meta {
+    margin: 5px 0;
+    color: rgba(0, 0, 0, .4);
+}
+
+.images-modal .carousel {
+    margin: 50px auto 20px;
+    max-width: 700px;
+}
+
+@media all and (min-width: 992px) {
+    .modals.dimmer .ui.scrolling.modal {
+        margin: 30px auto;
+    }
 }
