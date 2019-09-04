@@ -23,7 +23,13 @@ class AdminCategoriesPage extends Component {
                 <Button Primary>Categories </Button><Button Primary onClick={this.handleFlaggedClick}>Flagged</Button >
                 <br />
                 <h1>Add or Hide Categories</h1>
-                <h1>{JSON.stringify(this.props.store.categoriesReducer)}</h1>
+                <ul>
+                    {this.props.store.categoriesReducer.map(category => {
+                    return <li key={category.id}>
+                    <h3>{category.category}</h3>
+                    </li>   
+                    })}
+                </ul>
             </>
         )
     }
