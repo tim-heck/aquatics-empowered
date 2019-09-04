@@ -7,10 +7,8 @@ import {
 } from 'react-router-dom';
 
 import {connect} from 'react-redux';
-
 import Nav from '../Menus/Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import UserPage from '../UserPage/UserPage';
