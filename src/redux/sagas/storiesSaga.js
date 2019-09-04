@@ -8,6 +8,8 @@ export default function* storiesSaga() {
     yield takeEvery('DELETE_STORY', deleteStory);
     // Flaggs story for review
     yield takeEvery('FLAG_STORY', flagStory);
+    // Adds a story
+    yield takeEvery('ADD_STORY', addStory);
 }
 
 /**
@@ -48,5 +50,14 @@ function* flagStory(action) {
         yield put({ type: 'FETCH_PRODUCTS' });
     } catch (error) {
         console.log('Error with flagging story', error);
+    }
+}
+
+// Sets a POST request to /api/share to add a story
+function* addStory(action) {
+    try {
+        yield axios.post('/api/stories/share', action.payload);
+    } catch (error) {
+        console.log('Error with addStory saga', error);
     }
 }

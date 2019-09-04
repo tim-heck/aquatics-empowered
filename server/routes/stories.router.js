@@ -52,4 +52,18 @@ router.put('/flag/:id', (req, res) => {
     })
 })
 
+router.post('/share', (req, res) => {
+    const sqlText = `INSERT INTO "stories" ("name", "location", "title", "aquatic_therapist", "message", "email", "category_id", "flagged")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`
+    const values = [req.body.name, req.body.location, req.body.title, req.body.aquatic_therapist, req.body.message, req.body.email, req.body.category_id, req.body.flagged];
+    console.log(req.body.message)
+    pool.query(sqlText, values)
+        .then((results) => {
+            res.sendStatus(201);
+        }).catch((error) => {
+            console.log('Error with post', error);
+            res.sendStatus(500);
+        });
+});
+
 module.exports = router;
