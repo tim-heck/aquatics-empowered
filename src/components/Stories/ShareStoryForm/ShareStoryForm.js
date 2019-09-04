@@ -90,7 +90,6 @@ class ShareStoryForm extends Component {
     }
 
     render() {
-
     // This is used in the category select in the form below
     const categories = [
         { key: 'ps', text: 'Public Service', value: '1'},
@@ -103,7 +102,6 @@ class ShareStoryForm extends Component {
 
         return (
             <>
-                <h3>{JSON.stringify(this.state.message)}</h3>
                 <h3>Share your aquatic therapy story below!</h3>
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Group>
@@ -126,15 +124,13 @@ class ShareStoryForm extends Component {
                                     onChange={(event) => this.handleChangeFor('aquatic_therapist', event)} 
                                     value={this.state.aquatic_therapist} />
                             </Form.Group>
-                        </Form>
-                        <Form>
                             {/* Rich Text Editor input field */}
-                            {/* <Form.Field required label="Share your story" /> */}
+                            <Form.Field required label="Share your story!" />
                             <ReactQuill
-                                label="Share you story"
                                 ref={(el) => { this.reactQuillRef = el }}
                                 theme={'snow'}
                                 preserveWhitespace={true}
+                                value = {this.state.message}
                                 onChange={() => this.handleMessageChange()} />
                             <Form.Input label="Share images of your story?" placeholder="Images go here"
                                 onChange={(event) => this.handleChangeFor('images', event)} />
@@ -150,7 +146,6 @@ class ShareStoryForm extends Component {
                                 Submit
                             </Button>
                                 <p>* indicates a required field</p>     
-                        
                         </Form>      
             </>
         ) // End Return
