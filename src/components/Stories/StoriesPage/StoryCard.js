@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, Icon, Image, Button, Header, Modal, List } from 'semantic-ui-react'
+import { CarouselProvider, Slide, Slider, Dot } from "pure-react-carousel";
+import { Card, Icon, Image, Button, Header, Modal, Container} from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
+import "pure-react-carousel/dist/react-carousel.es.css";
 
 class StoryCard extends Component {
 
@@ -36,11 +38,27 @@ class StoryCard extends Component {
                 <Modal open={this.state.showStory} centered={false}>
                     <Icon name="close" onClick={this.closeStoryModal} />
                     <Header content={this.props.story.title} />
-                    <List>
-                        {this.props.reduxStore.images.imagesReducer.map(image =>
-                            <List.Item><Image key={image.id} src={image.img_link} alt={this.props.story.title} /></List.Item>
-                        )}
-                    </List>
+                    {/* CarouselProvider component found at: https://codesandbox.io/s/43pv7wm6n9?from-embed */}
+                    <CarouselProvider
+                        naturalSlideWidth={1}
+                        naturalSlideHeight={1}
+                        totalSlides={this.props.reduxStore.images.imagesReducer.length}
+                    >
+                        <Slider>
+                            {this.props.reduxStore.images.imagesReducer.map((image, i) =>
+                                <Slide key={image.id} tag="a" index={i}>
+                                    <Image src={image.img_link} />
+                                </Slide>
+                            )}
+                        </Slider>
+                        <Container textAlign="center">
+                            <Button.Group size="mini">
+                                {[...Array(this.props.reduxStore.images.imagesReducer.length).keys()].map(slide => (
+                                    <Button as={Dot} key={slide} icon="circle" slide={slide} />
+                                ))}
+                            </Button.Group>
+                        </Container>
+                    </CarouselProvider>
                     <Modal.Content>
                         <h3>{this.props.story.name}<Icon name="flag" /></h3>
                         <h4>{this.props.story.location}</h4>

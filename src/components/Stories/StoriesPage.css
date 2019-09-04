@@ -12,3 +12,20 @@
 .card .image:hover {
     cursor: pointer;
 }
+
+.carousel {
+    padding: 0 100px;
+}
+
+.carousel__slider {
+    margin: 15px 0;
+}
+
+/* .carousel .image {
+    max-height: 400px;
+} */
+
+.modal {
+    max-width: 800px;
+    margin: 50px auto;
+}
