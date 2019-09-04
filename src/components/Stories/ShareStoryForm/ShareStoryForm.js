@@ -2,19 +2,54 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Checkbox, Form, Select, Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 class ShareStoryForm extends Component {
 
-    state = {
-        name: '',
-        location: '',
-        title: '',
-        aquatic_therapist: '',
-        message: '',
-        email: '',
-        category_id: 0,
-        flagged: false,
+    // Constructor for ReactQuill, needed for Rich Text Editor in form
+    constructor(props) {
+        super(props)
+        this.quillRef = null; // Quill instance
+        this.reactQuillRef = null; // ReactQuill component
+        this.state = {
+            name: '',
+            location: '',
+            title: '',
+            aquatic_therapist: '',
+            message: '',
+            email: '',
+            category_id: 0,
+            flagged: false,
+        }
     }
+
+    // Needed for Rich Text Editor
+    componentDidMount() {
+        this.attachQuillRefs()
+    }
+
+    // Needed for Rich Text Editor
+    componentDidUpdate() {
+        this.attachQuillRefs()
+    }
+
+    // Needed for Rich Text Editor
+    attachQuillRefs = () => {
+        if (typeof this.reactQuillRef.getEditor !== 'function') return;
+        this.quillRef = this.reactQuillRef.getEditor();
+    }
+
+    // Sets message property in state 
+    handleMessageChange = () => {
+        const editor = this.reactQuillRef.getEditor();
+        const unprivilegedEditor = this.reactQuillRef.makeUnprivilegedEditor(editor);
+        this.setState({
+            ...this.state,
+            message: unprivilegedEditor.getHTML()
+        })
+    }
+
 
     // This method sets our state through the form below
     handleChangeFor = (propertyName, event) => {
@@ -25,16 +60,17 @@ class ShareStoryForm extends Component {
         console.log(this.state);
     }
 
-    // Sets the category_id property
-    handleChange = (e, {value}) => {
+    // Sets the category_id property of state
+    handleCategoryChange = (e, {value}) => {
         this.setState({
             ...this.state,
             category_id: value
         })
     }
 
+    // When user clicks submit, sends a payload of our state to the Saga with the ADD_STORY action, ultimately resulting
+    // in a POST. Then reset the fields of our form so they're blank.
     handleSubmit = (event) => {
-        console.log(this.state)
         event.preventDefault();
         this.props.dispatch({
             type: 'ADD_STORY',
@@ -55,7 +91,7 @@ class ShareStoryForm extends Component {
 
     render() {
 
-    // This is used in the category select in the form
+    // This is used in the category select in the form below
     const categories = [
         { key: 'ps', text: 'Public Service', value: '1'},
         { key: 's', text: 'Seniors', value: '2'},
@@ -63,53 +99,62 @@ class ShareStoryForm extends Component {
         { key: 'r', text: 'Rehabilitation', value: '4'},
         { key: 'an', text: 'Animals', value: '5'},
         { key: 'ath', text: 'Athletes', value: '6'}
-    ]
+    ];
 
         return (
             <>
+                <h3>{JSON.stringify(this.state.message)}</h3>
                 <h3>Share your aquatic therapy story below!</h3>
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Group>
                                 <Form.Input label="What's your name?" required placeholder="Name" width={4}
-                                onChange={(event) => this.handleChangeFor('name', event)} 
-                                value={this.state.name}/>
+                                    onChange={(event) => this.handleChangeFor('name', event)} 
+                                    value={this.state.name}/>
                                 <Form.Input label="Where do you live?" required placeholder="Location" width={5}
-                                onChange={(event) => this.handleChangeFor('location', event)} 
-                                value={this.state.location} />
+                                    onChange={(event) => this.handleChangeFor('location', event)} 
+                                    value={this.state.location} />
                                 {/* Select field that uses the categories variable above for the options */}
                                 <Form.Field control={Select} required label='Choose a category'
-                                options={categories} value={this.state.category_id}
-                                placeholder='Category' onChange={this.handleChange} />
+                                    options={categories} value={this.state.category_id}
+                                    placeholder='Category' onChange={this.handleCategoryChange} />
                             </Form.Group>
                             <Form.Group>
                                 <Form.Input label="Give your story a title." required placeholder="Title" width={6}
-                                onChange={(event) => this.handleChangeFor('title', event)} 
-                                value={this.state.title} />
+                                    onChange={(event) => this.handleChangeFor('title', event)} 
+                                    value={this.state.title} />
                                 <Form.Input label="Want to share the name of your therapist?" placeholder="Therapist" width={6}
-                                onChange={(event) => this.handleChangeFor('aquatic_therapist', event)} 
-                                value={this.state.aquatic_therapist} />
+                                    onChange={(event) => this.handleChangeFor('aquatic_therapist', event)} 
+                                    value={this.state.aquatic_therapist} />
                             </Form.Group>
-                                <Form.Input label="Please share your story" required placeholder="Share your story!" width={12}
-                                onChange={(event) => this.handleChangeFor('message', event)} 
-                                value={this.state.message} />
-                                <Form.Input label="Share images of your story?" placeholder="Images go here"
+                        </Form>
+                        <Form>
+                            {/* Rich Text Editor input field */}
+                            {/* <Form.Field required label="Share your story" /> */}
+                            <ReactQuill
+                                label="Share you story"
+                                ref={(el) => { this.reactQuillRef = el }}
+                                theme={'snow'}
+                                preserveWhitespace={true}
+                                onChange={() => this.handleMessageChange()} />
+                            <Form.Input label="Share images of your story?" placeholder="Images go here"
                                 onChange={(event) => this.handleChangeFor('images', event)} />
                                 <a href="http://www.google.com">Picture Terms and Conditions</a>
                                 <br />
-                                <Checkbox label="I agree to share my images on H2Whoa" />
+                            <Checkbox label="I agree to share my images on H2Whoa" />
                                 <br />
-                                <Checkbox label="I'd like to sign up for the Aquatics Empowered Newsletter" />
-                                <Form.Input placeholder="E-mail address" label="Enter E-mail" width = {4}
+                            <Checkbox label="I'd like to sign up for the Aquatics Empowered Newsletter" />
+                            <Form.Input placeholder="E-mail address" label="Enter E-mail" width = {4}
                                 onChange={(event) => this.handleChangeFor('email', event)} 
                                 value={this.state.email} />
-                                <Button primary>
-                                    Submit
-                                </Button>
+                            <Button primary>
+                                Submit
+                            </Button>
                                 <p>* indicates a required field</p>     
+                        
                         </Form>      
             </>
-        )
-    }
-}
+        ) // End Return
+    } // End Render
+} // End Class
 
 export default connect()(ShareStoryForm);
