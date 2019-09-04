@@ -6,6 +6,8 @@ export default function* storiesSaga() {
     yield takeEvery('FETCH_STORIES', fetchStories);
     // Deletes a specific story
     yield takeEvery('DELETE_STORY', deleteStory);
+    // Flaggs story for review
+    yield takeEvery('FLAG_STORY', flagStory);
 }
 
 /**
@@ -32,5 +34,19 @@ function* deleteStory(action) {
         yield put({ type: 'FETCH_STORIES' });
     } catch (error) {
         console.log('Error with deleting story', error);
+    }
+}
+
+/**
+ * Sends a PUT request to /api/stories/flag/:id to flad a story
+ * @param {object} action story to be flagged
+ */
+function* flagStory(action) {
+    try {
+        yield axios.put(`/api/stories/flag/${action.payload.id}`, action.payload);
+        // Gets updated list of stories
+        yield put({ type: 'FETCH_PRODUCTS' });
+    } catch (error) {
+        console.log('Error with flagging story', error);
     }
 }

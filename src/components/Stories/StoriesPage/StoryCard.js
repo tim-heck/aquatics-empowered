@@ -82,6 +82,10 @@ class StoryCard extends Component {
         this.props.dispatch({type: 'DELETE_STORY', payload: story})
     }
 
+    flagStory = (story) => {
+        this.props.dispatch({ type: 'FLAG_STORY', payload: story })
+    }
+
     render() {
         return (
             <>
@@ -110,7 +114,7 @@ class StoryCard extends Component {
                         </Container>
                     </CarouselProvider>
                     <Modal.Content>
-                        <h3>{this.props.story.title}<Icon name="flag" /></h3>
+                        <h3>{this.props.story.title}<Icon name="flag" onClick={() => this.flagStory(this.props.story)} /></h3>
                         <h4 className="modal-meta">{this.props.story.name}</h4>
                         <h4 className="modal-meta">{this.props.story.location}</h4>
                         <h4 className="modal-meta">{this.props.story.category}</h4>
@@ -151,7 +155,7 @@ class StoryCard extends Component {
                 <Card>
                     {this.checkFeaturedImage(this.props.story.img_link)}
                     <Card.Content>
-                        <Card.Header>{this.props.story.title}<Icon name="flag" /></Card.Header>
+                        <Card.Header>{this.props.story.title}<Icon name="flag" onClick={() => this.flagStory(this.props.story)} /></Card.Header>
                         <Card.Meta>
                             {this.props.story.name}
                         </Card.Meta>
