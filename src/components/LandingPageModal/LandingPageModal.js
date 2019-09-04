@@ -33,7 +33,6 @@ class LandingPageModal extends Component {
                 {/* THIS CODE IS BASED ON MODAL WINDOW EXAMPLES FROM SEMANTIC UI DOCS */}
                 {/*     https://react.semantic-ui.com/      */}
                 {/*  THANKS TO THEM FOR GREAT EXAMPLES THAT WERE RELEVANT :)  */}
-
                 <Modal open={this.state.active} >
                     <Icon name="close" onClick={this.onCloseModal} />
                     <Modal.Header className='modalHeader'>Welcome to H2WOAH!</Modal.Header>
@@ -60,6 +59,7 @@ class LandingPageModal extends Component {
                                 >Learn about Hot Tubbing For Hope</Button> */}
                     </Modal.Actions>
                 </Modal>
+
             </>
         )
     }
