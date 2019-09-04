@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
             res.send(result.rows);
         })
         .catch(error => {
-            console.log('Error making unapproved bars get request', error);
+            console.log('Error getting categories', error);
             res.sendStatus(500);
         });
 });

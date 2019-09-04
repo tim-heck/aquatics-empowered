@@ -5,10 +5,16 @@ import 'semantic-ui-css/semantic.min.css';
 
 class AdminCategoriesPage extends Component {
 
+    componentDidMount = () => {
+        this.props.dispatch({
+            type: 'FETCH_ADMIN_CATEGORIES',
+        })
+    }
+
+
     handleFlaggedClick = (event) => {
         this.props.history.push('/admin-flagged-list')
     }
-
 
     render() {
         return (
@@ -16,10 +22,15 @@ class AdminCategoriesPage extends Component {
                 <p>Click a button below to toggle between Categories and Flagged Posts</p>
                 <Button Primary>Categories </Button><Button Primary onClick={this.handleFlaggedClick}>Flagged</Button >
                 <br />
-                <h1>Add or Hide Categories</h1>      
+                <h1>Add or Hide Categories</h1>
+                <h1>{JSON.stringify(this.props.store.categoriesReducer)}</h1>
             </>
         )
     }
 }
 
-export default connect()(AdminCategoriesPage);
+const mapStateToProps = (store) => ({
+    store
+});
+
+export default connect(mapStateToProps)(AdminCategoriesPage);
