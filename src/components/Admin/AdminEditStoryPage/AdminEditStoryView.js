@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class AdminEditStoryView extends Component {
+    
+// Incorporate Sweet Alerts
 
 state = {
 
@@ -42,9 +44,9 @@ state = {
 
         backButton = () => {
 
-            window.confirm("Leave without editing item?");
+            window.confirm("Leave without editing story?");
 
-            alert('Headed back to the gallery!');
+            alert('Headed back to the stories!');
 
             this.props.history.push('/gallery');
 
@@ -53,7 +55,7 @@ state = {
     render() {
             return(
                 <>
-                    
+
                 </>
             )
     }
