@@ -19,8 +19,9 @@ class HTFHAboutPage extends Component {
                     We will raise money to help promote and expand the launch of aquatics empowered helping other 
                      charities worldwide and small towns establish and maintain aquatic therapy resources.</p>
                 
-                <a href="https://ssl.charityweb.net/aquaticsempowered/hottubbingforhope/" target="_blank" 
-                rel="noopener noreferrer" class="button">Donate!</a>
+                {/* <a href="https://ssl.charityweb.net/aquaticsempowered/hottubbingforhope/" target="_blank" 
+                rel="noopener noreferrer" class="button">Donate!</a> */}
+                <a href="https://ssl.charityweb.net/aquaticsempowered/hottubbingforhope/"><button type="button">Donate</button></a>
             </>
         )
     }
