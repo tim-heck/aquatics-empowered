@@ -21,12 +21,22 @@
     margin: 4px 0;
 }
 
+.card .ui.buttons {
+    margin-top: 10px;
+    display: block;
+}
+
 .extra.content {
     text-align: center;
 }
 
 .story-modal .actions {
     text-align: center!important;
+}
+
+.story-modal .actions .ui.buttons {
+    margin-top: 10px;
+    display: block;
 }
 
 .carousel {

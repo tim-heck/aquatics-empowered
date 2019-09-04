@@ -12,10 +12,6 @@ class StoryCard extends Component {
         showImages: false
     }
 
-    componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_USER' });
-    }
-
     checkFeaturedImage = (image) => {
         if (image) {
             return (
@@ -67,6 +63,21 @@ class StoryCard extends Component {
         }
     }
 
+    checkAdmin = () => {
+        if (this.props.reduxStore.user.admin) {
+            return (
+                <Button.Group>
+                    <Button>
+                        Edit Story
+                    </Button>
+                    <Button color='red'>
+                        Delete Story
+                    </Button>
+                </Button.Group>
+            );
+        }
+    }
+
     render() {
         return (
             <>
@@ -106,6 +117,7 @@ class StoryCard extends Component {
                         <Button basic onClick={this.closeStoryModal}>
                             Back to Stories
                         </Button>
+                        {this.checkAdmin()}
                     </Modal.Actions>
                 </Modal>
                 <Modal className="images-modal" open={this.state.showImages} centered={false}>
@@ -154,6 +166,7 @@ class StoryCard extends Component {
                         <Button basic onClick={this.openStoryModal}>
                             View Story
                         </Button>
+                        {this.checkAdmin()}
                     </Card.Content>
                 </Card>
             </>
