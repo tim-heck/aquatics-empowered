@@ -11,7 +11,7 @@ class AquaticsEmpoweredAboutPage extends Component {
                 <a href="http://aquaticsempowered.org">Aquatics Empowered</a>
             </div>
             <div>
-                    <img src="/images/Troy.jpg" class="center"/>
+                    <img src="/images/Troy.jpg" className="center" alt=""/>
                 </div>
 
                 <p>We’ve been in the pool industry in the Midwest for 27 years. About 12 years ago, we started concentrating on local city pool projects. As a mid-sized pool contractor, we mostly help with smaller city pools.

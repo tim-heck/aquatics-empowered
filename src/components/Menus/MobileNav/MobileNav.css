@@ -4,9 +4,21 @@
     margin-bottom: 30px;
 }
 
-.bars {
+.big.icon {
+    margin: 0 5px;
+}
+
+.bars,
+.tasks,
+.search {
     color: #fff;
     padding: 16px;
+}
+
+.bars:hover,
+.tasks:hover,
+.search:hover {
+    cursor: pointer;
 }
 
 .mobile-nav {
@@ -46,8 +58,17 @@
     color: #fff;
 }
 
+.mobile-nav-closebtn:hover {
+    cursor: pointer;
+}
+
 .donate {
     background-color: #ffa969;
+}
+
+.right-mobile-header {
+    float: right;
+    margin-right: 30px;
 }
 
 @media all and (min-width: 800px) {
