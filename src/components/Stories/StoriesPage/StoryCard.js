@@ -70,12 +70,16 @@ class StoryCard extends Component {
                     <Button>
                         Edit Story
                     </Button>
-                    <Button color='red'>
+                    <Button color='red' onClick={() => this.deleteStory(this.props.story)}>
                         Delete Story
                     </Button>
                 </Button.Group>
             );
         }
+    }
+
+    deleteStory = (story) => {
+        this.props.dispatch({type: 'DELETE_STORY', payload: story})
     }
 
     render() {
