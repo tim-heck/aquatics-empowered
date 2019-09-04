@@ -16,7 +16,7 @@ class AdminCategoriesPage extends Component {
                 <p>Click a button below to toggle between Categories and Flagged Posts</p>
                 <Button Primary>Categories </Button><Button Primary onClick={this.handleFlaggedClick}>Flagged</Button >
                 <br />
-                <h1> CAAAAAT </h1>      
+                <h1>Add or Hide Categories</h1>      
             </>
         )
     }
