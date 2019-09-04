@@ -5,7 +5,12 @@ import 'semantic-ui-css/semantic.min.css'
 
 class LandingPageModal extends Component {
 
-    state = {
+
+// THIS COMPONENT NEEDS A SESSION COOKIE INTEGRATED TO 
+// PREVENT MODAL FROM APPEARING AFTER FIRST SESSION
+
+state = {
+
         active: true,
     }
 
@@ -29,15 +34,30 @@ class LandingPageModal extends Component {
             <>
                 <Modal open={this.state.active} >
 
-                    <Icon name="close" onClick={this.onCloseModal} />
+
+            <div>
+
+        {/* THIS CODE IS BASED ON MODAL WINDOW EXAMPLES FROM SEMANTIC UI DOCS */}
+
+                    {/*     https://react.semantic-ui.com/      */ }
+
+            {/*  THANKS TO THEM FOR GREAT EXAMPLES THAT WERE RELEVANT :)  */}
+
+                <Modal open = {this.state.active} >
+
+                    <Icon name="close" onClick={this.onCloseModal}/>
+
 
                     <Modal.Header className='modalHeader'>Welcome to H2WOAH!</Modal.Header>
 
                     <Modal.Content image>
 
-                        <Image size="medium"
-                            src="http://aquaticsempowered.org/wp-content/uploads/2019/07/hot-tubbing-for-hope.jpg" />
 
+        {/*????? NEED TO CHANGE IMAGE HERE TO DIFFERENT IMAGE, POSSIBLY ART OR POSTER FOR EVENT???? */}
+
+                            <Image size = "medium"
+                           src = "http://aquaticsempowered.org/wp-content/uploads/2019/07/hot-tubbing-for-hope.jpg"/>
+                        
                         <Modal.Description>
                             <Header>Hot Tubbing For Hope! 11/15/19 - 11/17/19</Header>
                             <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -64,5 +84,6 @@ class LandingPageModal extends Component {
 }
 
 
-
 export default connect()(LandingPageModal);
+
+// Jacob Knecht 2019: 09/03 - 09/04
