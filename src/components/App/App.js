@@ -18,6 +18,7 @@ import HTFHAboutPage from '../HTFHAboutPage/HTFHAboutPage';
 import ShareStoryForm from '../Stories/ShareStoryForm/ShareStoryForm';
 import StoriesPage from '../Stories/StoriesPage/StoriesPage';
 import MobileNav from '../Menus/MobileNav/MobileNav';
+import AdminEditStoryView from '../Admin/AdminEditStoryPage/AdminEditStoryView';
 import AdminCategoriesPage from '../Admin/AdminCategoriesPage/AdminCategoriesPage';
 import AdminFlaggedList from '../Admin/AdminCategoriesPage/AdminFlaggedList';
 
@@ -58,6 +59,13 @@ class App extends Component {
               exact
               path="/stories"
               component={StoriesPage}
+            />
+            {/* This route is for an administrator (only current users w/ log in creds),
+            to view the form to edit a submitted story's content and images */}
+            <Route
+              exact
+              path="/edit-story-page"
+              component={AdminEditStoryView}
             />
 
 

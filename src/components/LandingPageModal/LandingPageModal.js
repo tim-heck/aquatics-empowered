@@ -6,10 +6,10 @@ import 'semantic-ui-css/semantic.min.css'
 class LandingPageModal extends Component {
 
 
-// THIS COMPONENT NEEDS A SESSION COOKIE INTEGRATED TO 
-// PREVENT MODAL FROM APPEARING AFTER FIRST SESSION
+    // THIS COMPONENT NEEDS A SESSION COOKIE INTEGRATED TO 
+    // PREVENT MODAL FROM APPEARING AFTER FIRST SESSION
 
-state = {
+    state = {
 
         active: true,
     }
@@ -32,20 +32,20 @@ state = {
     render() {
         return (
             <>
+
+
+
+
+
+                {/* THIS CODE IS BASED ON MODAL WINDOW EXAMPLES FROM SEMANTIC UI DOCS */}
+
+                {/*     https://react.semantic-ui.com/      */}
+
+                {/*  THANKS TO THEM FOR GREAT EXAMPLES THAT WERE RELEVANT :)  */}
+
                 <Modal open={this.state.active} >
 
-
-            <div>
-
-        {/* THIS CODE IS BASED ON MODAL WINDOW EXAMPLES FROM SEMANTIC UI DOCS */}
-
-                    {/*     https://react.semantic-ui.com/      */ }
-
-            {/*  THANKS TO THEM FOR GREAT EXAMPLES THAT WERE RELEVANT :)  */}
-
-                <Modal open = {this.state.active} >
-
-                    <Icon name="close" onClick={this.onCloseModal}/>
+                    <Icon name="close" onClick={this.onCloseModal} />
 
 
                     <Modal.Header className='modalHeader'>Welcome to H2WOAH!</Modal.Header>
@@ -53,11 +53,11 @@ state = {
                     <Modal.Content image>
 
 
-        {/*????? NEED TO CHANGE IMAGE HERE TO DIFFERENT IMAGE, POSSIBLY ART OR POSTER FOR EVENT???? */}
+                        {/*????? NEED TO CHANGE IMAGE HERE TO DIFFERENT IMAGE, POSSIBLY ART OR POSTER FOR EVENT???? */}
 
-                            <Image size = "medium"
-                           src = "http://aquaticsempowered.org/wp-content/uploads/2019/07/hot-tubbing-for-hope.jpg"/>
-                        
+                        <Image size="medium"
+                            src="http://aquaticsempowered.org/wp-content/uploads/2019/07/hot-tubbing-for-hope.jpg" />
+
                         <Modal.Description>
                             <Header>Hot Tubbing For Hope! 11/15/19 - 11/17/19</Header>
                             <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -78,6 +78,7 @@ state = {
 
                     </Modal.Actions>
                 </Modal>
+
             </>
         )
     }
