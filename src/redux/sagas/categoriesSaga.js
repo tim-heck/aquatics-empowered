@@ -11,7 +11,7 @@ export default function* categoriesSaga() {
  */
 function* fetchCategories(action) {
     try {
-        const response = yield axios.get(`/api/images/${action.payload}`);
+        const response = yield axios.get(`/api/categories`);
         // Stores all data received in the stories reducer
         yield put({ type: 'SET_CATEGORIES', payload: response.data });
     } catch (error) {
