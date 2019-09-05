@@ -13,7 +13,10 @@ class AdminCategoriesPage extends Component {
 
     componentDidMount = () => {
         this.props.dispatch({
-            type: 'FETCH_VISIBLE_CATEGORIES',
+            type: 'FETCH_HIDDEN_CATEGORIES'
+        })
+        this.props.dispatch({
+            type: 'FETCH_VISIBLE_CATEGORIES'
         })
     }
 
@@ -46,22 +49,15 @@ class AdminCategoriesPage extends Component {
         })
     }
 
-    checkHidden = (product) => {
-        const { classes } = this.props;
-        if (product.hide) {
-            return (
-                <Button variant="contained" className={classes.button} onClick={() => this.handleClick('hide', product)}>Unhide</Button>
-            );
-        } else {
-            return (
-                <Button variant="contained" className={classes.button} onClick={() => this.handleClick('hide', product)}>Hide</Button>
-            );
-        }
+    handleUnhideClick = (category) => {
+        console.log(category)
+
     }
 
     render() {
         return (
             <>
+                <h1>Administration</h1>
                 <p>Click a button below to toggle between Categories and Flagged Posts</p>
                 <Button Primary>Categories </Button><Button Primary onClick={this.handleFlaggedClick}>Flagged</Button >
                 <br />
@@ -72,7 +68,7 @@ class AdminCategoriesPage extends Component {
                 <button onClick={this.handleAddClick}>Add</button>
                 <h1>Currently Visible Categories</h1>
                 <ul>
-                    {this.props.store.categoriesReducer.map(category => {
+                    {this.props.store.categories.categoriesReducer.map(category => {
                     return <li key={category.id}>
                     <h3>{category.category}</h3>
                     <button onClick={()=> {this.handleHideClick(category)}}>HIDE</button>
@@ -80,6 +76,14 @@ class AdminCategoriesPage extends Component {
                     })}
                 </ul>
                 <h1>Currently Hidden Categories</h1>
+                <ul>
+                    {this.props.store.categories.hiddenCategoriesReducer.map(category => {
+                    return <li key={category.id}>
+                    <h3>{category.category}</h3>
+                    <button onClick={()=> {this.handleUnhideClick(category)}}>UNHIDE</button>
+                    </li>   
+                    })}
+                </ul>
             </>
         )
     }

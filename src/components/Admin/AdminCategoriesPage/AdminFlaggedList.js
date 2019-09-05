@@ -21,6 +21,7 @@ class AdminCategoriesPage extends Component {
     render() {
         return (
             <>
+                <h1>Administration</h1>
                 <p>Click a button below to toggle between Categories and Flagged Posts</p>
                 <Button Primary onClick={this.handleCategoriesClick}>Categories </Button><Button Primary>Flagged</Button >
                 <br />

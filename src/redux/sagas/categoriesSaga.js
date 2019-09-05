@@ -47,6 +47,8 @@ function* addCategory(action) {
 function* hideCategory(action) {
     try {
         yield axios.put(`api/categories/${action.payload}`)
+        yield put ({ type: 'FETCH_HIDDEN_CATEGORIES', fetchHiddenCategories});
+        yield put ({ type: 'FETCH_VISIBLE_CATEGORIES', fetchVisibleCategories});
     } catch (error) {
         console.log('Error with hiding category');
     }
