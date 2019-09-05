@@ -56,6 +56,7 @@ function* hideCategory(action) {
     }
 }
 
+// Sends a PUT request to api/categories/unhide/:id to unhide a category
 function* unhideCategory(action) {
     try {
         yield axios.put(`api/categories/unhide/${action.payload}`)
