@@ -10,6 +10,8 @@ export default function* storiesSaga() {
     yield takeEvery('FLAG_STORY', flagStory);
     // Adds a story
     yield takeEvery('ADD_STORY', addStory);
+    // Gets flagged stories for admin page
+    yield takeEvery('FETCH_FLAGGED_STORIES', fetchFlaggedStories)
 }
 
 /**
@@ -22,6 +24,16 @@ function* fetchStories() {
         yield put({ type: 'SET_STORIES', payload: response.data });
     } catch (error) {
         console.log('Error with getting stories', error);
+    }
+}
+
+// Sends a GET request to /api/stories/flagged to get all flagged stories
+function* fetchFlaggedStories() {
+    try {
+        const response = yield axios.get('/api/stories/flagged');
+        yield put ({ type: 'SET_FLAGGED_STORIES', payload: response.data })
+    } catch (error) {
+        console.log('Error getting flagged posts', error);
     }
 }
 

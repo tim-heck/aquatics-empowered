@@ -100,6 +100,7 @@ class ShareStoryForm extends Component {
         { key: 'ath', text: 'Athletes', value: '6'}
     ];
 
+
         return (
             <>
                 <h3>Share your aquatic therapy story below!</h3>
@@ -138,8 +139,7 @@ class ShareStoryForm extends Component {
                                 <br />
                             <Checkbox label="I agree to share my images on H2Whoa" />
                                 <br />
-                            <Checkbox label="I'd like to sign up for the Aquatics Empowered Newsletter" />
-                            <Form.Input placeholder="E-mail address" label="Enter E-mail" width = {4}
+                            <Form.Input placeholder="E-mail Address" label="Sign up for our newsletter?" width = {4}
                                 onChange={(event) => this.handleChangeFor('email', event)} 
                                 value={this.state.email} />
                             <Button primary>
