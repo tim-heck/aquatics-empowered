@@ -38,4 +38,3 @@ VALUES ('Public Service'),
 ('Rehabilitation'),
 ('Animals'),
 ('Athletes');
-

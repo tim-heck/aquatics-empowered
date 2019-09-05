@@ -11,7 +11,11 @@ class AquaticsEmpoweredAboutPage extends Component {
                 <a href="http://aquaticsempowered.org">Aquatics Empowered</a>
             </div>
             <div>
+<<<<<<< HEAD
+                    <img src="/images/Troy.jpg" className="center" alt=""/>
+=======
                     <img src="/images/Troy.jpg" class="center" alt="Aquatics Empowered founder Troy Derheim"/>
+>>>>>>> 2cb7a44cac1be3e5ce7413923330acfa398ffdd9
                 </div>
 
                 <p>We’ve been in the pool industry in the Midwest for 27 years. About 12 years ago, we started concentrating on local city pool projects. As a mid-sized pool contractor, we mostly help with smaller city pools.

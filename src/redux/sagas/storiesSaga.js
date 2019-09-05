@@ -10,6 +10,8 @@ export default function* storiesSaga() {
     yield takeEvery('FLAG_STORY', flagStory);
     // Adds a story
     yield takeEvery('ADD_STORY', addStory);
+    // Filters stories by users parameters
+    yield takeEvery('FILTER_STORIES', filterStories);
     // Gets flagged stories for admin page
     yield takeEvery('FETCH_FLAGGED_STORIES', fetchFlaggedStories)
 }
@@ -26,6 +28,25 @@ function* fetchStories() {
         console.log('Error with getting stories', error);
     }
 }
+
+function* filterStories(action) {
+    const categoriesForFilter = Object.entries(action.payload);
+    try {
+        for (let i = 0; i < categoriesForFilter.length; i++) {
+            if (categoriesForFilter[i][1]) {
+                console.log(categoriesForFilter[i][0]);
+                // objectToSend
+                const response = yield axios.get(`/api/stories/filter/${categoriesForFilter[i][0]}`);
+                console.log('response.data', response.data);
+                if (response.data.length !== 0) {
+                    yield put({ type: 'ADD_FILTER', payload: response.data });
+                }
+            }
+        }
+        // Stores all data received in the stories reducer
+        // yield put({ type: 'SET_STORIES', payload: response.data });
+    } catch (error) {
+        console.log('Error with getting stories', error);
 
 // Sends a GET request to /api/stories/flagged to get all flagged stories
 function* fetchFlaggedStories() {
