@@ -294,6 +294,27 @@ class AdminEditStoryView extends Component {
                         onChange={() => this.handleMessageChange()} />
 
                     {/* THIS IS WHERE IMAGE EDITING STUFFS WILL HAPPEN */}
+                    {/* CarouselProvider component found at: https://codesandbox.io/s/43pv7wm6n9?from-embed */}
+                    <CarouselProvider
+                        naturalSlideWidth={1}
+                        naturalSlideHeight={1}
+                        totalSlides={this.props.reduxStore.images.imagesReducer.length} >
+                        <Slider>
+                            {this.props.reduxStore.images.imagesReducer.map((image, i) =>
+                                <Slide key={image.id} tag="a" index={i}>
+                                    <Image src={image.img_link} onClick={this.openImagesModal} />
+                                </Slide>
+                            )}
+                        </Slider>
+                        <Container textAlign="center">
+                            <Button.Group size="mini">
+                                {[...Array(this.props.reduxStore.images.imagesReducer.length).keys()].map(slide => (
+                                    <Button as={Dot} key={slide} icon="circle" slide={slide} />
+                                ))}
+                            </Button.Group>
+                        </Container>
+                    </CarouselProvider>
+                    
                     <Form.Input label="Edit Images" placeholder="Images go here"
                         onChange={(event) => this.handleChangeFor('images', event)} />
                     {/* <a href="http://www.google.com">Picture Terms and Conditions</a> */}
