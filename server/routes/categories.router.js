@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// Get all categories 
+// GET all categories 
 router.get('/', (req, res) => {
     pool.query(`SELECT * FROM "categories";`)
         .then((result) => {
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
         });
 });
 
-// Post a new category
+// POST route that posts a new category
 router.post('/add',(req, res) => {
     const sqlText = `INSERT INTO "categories" ("category")
     VALUES ($1);`
@@ -27,5 +27,20 @@ router.post('/add',(req, res) => {
         res.sendStatus(500);
     });
 });
+
+// PUT route that changes a category to hidden
+router.put('/:id', (req, res) => {
+    console.log('Updating category to hidden');
+    const sqlText = `UPDATE "categories" SET "hide_cat"=$1 WHERE "id"=$2;`
+    values = [true, req.params.id]
+    pool.query(sqlText, values)
+        .then((response) => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            res.sendStatus(500);
+        })
+})
+
 
 module.exports = router;

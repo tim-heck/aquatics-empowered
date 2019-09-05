@@ -6,6 +6,8 @@ export default function* categoriesSaga() {
     yield takeEvery('FETCH_ADMIN_CATEGORIES', fetchCategories);
     // Adds a new category
     yield takeEvery('ADD_CATEGORY', addCategory);
+    // Hides a category
+    yield takeEvery('HIDE_CATEGORY', hideCategory);
 }
 
 /**
@@ -21,11 +23,21 @@ function* fetchCategories(action) {
     }
 }
 
+// Sends a POST request to api/categories/add to add a category
 function* addCategory(action) {
     try {
         yield axios.post(`api/categories/add`, action.payload);
         yield put ({ type: 'FETCH_ADMIN_CATEGORIES', fetchCategories});
     } catch (error) {
         console.log('Error with adding category');
+    }
+}
+
+// Sends a PUT request to api/categories/:id to hide a category
+function* hideCategory(action) {
+    try {
+        yield axios.put(`api/categories/${action.payload}`)
+    } catch (error) {
+        console.log('Error with hiding category');
     }
 }

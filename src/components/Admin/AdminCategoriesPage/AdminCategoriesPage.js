@@ -17,12 +17,6 @@ class AdminCategoriesPage extends Component {
         })
     }
 
-    handleChange = (event) => {
-        this.setState({
-            category: event.target.value,
-        })
-    }
-
     handleAddClick = () => {
         console.log('clicked add')
         this.props.dispatch({
@@ -34,8 +28,22 @@ class AdminCategoriesPage extends Component {
         })
     }
 
+    handleChange = (event) => {
+        this.setState({
+            category: event.target.value,
+        })
+    }
+
+
     handleFlaggedClick = (event) => {
         this.props.history.push('/admin-flagged-list')
+    }
+
+    handleHideClick = (category) => {
+        this.props.dispatch({
+            type: 'HIDE_CATEGORY',
+            payload: category.id
+        })
     }
 
     render() {
@@ -55,7 +63,7 @@ class AdminCategoriesPage extends Component {
                     {this.props.store.categoriesReducer.map(category => {
                     return <li key={category.id}>
                     <h3>{category.category}</h3>
-                    <button>HIDE</button>
+                    <button onClick={()=> {this.handleHideClick(category)}}>HIDE</button>
                     </li>   
                     })}
                 </ul>
