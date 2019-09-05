@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Select, Button } from 'semantic-ui-react';
+import { Form, Select, Button, Image, Container } from 'semantic-ui-react';
 import { CarouselProvider, Slide, Slider, Dot } from "pure-react-carousel";
 import 'semantic-ui-css/semantic.min.css';
 import ReactQuill from 'react-quill';
@@ -13,41 +13,57 @@ class AdminEditStoryView extends Component {
     // Constructor for ReactQuill, needed for Rich Text Editor in form
     constructor(props) {
         super(props)
-        this.quillRef = null; // Quill instance
-        this.reactQuillRef = null; // ReactQuill component
-
-
-        this.state = {
-
-            id: this.props.reduxStore.storiesReducer.id,
-            name: this.props.reduxStore.storiesReducer.name,
-            location: this.props.reduxStore.storiesReducer.location,
-            title: this.props.reduxStore.storiesReducer.title,
-            aquatic_therapist: this.props.reduxStore.storiesReducer.aquatic_therapist,
-            message: this.props.reduxStore.storiesReducer.message,
-            email: this.props.reduxStore.storiesReducer.email,
-            category_id: this.props.reduxStore.storiesReducer.category_id,
-            flagged: this.props.reduxStore.storiesReducer.flagged,
-
-        }
+       // this.quillRef = null; // Quill instance
+       // this.reactQuillRef = null; // ReactQuill component
+        this.state = {}
     }
 
     // Needed for Rich Text Editor
     componentDidMount() {
-        this.attachQuillRefs()
 
+        // this.attachQuillRefs()
+
+        this.setState({
+
+            id: this.props.reduxStore.stories.storiesReducer.id,
+            name: this.props.reduxStore.stories.storiesReducer.name,
+            location: this.props.reduxStore.stories.storiesReducer.location,
+            title: this.props.reduxStore.stories.storiesReducer.title,
+            aquatic_therapist: this.props.reduxStore.stories.storiesReducer.aquatic_therapist,
+            message: this.props.reduxStore.stories.storiesReducer.message,
+            email: this.props.reduxStore.stories.storiesReducer.email,
+            category_id: this.props.reduxStore.stories.storiesReducer.category_id,
+            flagged: this.props.reduxStore.stories.storiesReducer.flagged,
+            
+            // used to display images modal window
+            showImages: false,
+
+        })
+
+
+    // THIS IS IN THE DIDUPDATE BELOW... MIGHT MOVE IT
+    // IF IT DOESN'T DO WHAT IT SHOULD THERE
+
+        // this.props.dispatch({
+        //     type: 'FETCH_IMAGES',
+        //     payload: this.props.reduxStore.storiesReducer.id
+        // })
     }
 
     // Needed for Rich Text Editor
     componentDidUpdate() {
-        this.attachQuillRefs()
+        // this.attachQuillRefs()
+        this.props.dispatch({
+            type: 'FETCH_IMAGES',
+            payload: this.props.reduxStore.stories.storiesReducer.id
+        })
     }
 
     // Needed for Rich Text Editor
-    attachQuillRefs = () => {
-        if (typeof this.reactQuillRef.getEditor !== 'function') return;
-        this.quillRef = this.reactQuillRef.getEditor();
-    }
+    // attachQuillRefs = () => {
+    //     if (typeof this.reactQuillRef.getEditor !== 'function') return;
+    //     this.quillRef = this.reactQuillRef.getEditor();
+    // }
 
 
     handleChangeFor = (event, propertyToChange) => {
@@ -61,14 +77,14 @@ class AdminEditStoryView extends Component {
     }
 
     // Sets message property in state 
-    handleMessageChange = () => {
-        const editor = this.reactQuillRef.getEditor();
-        const unprivilegedEditor = this.reactQuillRef.makeUnprivilegedEditor(editor);
-        this.setState({
-            ...this.state,
-            message: unprivilegedEditor.getHTML()
-        })
-    }
+    // handleMessageChange = () => {
+    //     const editor = this.reactQuillRef.getEditor();
+    //     const unprivilegedEditor = this.reactQuillRef.makeUnprivilegedEditor(editor);
+    //     this.setState({
+    //         ...this.state,
+    //         message: unprivilegedEditor.getHTML()
+    //     })
+    // }
 
     // Sets the category_id property of state
     handleCategoryChange = (e, { value }) => {
@@ -98,11 +114,12 @@ class AdminEditStoryView extends Component {
 
     handleStoryDelete = (event) => {
 
+// NEED TO INCORPORATE SWEET ALERTS HERE INSTEAD OF WINDOW.CONFIRM FUNCTION
         window.confirm("Are you sure you wish to delete this story completely? This action can't be undone.")
 
         this.props.dispatch({
             type: 'DELETE_STORY',
-            payload: this.props.reduxStore.storiesReducer.id
+            payload: this.state.id
         })
 
         this.history.push('/stories');
@@ -115,8 +132,8 @@ class AdminEditStoryView extends Component {
         window.confirm("Are you sure you wish to remove the flag on this post?")
 
         this.props.dispatch({
-            type: 'UNFLAG_STORY',
-            payload: this.props.reduxStore.storiesReducer.id
+            type: 'UNFLAG_STORY', // THIS ACTION NEEDS A SAGA&REDUCER
+            payload: this.state.id
         })
 
     }
@@ -147,6 +164,8 @@ class AdminEditStoryView extends Component {
 
     render() {
 
+        console.log(this.state);
+        
         // This is used in the category select in the form below
         const categories = [
             { key: 'ps', text: 'Public Service', value: '1' },
@@ -160,7 +179,7 @@ class AdminEditStoryView extends Component {
         // Set variable to flagged property value to check against for conditional rendering
         // of 'vanilla' edit story or 'update flagged post' edit story pages
 
-        let flaggedStatus = this.props.reduxStore.storiesReducer.flagged
+        let flaggedStatus = this.state.flagged
         // below variable to be used to check if user is admin status or not
         // let authStatus = this.props.reduxStore.userReducer.admin
 
@@ -182,10 +201,10 @@ class AdminEditStoryView extends Component {
                     <h2>Edit This Story</h2>
                     <Form onSubmit={this.handleStoryEditSubmit}>
                         <Form.Group>
-                            <Form.Input label="Name on submission" required placeholder={this.props.reduxStore.storiesReducer.name} width={4}
+                            <Form.Input label="Name on submission" required placeholder={this.state.name} width={4}
                                 onChange={(event) => this.handleChangeFor('name', event)}
                                 value={this.state.name} />
-                            <Form.Input label="Location" required placeholder={this.props.reduxStore.storiesReducer.location} width={5}
+                            <Form.Input label="Location" required placeholder={this.state.location} width={5}
                                 onChange={(event) => this.handleChangeFor('location', event)}
                                 value={this.state.location} />
                             {/* Select field that uses the categories variable above for the options */}
@@ -194,10 +213,10 @@ class AdminEditStoryView extends Component {
                                 placeholder='Category' onChange={this.handleCategoryChange} />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Input label="Story Title" required placeholder={this.props.reduxStore.storiesReducer.title} width={6}
+                            <Form.Input label="Story Title" required placeholder={this.state.title} width={6}
                                 onChange={(event) => this.handleChangeFor('title', event)}
                                 value={this.state.title} />
-                            <Form.Input label="Aquatic Therapist" placeholder={this.props.reduxStore.storiesReducer.aquatic_therapist} width={6}
+                            <Form.Input label="Aquatic Therapist" placeholder={this.state.aquatic_therapist} width={6}
                                 onChange={(event) => this.handleChangeFor('aquatic_therapist', event)}
                                 value={this.state.aquatic_therapist} />
                         </Form.Group>
@@ -219,7 +238,7 @@ class AdminEditStoryView extends Component {
                             <Slider>
                                 {this.props.reduxStore.images.imagesReducer.map((image, i) =>
                                     <Slide key={image.id} tag="a" index={i}>
-                                        <Image src={image.img_link} onClick={this.openImagesModal} />
+                                        <Image src={image.img_link} />
                                     </Slide>
                                 )}
                             </Slider>
@@ -257,6 +276,7 @@ class AdminEditStoryView extends Component {
         // Conditional Rendering of 'vanilla' edit story page - allows for update of content
         // of a post that is not flagged
         else {
+            return(
             <>
                 <Button basic
                     onClick={this.backToStoriesButton}>
@@ -265,10 +285,10 @@ class AdminEditStoryView extends Component {
                 <h2>Edit This Story</h2>
                 <Form onSubmit={this.handleStoryEditSubmit}>
                     <Form.Group>
-                        <Form.Input label="Name on submission" required placeholder={this.props.reduxStore.storiesReducer.name} width={4}
+                        <Form.Input label="Name on submission" required placeholder={this.state.name} width={4}
                             onChange={(event) => this.handleChangeFor('name', event)}
                             value={this.state.name} />
-                        <Form.Input label="Location" required placeholder={this.props.reduxStore.storiesReducer.location} width={5}
+                            <Form.Input label="Location" required placeholder={this.state.location} width={5}
                             onChange={(event) => this.handleChangeFor('location', event)}
                             value={this.state.location} />
                         {/* Select field that uses the categories variable above for the options */}
@@ -277,21 +297,21 @@ class AdminEditStoryView extends Component {
                             placeholder='Category' onChange={this.handleCategoryChange} />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Input label="Story Title" required placeholder={this.props.reduxStore.storiesReducer.title} width={6}
+                        <Form.Input label="Story Title" required placeholder={this.state.title} width={6}
                             onChange={(event) => this.handleChangeFor('title', event)}
                             value={this.state.title} />
-                        <Form.Input label="Aquatic Therapist" placeholder={this.props.reduxStore.storiesReducer.aquatic_therapist} width={6}
+                        <Form.Input label="Aquatic Therapist" placeholder={this.state.aquatic_therapist} width={6}
                             onChange={(event) => this.handleChangeFor('aquatic_therapist', event)}
                             value={this.state.aquatic_therapist} />
                     </Form.Group>
                     {/* Rich Text Editor input field */}
                     <Form.Field required label="Edit this story!" />
-                    <ReactQuill
+                    {/* <ReactQuill
                         ref={(el) => { this.reactQuillRef = el }}
                         theme={'snow'}
                         preserveWhitespace={true}
                         value={this.state.message}
-                        onChange={() => this.handleMessageChange()} />
+                        onChange={() => this.handleMessageChange()} /> */}
 
                     {/* THIS IS WHERE IMAGE EDITING STUFFS WILL HAPPEN */}
                     {/* CarouselProvider component found at: https://codesandbox.io/s/43pv7wm6n9?from-embed */}
@@ -302,7 +322,7 @@ class AdminEditStoryView extends Component {
                         <Slider>
                             {this.props.reduxStore.images.imagesReducer.map((image, i) =>
                                 <Slide key={image.id} tag="a" index={i}>
-                                    <Image src={image.img_link} onClick={this.openImagesModal} />
+                                    <Image src={image.img_link} />
                                 </Slide>
                             )}
                         </Slider>
@@ -314,7 +334,7 @@ class AdminEditStoryView extends Component {
                             </Button.Group>
                         </Container>
                     </CarouselProvider>
-                    
+
                     <Form.Input label="Edit Images" placeholder="Images go here"
                         onChange={(event) => this.handleChangeFor('images', event)} />
                     {/* <a href="http://www.google.com">Picture Terms and Conditions</a> */}
@@ -332,6 +352,7 @@ class AdminEditStoryView extends Component {
                     </Button>
 
             </>
+            )
         }
     }
 
