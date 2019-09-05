@@ -85,4 +85,29 @@ router.post('/share', (req, res) => {
         });
 });
 
+// PUT route for adding a story to the app
+router.put('/update/:id', (req, res) => {
+    const sqlText = `
+        UPDATE "stories" 
+        SET "name" = $1, "location" = $2, "title" = $3, "aquatic_therapist" = $4, "message" = $5, "email" = $6, "category_id" = $7, "flagged" = false
+        WHERE "id" = $8;`
+    const values = [
+        req.body.name, 
+        req.body.location, 
+        req.body.title, 
+        req.body.aquatic_therapist, 
+        req.body.message, 
+        req.body.email, 
+        req.body.category_id,
+        req.params.id
+    ];
+    pool.query(sqlText, values)
+        .then((results) => {
+            res.sendStatus(200);
+        }).catch((error) => {
+            console.log('Error with post', error);
+            res.sendStatus(500);
+        });
+});
+
 module.exports = router;

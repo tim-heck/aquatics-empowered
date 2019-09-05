@@ -83,8 +83,9 @@ class AdminEditStoryView extends Component {
         this.quillRef = this.reactQuillRef.getEditor();
     }
 
-    handleChangeFor = (event, propertyToChange) => {
+    handleChangeFor = (propertyToChange, event) => {
         this.setState({
+            ...this.state,
             [propertyToChange]: event.target.value
         })
         console.log(`Typing in ${event.target.value} and adding new ${propertyToChange}`);
@@ -108,18 +109,14 @@ class AdminEditStoryView extends Component {
         })
     }
 
-    // This function will dispatch our edited story to the editStoryReducer, which will trigger a PUT
-    // that updates the selected story in the database
-    handleStoryEditSubmit = (event) => {
-        event.preventDefault();
-        console.log('Clicked submit edited details to db');
+    updateStory = (checkRedirect) => {
+        this.props.dispatch({ type: 'UPDATE_STORY', payload: this.state });
+        if (checkRedirect === 'flagged') {
+            this.props.history.push('/admin-flagged-list');
+        } else {
+            this.props.history.push('/stories');
+        }
 
-        // NEED TO INCORPORATE SWEET ALERTS HERE INSTEAD OF WINDOW.CONFIRM FUNCTION
-        // window.confirm("Are you sure you wish to submit these edited details for this item?");
-        this.props.dispatch({
-            type: 'EDIT_STORY', // THIS ACTION NEEDS A SAGA&REDUCER
-            payload: this.state
-        });
     }
 
     handleStoryDelete = (event) => {
@@ -130,15 +127,6 @@ class AdminEditStoryView extends Component {
             payload: this.state.id
         })
         this.history.push('/stories');
-    }
-
-    handleUpdateUnflag = (event) => {
-        // NEED TO INCORPORATE SWEET ALERTS HERE INSTEAD OF WINDOW.CONFIRM FUNCTION
-        // window.confirm("Are you sure you wish to remove the flag on this post?")
-        this.props.dispatch({
-            type: 'UNFLAG_STORY', // THIS ACTION NEEDS A SAGA&REDUCER
-            payload: this.state.id
-        })
     }
 
     // Button to go back to stories page
@@ -178,13 +166,13 @@ class AdminEditStoryView extends Component {
     renderUpdateButton = () => {
         if (this.state.flagged) {
             return (
-                <Button positive onClick={this.handleUpdateUnflag}>
+                <Button positive onClick={() => this.updateStory('flagged')}>
                     Update and Unflag
                 </Button>
             );
         } else {
             return (
-                <Button basic onClick={this.handleUpdate}>
+                <Button basic onClick={() => this.updateStory('stories')}>
                     Update
                 </Button>
             );
