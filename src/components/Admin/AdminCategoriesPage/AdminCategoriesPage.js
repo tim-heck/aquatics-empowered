@@ -45,7 +45,6 @@ class AdminCategoriesPage extends Component {
                 <Button Primary>Categories </Button><Button Primary onClick={this.handleFlaggedClick}>Flagged</Button >
                 <br />
                 <h1>Add a Category</h1>
-                {JSON.stringify(this.state)}
                 <p>Adding a category will add it to the category list that users select from when sharing a story. 
                 </p>
                 <input onChange={this.handleChange} value={this.state.category}></input>

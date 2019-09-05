@@ -24,10 +24,22 @@ class AdminCategoriesPage extends Component {
                 <p>Click a button below to toggle between Categories and Flagged Posts</p>
                 <Button Primary onClick={this.handleCategoriesClick}>Categories </Button><Button Primary>Flagged</Button >
                 <br />
-                <h1> FLAAAAG </h1>      
+                <h1> Flagged Posts </h1>
+                <ul>
+                    {this.props.store.stories.flaggedStoriesReducer.map(story => {
+                    return <li key={story.id}>
+                    <h3>"{story.title}" by {story.name}</h3>
+                    <button>VIEW</button>
+                    </li>   
+                    })}
+                </ul>   
             </>
         )
     }
 }
 
-export default connect()(AdminCategoriesPage);
+const mapStateToProps = (store) => ({
+    store
+});
+
+export default connect(mapStateToProps)(AdminCategoriesPage);
