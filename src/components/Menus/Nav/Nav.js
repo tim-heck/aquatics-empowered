@@ -1,36 +1,47 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../../LogOutButton/LogOutButton';
 import './Nav.css';
 
 const Nav = (props) => (
-  <div className="nav">
-    <Link to="/home">
-      <h2 className="nav-title">Prime Solo Project</h2>
-    </Link>
-    <div className="nav-right">
-      <Link className="nav-link" to="/home">
-        {/* Show this link if they are logged in or not,
-        but call this link 'Home' if they are logged in,
-        and call this link 'Login / Register' if they are not */}
-        {props.user.id ? 'Home' : 'Login / Register'}
+  <>
+    <div className="nav">
+      <Link to="/stories">
+        <img className="logo" src="images/aquatic-empowered.png" alt="Aquatics Empowered" />
       </Link>
-      {/* Show the link to the info page and the logout button if the user is logged in */}
-      {props.user.id && (
-        <>
-          <Link className="nav-link" to="/info">
-            Info Page
-          </Link>
-          <LogOutButton className="nav-link"/>
-        </>
-      )}
-      {/* Always show this link since the about page is not protected */}
-      <Link className="nav-link" to="/about">
-        About
-      </Link>
+      <div className="nav-right">
+        <NavLink className="nav-link" to="/stories">
+          Stories
+        </NavLink>
+        <NavLink className="nav-link" to="/share">
+          Share a Story
+        </NavLink>
+        <NavLink className="nav-link" to="/aquatics-empowered-about">
+          Aquatics Empowered
+        </NavLink>
+        <NavLink className="nav-link" to="/hot-tubbing-for-hope-about">
+          Hot Tubbing For Hope
+        </NavLink>
+        <a className="nav-link donate"
+          href="https://ssl.charityweb.net/aquaticsempowered/hottubbingforhope/"
+          target="_blank" rel="noopener noreferrer">Donate</a>
+        {/* Show the link to the info page and the logout button if the user is logged in */}
+        {props.user.id && (
+          <>
+            <LogOutButton className="nav-link nav-link-button" />
+          </>
+        )}
+      </div>
     </div>
-  </div>
+    {/* Only displays the admin menu if the user is an admin */}
+    {props.user.id && props.user.admin === true && (
+      <>
+        
+      </>
+    )}
+    <div className="nav-placeholder"></div>
+  </>
 );
 
 // Instead of taking everything from state, we just want the user
