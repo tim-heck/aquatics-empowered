@@ -5,6 +5,14 @@ import 'semantic-ui-css/semantic.min.css';
 
 class AdminCategoriesPage extends Component {
 
+    componentDidMount = () => {
+        this.props.dispatch({
+            type: 'FETCH_FLAGGED_STORIES',
+        })
+    }
+
+
+
     handleCategoriesClick = (event) => {
         this.props.history.push('/admin-categories')
     }
