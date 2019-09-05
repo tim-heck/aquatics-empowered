@@ -24,7 +24,7 @@ class StoriesPage extends Component {
         return (
             <>
                 <LandingPageModal />
-                <MobileNav />
+                {/* <MobileNav /> */}
                 <Card.Group centered>
                     {this.props.reduxStore.stories.storiesReducer.map(item => 
                         <StoryCard key={item.id} story={item} redirectToEditPage={this.redirectToEditPage}/>
