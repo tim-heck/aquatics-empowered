@@ -12,7 +12,11 @@ class HTFHAboutPage extends Component {
                 </div>
                 <br/>
                 <div>
+<<<<<<< HEAD
                     <img src="/images/LeoDunkirk.jpg" className="center" alt=""/>
+=======
+                    <img src="/images/LeoDunkirk.jpg" class="center" alt="Hot Tubbing for Hope"/>
+>>>>>>> 2cb7a44cac1be3e5ce7413923330acfa398ffdd9
                 </div>
 
                 <p>Come join us November 15, 16, and 17th to help fundraise for the first ever Hot Tubbing for Hope. 

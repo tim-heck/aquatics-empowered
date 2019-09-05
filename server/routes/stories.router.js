@@ -39,6 +39,13 @@ router.get('/filter/:category', (req, res) => {
     console.log(categoryToCheck);
     pool.query(sqlText, [categoryToCheck]).then(result => {
         console.log(result.rows);
+    })
+})
+
+// GET route for getting all stories that are flagged by users
+router.get('/flagged', (req, res) => {
+    const sqlText = `SELECT * FROM "stories" WHERE "flagged" = true`;
+    pool.query(sqlText).then(result => {
         res.send(result.rows);
     }).catch(error => {
         console.log(error);
@@ -74,6 +81,7 @@ router.put('/flag/:id', (req, res) => {
     })
 })
 
+// POST route for adding a story to the app
 router.post('/share', (req, res) => {
     const sqlText = `INSERT INTO "stories" ("name", "location", "title", "aquatic_therapist", "message", "email", "category_id", "flagged")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`

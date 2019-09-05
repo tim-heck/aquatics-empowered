@@ -1,3 +1,6 @@
+import { combineReducers } from 'redux';
+
+
 const categoriesReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_CATEGORIES':
@@ -7,4 +10,19 @@ const categoriesReducer = (state = [], action) => {
     }
 }
 
-export default categoriesReducer;
+const hiddenCategoriesReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_HIDDEN_CATEGORIES':
+            return action.payload;
+        default:
+            return state;
+    }
+
+}
+
+
+
+export default combineReducers({
+    categoriesReducer,
+    hiddenCategoriesReducer
+});
