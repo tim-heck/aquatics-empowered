@@ -17,11 +17,17 @@ class MobileNav extends Component {
     }
 
     openFiltersMenu = () => {
+        this.props.dispatch({ type: 'SET_STORIES', payload: [] })
         document.getElementById("filter-menu").style.height = "100vh";
     }
 
     closeFiltersMenu = () => {
         document.getElementById("filter-menu").style.height = "0px";
+    }
+
+    getAllStoriesOnClose = () => {
+        this.props.dispatch({ type: 'FETCH_STORIES' })
+        this.closeFiltersMenu();
     }
 
     render() {
@@ -58,7 +64,7 @@ class MobileNav extends Component {
                         </li>
                     </ul>
                 </div>
-                <FilterMenu close={this.closeFiltersMenu}/>
+                <FilterMenu filterNone={this.getAllStoriesOnClose} close={this.closeFiltersMenu}/>
             </>
         )
     }

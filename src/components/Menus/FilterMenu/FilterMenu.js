@@ -5,29 +5,45 @@ import './FilterMenu.css'
 
 class FilterMenu extends Component {
 
-    state = {
+    /*
+        Loop on back-end through payload to check if checked value is true
+        Send GET query to table for each checked
+        Push to reducer
+    */
 
+    state = {
+        
     }
 
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_ADMIN_CATEGORIES' })
     }
 
-    handleChange = () => {
+    handleChange = (e, propToAdd) => {
+        this.setState({
+            [propToAdd]: !e.nativeEvent.target.parentElement.children[0].checked
+        })
+    }
 
+    filterStories = () => {
+        this.props.dispatch({ type: 'FILTER_STORIES', payload: this.state });
+        this.props.close();
     }
 
     render() {
         return (
             <>
                 <Form id="filter-menu" className="filter-menu">
-                    <h2>Filter by Category<Icon name="x" onClick={this.props.close} /></h2>
+                    <h2>Filter by Category<Icon name="x" onClick={this.props.filterNone} /></h2>
                     {this.props.reduxStore.categoriesReducer.map(item =>
-                        <Form.Field key={item.id}>
-                            <Checkbox label={item.category} onClick={this.handleChange}/>
+                        <Form.Field key={item.id} onClick={(e) => this.handleChange(e, item.category.replace(/ /g, '_').toLowerCase())}>
+                            {/* item.category.replace(/ /g, '_').toLowerCase() */}
+                            <Checkbox 
+                                label={item.category}
+                            />
                         </Form.Field>
                     )}
-                    <Button type='submit'>Apply</Button>
+                    <Button type='submit' onClick={this.filterStories}>Apply</Button>
                 </Form>
             </>
         )

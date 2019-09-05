@@ -24,6 +24,28 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/filter/:category', (req, res) => {
+    console.log('category', req.params.category);
+    const sqlText = `
+        SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
+        stories.message, stories.email, categories.category, images.img_link
+        FROM stories
+        JOIN categories ON stories.category_id = categories.id
+        LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
+        WHERE categories.category = $1;`;
+    // snippet got capitalizing the first letter of each word found here
+    // https://stackoverflow.com/questions/4878756/how-to-capitalize-first-letter-of-each-word-like-a-2-word-city
+    const categoryToCheck = req.params.category.replace(/_/g, ' ').split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+    console.log(categoryToCheck);
+    pool.query(sqlText, [categoryToCheck]).then(result => {
+        console.log(result.rows);
+        res.send(result.rows);
+    }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+    })
+})
+
 /**
  * DELETE route for deleting a specific story
  * Removes a specific story based on the id
