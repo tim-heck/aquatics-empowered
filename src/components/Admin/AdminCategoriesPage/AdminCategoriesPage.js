@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'semantic-ui-react';
+import { Button, Grid } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 class AdminCategoriesPage extends Component {
@@ -13,7 +13,7 @@ class AdminCategoriesPage extends Component {
 
     componentDidMount = () => {
         this.props.dispatch({
-            type: 'FETCH_ADMIN_CATEGORIES',
+            type: 'FETCH_VISIBLE_CATEGORIES',
         })
     }
 
@@ -46,6 +46,19 @@ class AdminCategoriesPage extends Component {
         })
     }
 
+    checkHidden = (product) => {
+        const { classes } = this.props;
+        if (product.hide) {
+            return (
+                <Button variant="contained" className={classes.button} onClick={() => this.handleClick('hide', product)}>Unhide</Button>
+            );
+        } else {
+            return (
+                <Button variant="contained" className={classes.button} onClick={() => this.handleClick('hide', product)}>Hide</Button>
+            );
+        }
+    }
+
     render() {
         return (
             <>
@@ -57,8 +70,7 @@ class AdminCategoriesPage extends Component {
                 </p>
                 <input onChange={this.handleChange} value={this.state.category}></input>
                 <button onClick={this.handleAddClick}>Add</button>
-                <h1>Hide a Category</h1>
-                <p>Conversely, hiding a story will hide that category from the list.</p>
+                <h1>Currently Visible Categories</h1>
                 <ul>
                     {this.props.store.categoriesReducer.map(category => {
                     return <li key={category.id}>
@@ -67,6 +79,7 @@ class AdminCategoriesPage extends Component {
                     </li>   
                     })}
                 </ul>
+                <h1>Currently Hidden Categories</h1>
             </>
         )
     }
