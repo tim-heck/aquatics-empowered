@@ -24,6 +24,18 @@ router.get('/', (req, res) => {
     })
 })
 
+// GET route for getting all stories that are flagged by users
+router.get('/flagged', (req, res) => {
+    const sqlText = `SELECT * FROM "stories" WHERE "flagged" = true`;
+    pool.query(sqlText).then(result => {
+        res.send(result.rows);
+    }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+    })
+})
+
+
 /**
  * DELETE route for deleting a specific story
  * Removes a specific story based on the id
@@ -51,5 +63,20 @@ router.put('/flag/:id', (req, res) => {
         res.sendStatus(500);
     })
 })
+
+// POST route for adding a story to the app
+router.post('/share', (req, res) => {
+    const sqlText = `INSERT INTO "stories" ("name", "location", "title", "aquatic_therapist", "message", "email", "category_id", "flagged")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`
+    const values = [req.body.name, req.body.location, req.body.title, req.body.aquatic_therapist, req.body.message, req.body.email, req.body.category_id, req.body.flagged];
+    console.log(req.body.message)
+    pool.query(sqlText, values)
+        .then((results) => {
+            res.sendStatus(201);
+        }).catch((error) => {
+            console.log('Error with post', error);
+            res.sendStatus(500);
+        });
+});
 
 module.exports = router;
