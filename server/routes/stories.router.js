@@ -11,7 +11,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 router.get('/', (req, res) => {
     const sqlText = `
         SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
-        stories.message, stories.email, stories.category_id, categories.category, images.img_link
+        stories.message, stories.email, stories.category_id, stories.flagged, categories.category, images.img_link
         FROM stories
         JOIN categories ON stories.category_id = categories.id
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
@@ -26,7 +26,13 @@ router.get('/', (req, res) => {
 
 // GET route for getting all stories that are flagged by users
 router.get('/flagged', (req, res) => {
-    const sqlText = `SELECT * FROM "stories" WHERE "flagged" = true`;
+    const sqlText = `
+        SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
+        stories.message, stories.email, stories.category_id, stories.flagged, categories.category, images.img_link
+        FROM stories
+        JOIN categories ON stories.category_id = categories.id
+        LEFT JOIN images ON images.story_id = stories.id AND featured_img = true 
+        WHERE "flagged" = true`;
     pool.query(sqlText).then(result => {
         res.send(result.rows);
     }).catch(error => {
