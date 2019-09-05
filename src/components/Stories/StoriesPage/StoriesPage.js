@@ -16,13 +16,17 @@ class StoriesPage extends Component {
         this.props.dispatch({ type: 'FETCH_USER' });
     }
 
+    redirectToEditPage = () => {
+        this.props.history.push('/edit-story');
+    } 
+
     render() {
         return (
             <>
                 <LandingPageModal />
                 <Card.Group centered>
                     {this.props.reduxStore.stories.storiesReducer.map(item => 
-                        <StoryCard key={item.id} story={item}/>
+                        <StoryCard key={item.id} story={item} redirectToEditPage={this.redirectToEditPage}/>
                     )}
                 </Card.Group>
             </>

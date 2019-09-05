@@ -64,7 +64,7 @@ class App extends Component {
             to view the form to edit a submitted story's content and images */}
             <Route
               exact
-              path="/edit-story-page"
+              path="/edit-story"
               component={AdminEditStoryView}
             />
 

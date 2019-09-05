@@ -67,7 +67,7 @@ class StoryCard extends Component {
         if (this.props.reduxStore.user.admin) {
             return (
                 <Button.Group>
-                    <Button>
+                    <Button onClick={() => this.editStory(this.props.story)}>
                         Edit Story
                     </Button>
                     <Button color='red' onClick={() => this.deleteStory(this.props.story)}>
@@ -78,8 +78,13 @@ class StoryCard extends Component {
         }
     }
 
+    editStory = (story) => {
+        this.props.dispatch({ type: 'EDIT_STORY', payload: story })
+        this.props.redirectToEditPage();
+    }
+
     deleteStory = (story) => {
-        this.props.dispatch({type: 'DELETE_STORY', payload: story})
+        this.props.dispatch({ type: 'DELETE_STORY', payload: story })
     }
 
     flagStory = (story) => {

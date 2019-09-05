@@ -24,6 +24,15 @@ const flaggedStoriesReducer = (state = [], action) => {
     }   
 }
 
+const editStoryReducer = (state = {}, action) =>  {
+    switch (action.type) {
+        case 'EDIT_STORY':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 /**
  * One object that has all stories
  * On the redux state at:
@@ -31,5 +40,6 @@ const flaggedStoriesReducer = (state = [], action) => {
  */
 export default combineReducers({
     storiesReducer,
-    flaggedStoriesReducer
+    flaggedStoriesReducer,
+    editStoryReducer,
 });

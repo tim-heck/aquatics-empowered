@@ -26,12 +26,12 @@ class ShareStoryForm extends Component {
 
     // Needed for Rich Text Editor
     componentDidMount() {
-        this.attachQuillRefs()
+        this.attachQuillRefs();
     }
 
     // Needed for Rich Text Editor
     componentDidUpdate() {
-        this.attachQuillRefs()
+        this.attachQuillRefs();
     }
 
     // Needed for Rich Text Editor
@@ -99,7 +99,6 @@ class ShareStoryForm extends Component {
         { key: 'an', text: 'Animals', value: '5'},
         { key: 'ath', text: 'Athletes', value: '6'}
     ];
-
 
         return (
             <>
