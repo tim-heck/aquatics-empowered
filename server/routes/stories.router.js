@@ -39,6 +39,10 @@ router.get('/filter/:category', (req, res) => {
     console.log(categoryToCheck);
     pool.query(sqlText, [categoryToCheck]).then(result => {
         console.log(result.rows);
+        res.send(result.rows);
+    }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
     })
 })
 

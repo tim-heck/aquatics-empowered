@@ -16,7 +16,7 @@ class FilterMenu extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_ADMIN_CATEGORIES' })
+        this.props.dispatch({ type: 'FETCH_VISIBLE_CATEGORIES' })
     }
 
     handleChange = (e, propToAdd) => {
@@ -31,11 +31,12 @@ class FilterMenu extends Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <>
                 <Form id="filter-menu" className="filter-menu">
                     <h2>Filter by Category<Icon name="x" onClick={this.props.filterNone} /></h2>
-                    {this.props.reduxStore.categoriesReducer.map(item =>
+                    {this.props.reduxStore.categories.categoriesReducer.map(item =>
                         <Form.Field key={item.id} onClick={(e) => this.handleChange(e, item.category.replace(/ /g, '_').toLowerCase())}>
                             {/* item.category.replace(/ /g, '_').toLowerCase() */}
                             <Checkbox 

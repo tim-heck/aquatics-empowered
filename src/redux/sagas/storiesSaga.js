@@ -33,14 +33,17 @@ function* fetchStories() {
 
 function* filterStories(action) {
     const categoriesForFilter = Object.entries(action.payload);
+    console.log(categoriesForFilter);
     try {
         for (let i = 0; i < categoriesForFilter.length; i++) {
+            console.log(categoriesForFilter[i][1]);
             if (categoriesForFilter[i][1]) {
                 console.log(categoriesForFilter[i][0]);
                 // objectToSend
                 const response = yield axios.get(`/api/stories/filter/${categoriesForFilter[i][0]}`);
                 console.log('response.data', response.data);
                 if (response.data.length !== 0) {
+                    console.log('made it')
                     yield put({ type: 'ADD_FILTER', payload: response.data });
                 }
             }
@@ -49,6 +52,8 @@ function* filterStories(action) {
         // yield put({ type: 'SET_STORIES', payload: response.data });
     } catch (error) {
         console.log('Error with getting stories', error);
+    }
+}
 
 // Sends a GET request to /api/stories/flagged to get all flagged stories
 function* fetchFlaggedStories() {
