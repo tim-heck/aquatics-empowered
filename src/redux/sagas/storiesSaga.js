@@ -14,6 +14,8 @@ export default function* storiesSaga() {
     yield takeEvery('FILTER_STORIES', filterStories);
     // Gets flagged stories for admin page
     yield takeEvery('FETCH_FLAGGED_STORIES', fetchFlaggedStories)
+    // Updates specific story
+    yield takeEvery('UPDATE_STORY', updateStory);
 }
 
 /**
@@ -80,7 +82,7 @@ function* flagStory(action) {
     try {
         yield axios.put(`/api/stories/flag/${action.payload.id}`, action.payload);
         // Gets updated list of stories
-        yield put({ type: 'FETCH_PRODUCTS' });
+        yield put({ type: 'FETCH_STORIES' });
     } catch (error) {
         console.log('Error with flagging story', error);
     }
@@ -92,5 +94,15 @@ function* addStory(action) {
         yield axios.post('/api/stories/share', action.payload);
     } catch (error) {
         console.log('Error with addStory saga', error);
+    }
+}
+
+function* updateStory(action) {
+    try {
+        yield axios.put(`/api/stories/update/${action.payload.id}`, action.payload);
+        yield put({ type: 'FETCH_STORIES' });
+        yield put({ type: 'FETCH_FLAGGED_STORIES' });
+    } catch (error) {
+        console.log('Error with updating story', error);
     }
 }

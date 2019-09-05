@@ -11,7 +11,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 router.get('/', (req, res) => {
     const sqlText = `
         SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
-        stories.message, stories.email, categories.category, images.img_link
+        stories.message, stories.email, stories.category_id, stories.flagged, categories.category, images.img_link
         FROM stories
         JOIN categories ON stories.category_id = categories.id
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
@@ -44,7 +44,13 @@ router.get('/filter/:category', (req, res) => {
 
 // GET route for getting all stories that are flagged by users
 router.get('/flagged', (req, res) => {
-    const sqlText = `SELECT * FROM "stories" WHERE "flagged" = true`;
+    const sqlText = `
+        SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
+        stories.message, stories.email, stories.category_id, stories.flagged, categories.category, images.img_link
+        FROM stories
+        JOIN categories ON stories.category_id = categories.id
+        LEFT JOIN images ON images.story_id = stories.id AND featured_img = true 
+        WHERE "flagged" = true`;
     pool.query(sqlText).then(result => {
         res.send(result.rows);
     }).catch(error => {
@@ -90,6 +96,31 @@ router.post('/share', (req, res) => {
     pool.query(sqlText, values)
         .then((results) => {
             res.sendStatus(201);
+        }).catch((error) => {
+            console.log('Error with post', error);
+            res.sendStatus(500);
+        });
+});
+
+// PUT route for adding a story to the app
+router.put('/update/:id', (req, res) => {
+    const sqlText = `
+        UPDATE "stories" 
+        SET "name" = $1, "location" = $2, "title" = $3, "aquatic_therapist" = $4, "message" = $5, "email" = $6, "category_id" = $7, "flagged" = false
+        WHERE "id" = $8;`
+    const values = [
+        req.body.name, 
+        req.body.location, 
+        req.body.title, 
+        req.body.aquatic_therapist, 
+        req.body.message, 
+        req.body.email, 
+        req.body.category_id,
+        req.params.id
+    ];
+    pool.query(sqlText, values)
+        .then((results) => {
+            res.sendStatus(200);
         }).catch((error) => {
             console.log('Error with post', error);
             res.sendStatus(500);
