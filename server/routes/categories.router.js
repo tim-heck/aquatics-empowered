@@ -54,5 +54,19 @@ router.put('/:id', (req, res) => {
         })
 })
 
+// PUT route that changes a category to visible
+router.put('/unhide/:id', (req, res) => {
+    console.log('Updating category to visible');
+    const sqlText = `UPDATE "categories" SET "hide_cat"=$1 WHERE "id"=$2;`
+    values = [false, req.params.id]
+    pool.query(sqlText, values)
+        .then((response) => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            res.sendStatus(500);
+        })
+})
+
 
 module.exports = router;

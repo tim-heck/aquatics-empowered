@@ -51,7 +51,10 @@ class AdminCategoriesPage extends Component {
 
     handleUnhideClick = (category) => {
         console.log(category)
-
+        this.props.dispatch({
+            type: 'UNHIDE_CATEGORY',
+            payload: category.id
+        })
     }
 
     render() {

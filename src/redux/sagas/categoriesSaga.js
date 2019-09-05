@@ -10,6 +10,8 @@ export default function* categoriesSaga() {
     yield takeEvery('ADD_CATEGORY', addCategory);
     // Hides a category
     yield takeEvery('HIDE_CATEGORY', hideCategory);
+    // Unhides a category
+    yield takeEvery('UNHIDE_CATEGORY', unhideCategory);
 }
 
 // Sends a GET request to /api/categories to get all visible categories
@@ -52,4 +54,15 @@ function* hideCategory(action) {
     } catch (error) {
         console.log('Error with hiding category');
     }
+}
+
+function* unhideCategory(action) {
+    try {
+        yield axios.put(`api/categories/unhide/${action.payload}`)
+        yield put ({ type: 'FETCH_HIDDEN_CATEGORIES', fetchHiddenCategories});
+        yield put ({ type: 'FETCH_VISIBLE_CATEGORIES', fetchVisibleCategories});
+    } catch (error) {
+        console.log('Error with unhiding category');
+    }
+
 }
