@@ -17,6 +17,7 @@
 
 .filter-menu .x:hover {
     cursor: pointer;
+    color: rgba(0,0,0,.4);
 }
 
 .filter-menu .button{
