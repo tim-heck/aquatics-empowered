@@ -33,9 +33,9 @@ class LandingPageModal extends Component {
                 {/* THIS CODE IS BASED ON MODAL WINDOW EXAMPLES FROM SEMANTIC UI DOCS */}
                 {/*     https://react.semantic-ui.com/      */}
                 {/*  THANKS TO THEM FOR GREAT EXAMPLES THAT WERE RELEVANT :)  */}
-                <Modal open={this.state.active} >
+                <Modal open={this.state.active}>
                     <Icon name="close" onClick={this.onCloseModal} />
-                    <Modal.Header className='modalHeader'>Welcome to H2WOAH!</Modal.Header>
+                    <Modal.Header>Welcome to H2WOAH!</Modal.Header>
                     <Modal.Content image>
                         {/*????? NEED TO CHANGE IMAGE HERE TO DIFFERENT IMAGE, POSSIBLY ART OR POSTER FOR EVENT???? */}
 

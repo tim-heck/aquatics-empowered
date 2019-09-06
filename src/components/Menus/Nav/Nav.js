@@ -1,48 +1,75 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import LogOutButton from '../../LogOutButton/LogOutButton';
+import FilterMenu from '../FilterMenu/FilterMenu';
 import './Nav.css';
 
-const Nav = (props) => (
-  <>
-    <div className="nav">
-      <Link to="/stories">
-        <img className="logo" src="images/aquatic-empowered.png" alt="Aquatics Empowered" />
-      </Link>
-      <div className="nav-right">
-        <NavLink className="nav-link" to="/stories">
-          Stories
-        </NavLink>
-        <NavLink className="nav-link" to="/share">
-          Share a Story
-        </NavLink>
-        <NavLink className="nav-link" to="/aquatics-empowered-about">
-          Aquatics Empowered
-        </NavLink>
-        <NavLink className="nav-link" to="/hot-tubbing-for-hope-about">
-          Hot Tubbing For Hope
-        </NavLink>
-        <a className="nav-link donate"
-          href="https://ssl.charityweb.net/aquaticsempowered/hottubbingforhope/"
-          target="_blank" rel="noopener noreferrer">Donate</a>
-        {/* Show the link to the info page and the logout button if the user is logged in */}
-        {props.user.id && (
+class Nav extends Component {
+
+  openFiltersMenu = () => {
+    this.props.dispatch({ type: 'SET_STORIES', payload: [] })
+    document.getElementById("filter-menu").style.height = "100vh";
+  }
+
+  closeFiltersMenu = () => {
+    document.getElementById("filter-menu").style.height = "0px";
+  }
+
+  getAllStoriesOnClose = () => {
+    this.props.dispatch({ type: 'FETCH_STORIES' })
+    this.closeFiltersMenu();
+  }
+
+  render() {
+    return (
+      <>
+        <div className="nav">
+          <Link to="/stories">
+            <img className="logo" src="images/aquatic-empowered.png" alt="Aquatics Empowered" />
+          </Link>
+          <div className="nav-right">
+            <NavLink className="nav-link" to="/stories">
+              Stories
+            </NavLink>
+            <NavLink className="nav-link" to="/share">
+              Share a Story
+            </NavLink>
+            <NavLink className="nav-link" to="/aquatics-empowered-about">
+              Aquatics Empowered
+            </NavLink>
+            <NavLink className="nav-link" to="/hot-tubbing-for-hope-about">
+              Hot Tubbing For Hope
+            </NavLink>
+            <a className="nav-link donate"
+              href="https://ssl.charityweb.net/aquaticsempowered/hottubbingforhope/"
+              target="_blank" rel="noopener noreferrer">Donate</a>
+            {/* Show the link to the info page and the logout button if the user is logged in */}
+            {this.props.user.id && (
+              <>
+                <LogOutButton className="nav-link nav-link-button" />
+              </>
+            )}
+          </div>
+        </div>
+        {/* Only displays the admin menu if the user is an admin */}
+        {this.props.user.id && this.props.user.admin === true && (
           <>
-            <LogOutButton className="nav-link nav-link-button" />
+
           </>
         )}
-      </div>
-    </div>
-    {/* Only displays the admin menu if the user is an admin */}
-    {props.user.id && props.user.admin === true && (
-      <>
-        
+        <div className="filter-search-menu">
+          <div className="icon-group">
+            <Icon name="tasks" size="big" onClick={this.openFiltersMenu} />
+            <Icon name="search" size="big" />
+          </div>
+        </div>
+        <FilterMenu filterNone={this.getAllStoriesOnClose} close={this.closeFiltersMenu} />
       </>
-    )}
-    <div className="nav-placeholder"></div>
-  </>
-);
+    );
+  }
+}
 
 // Instead of taking everything from state, we just want the user
 // object to determine if they are logged in
