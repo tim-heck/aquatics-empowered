@@ -21,6 +21,7 @@ import MobileNav from '../Menus/MobileNav/MobileNav';
 import AdminEditStoryView from '../Admin/AdminEditStoryPage/AdminEditStoryView';
 import AdminCategoriesPage from '../Admin/AdminCategoriesPage/AdminCategoriesPage';
 import AdminFlaggedList from '../Admin/AdminCategoriesPage/AdminFlaggedList';
+import Csv from '../Admin/Csv/Csv';
 
 import './App.css';
 
@@ -49,6 +50,11 @@ class App extends Component {
               exact
               path="/hot-tubbing-for-hope-about"
               component={HTFHAboutPage}
+            />
+            <Route
+              exact
+              path="/csv"
+              component={Csv}
             />
             <Route
               exact

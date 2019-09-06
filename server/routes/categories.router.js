@@ -69,4 +69,17 @@ router.put('/unhide/:id', (req, res) => {
 })
 
 
+// GET all emails 
+router.get('/', (req, res) => {
+    pool.query(`SELECT "email" FROM "stories";`)
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch(error => {
+            console.log('Error getting emails', error);
+            res.sendStatus(500);
+        });
+});
+
+
 module.exports = router;

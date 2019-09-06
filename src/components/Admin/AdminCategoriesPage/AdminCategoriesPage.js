@@ -37,7 +37,6 @@ class AdminCategoriesPage extends Component {
         })
     }
 
-
     handleFlaggedClick = (event) => {
         this.props.history.push('/admin-flagged-list')
     }
