@@ -31,7 +31,6 @@ class FilterMenu extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <>
                 <Form id="filter-menu" className="filter-menu">
