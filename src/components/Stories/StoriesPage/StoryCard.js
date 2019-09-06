@@ -124,7 +124,7 @@ class StoryCard extends Component {
                         <h4 className="modal-meta">{this.props.story.location}</h4>
                         <h4 className="modal-meta">{this.props.story.category}</h4>
                         {this.checkSpecificTherapist(this.props.story.aquatic_therapist)}
-                        <p className="modal-message">{this.props.story.message}</p>
+                        <div className="modal-message" dangerouslySetInnerHTML={{ __html: this.props.story.message }}></div>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button basic onClick={this.closeStoryModal}>
@@ -171,9 +171,7 @@ class StoryCard extends Component {
                             <span>{this.props.story.category}</span>
                         </Card.Meta>
                         {this.checkTherapist(this.props.story.aquatic_therapist)}
-                        <Card.Description>
-                            {this.props.story.message}
-                        </Card.Description>
+                        <div class="description" dangerouslySetInnerHTML={{ __html: this.props.story.message }}></div>
                     </Card.Content>
                     <Card.Content extra>
                         <Button basic onClick={this.openStoryModal}>
