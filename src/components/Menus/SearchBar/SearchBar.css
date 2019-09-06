@@ -1,0 +1,29 @@
+.search-bar {
+    padding: 0 10px;
+    height: 0px;
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    overflow-y: hidden;
+    width: 100%;
+    background-color: #fff;
+    transition: .5s ease-in-out;
+    margin: 10px 0 40px;
+}
+
+.search-bar input {
+    width: 400px!important;
+}
+
+.search-element {
+    display: inline-block;
+}
+
+.search-bar .ui.button {
+    margin-left: 10px;
+}
+
+.search-bar div {
+    float: right;
+}

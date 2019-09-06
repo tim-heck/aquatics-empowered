@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import LogOutButton from '../../LogOutButton/LogOutButton';
 import FilterMenu from '../FilterMenu/FilterMenu';
 import './Nav.css';
+import SearchBar from '../SearchBar/SearchBar';
 
 class Nav extends Component {
 
@@ -20,6 +21,14 @@ class Nav extends Component {
   getAllStoriesOnClose = () => {
     this.props.dispatch({ type: 'FETCH_STORIES' })
     this.closeFiltersMenu();
+  }
+
+  openSearch = () => {
+    document.getElementById("search-bar").style.height = "60px";
+  }
+
+  closeSearch = () => {
+    document.getElementById("search-bar").style.height = "0";
   }
 
   render() {
@@ -62,9 +71,10 @@ class Nav extends Component {
         <div className="filter-search-menu">
           <div className="icon-group">
             <Icon name="tasks" size="big" onClick={this.openFiltersMenu} />
-            <Icon name="search" size="big" />
+            <Icon name="search" size="big" onClick={this.openSearch}/>
           </div>
         </div>
+        <SearchBar />
         <FilterMenu filterNone={this.getAllStoriesOnClose} close={this.closeFiltersMenu} />
       </>
     );

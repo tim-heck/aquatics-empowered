@@ -171,7 +171,7 @@ class StoryCard extends Component {
                             <span>{this.props.story.category}</span>
                         </Card.Meta>
                         {this.checkTherapist(this.props.story.aquatic_therapist)}
-                        <div class="description" dangerouslySetInnerHTML={{ __html: this.props.story.message }}></div>
+                        <div className="description" dangerouslySetInnerHTML={{ __html: this.props.story.message }}></div>
                     </Card.Content>
                     <Card.Content extra>
                         <Button basic onClick={this.openStoryModal}>
