@@ -46,21 +46,21 @@ class MobileNav extends Component {
                     </div>
                     <ul>
                         <li>
-                            <Link className="mobile-nav-link" to="/stories">Stories</Link>
+                            <Link className="mobile-nav-link" to="/stories" onClick={this.closeMobileNav}>Stories</Link>
                         </li>
                         <li>
-                            <Link className="mobile-nav-link" to="/share">Share a Story</Link>
+                            <Link className="mobile-nav-link" to="/share" onClick={this.closeMobileNav}>Share a Story</Link>
                         </li>
                         <li>
-                            <Link className="mobile-nav-link" to="/aquatics-empowered-about">Aquatics Empowered</Link>
+                            <Link className="mobile-nav-link" to="/aquatics-empowered-about" onClick={this.closeMobileNav}>Aquatics Empowered</Link>
                         </li>
                         <li>
-                            <Link className="mobile-nav-link" to="/hot-tubbing-for-hope-about">Hot Tubbing For Hope</Link>
+                            <Link className="mobile-nav-link" to="/hot-tubbing-for-hope-about" onClick={this.closeMobileNav}>Hot Tubbing For Hope</Link>
                         </li>
                         <li className="donate">
                             <a className="mobile-nav-link"
                                 href="https://ssl.charityweb.net/aquaticsempowered/hottubbingforhope/"
-                                target="_blank" rel="noopener noreferrer">Donate</a>
+                                target="_blank" rel="noopener noreferrer" onClick={this.closeMobileNav}>Donate</a>
                         </li>
                     </ul>
                 </div>

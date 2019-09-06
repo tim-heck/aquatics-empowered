@@ -43,11 +43,19 @@
 .mobile-nav ul li {
     padding: 16px;
 }
+.mobile-nav ul li:hover {
+    background-color: #294376;
+    cursor: pointer;
+}
 
 .mobile-nav-link {
     color: #fff;
     display: block;
     min-width: 250px;
+}
+
+.mobile-nav-link:hover {
+    color: #fff;
 }
 
 .mobile-nav-closebtn {
@@ -60,6 +68,7 @@
 
 .mobile-nav-closebtn:hover {
     cursor: pointer;
+    color: rgba(255,255,255,.4);
 }
 
 .donate {
