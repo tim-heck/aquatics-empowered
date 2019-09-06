@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'semantic-ui-react'
 import './HTFH.css'
 
 class HTFHAboutPage extends Component {
@@ -21,7 +22,7 @@ class HTFHAboutPage extends Component {
 
                 {/* <a href="https://ssl.charityweb.net/aquaticsempowered/hottubbingforhope/" target="_blank" 
                 rel="noopener noreferrer" class="button">Donate!</a> */}
-                <a href="https://ssl.charityweb.net/aquaticsempowered/hottubbingforhope/"><button type="button">Donate</button></a>
+                <a className="ui button" href="https://ssl.charityweb.net/aquaticsempowered/hottubbingforhope/">Donate</a>
             </>
         )
     }
