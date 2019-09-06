@@ -9,7 +9,7 @@
     width: 100%;
     background-color: #fff;
     transition: .5s ease-in-out;
-    margin: 10px 0 40px;
+    margin: 10px 0 0;
 }
 
 .search-bar input {
