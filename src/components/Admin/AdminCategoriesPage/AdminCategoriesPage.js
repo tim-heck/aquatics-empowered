@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
+import Csv from '../Csv/Csv';
 
 class AdminCategoriesPage extends Component {
 
@@ -85,6 +86,7 @@ class AdminCategoriesPage extends Component {
                     </li>   
                     })}
                 </ul>
+                <Csv />
             </>
         )
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'semantic-ui-react'
-import CsvDownloader from 'react-csv-downloader';
+
 
 
 class Csv extends Component {
@@ -27,10 +27,10 @@ class Csv extends Component {
                 <div>
                     
                 </div>
-                <CsvDownloader>
+               
                     <button onClick={this.handleEmailsClick}>Download Emails</button>
 
-                </CsvDownloader>
+               
                 
             </>
         )

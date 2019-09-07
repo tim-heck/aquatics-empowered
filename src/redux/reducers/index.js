@@ -5,7 +5,7 @@ import user from './userReducer';
 import stories from './storiesReducer';
 import images from './imagesReducer';
 import categories from './categoriesReducer';
-import emails from './emailsReducer';
+import emails from './emails';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
