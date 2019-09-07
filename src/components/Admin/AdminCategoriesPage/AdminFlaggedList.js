@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
+import './AdminPages.css';
 
 class AdminCategoriesPage extends Component {
 
@@ -18,20 +18,19 @@ class AdminCategoriesPage extends Component {
         this.props.history.push('/edit-story');
     }
 
-
     render() {
         return (
             <div className="form-container">
                 <h1>Administration</h1>
                 <p>Click a button below to toggle between Categories and Flagged Posts</p>
-                <Button primary onClick={this.handleCategoriesClick}>Categories </Button><Button primary>Flagged</Button >
+                <Button primary onClick={this.handleCategoriesClick}>Categories</Button><Button primary>Flagged</Button >
                 <br />
-                <h1> Flagged Posts </h1>
-                <ul>
+                <h1>Flagged Posts</h1>
+                <ul className="flagged-list">
                     {this.props.store.stories.flaggedStoriesReducer.map(story => {
                         return <li key={story.id}>
                             <h3>"{story.title}" by {story.name}</h3>
-                            <button onClick={() => this.editFlaggedStory(story)}>VIEW</button>
+                            <Button onClick={() => this.editFlaggedStory(story)}>View</Button>
                         </li>
                     })}
                 </ul>
