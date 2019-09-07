@@ -5,7 +5,6 @@ import 'semantic-ui-css/semantic.min.css';
 
 class AdminCategoriesPage extends Component {
 
-
     state = {
         category: '',
     }

@@ -6,13 +6,12 @@ import CsvDownloader from 'react-csv-downloader';
 
 class Csv extends Component {
 
-
     state = {
         emails: '',
     }
 
     handleEmailsClick = () => {
-        console.log('clicked emails')
+        console.log('clicked download emails')
         this.props.dispatch({
             type: 'FETCH_EMAILS',
             payload: this.state,
@@ -29,8 +28,8 @@ class Csv extends Component {
                     
                 </div>
                 <CsvDownloader>
-                    <button onClick={this.handleEmailsClick} >Download Emails</button>
-                    
+                    <button onClick={this.handleEmailsClick}>Download Emails</button>
+
                 </CsvDownloader>
                 
             </>
