@@ -207,8 +207,6 @@ class AdminEditStoryView extends Component {
             categories.push({ text: item.category, value: i })
         );
 
-        console.log(categories);
-
         // below variable to be used to check if user is admin status or not
         // let authStatus = this.props.reduxStore.userReducer.admin
         return (
@@ -279,7 +277,6 @@ class AdminEditStoryView extends Component {
             </div>
         )
     }
-
 }
 
 const stateToProps = (reduxStore) => ({
