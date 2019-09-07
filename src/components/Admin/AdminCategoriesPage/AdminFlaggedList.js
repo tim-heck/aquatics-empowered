@@ -21,7 +21,7 @@ class AdminCategoriesPage extends Component {
 
     render() {
         return (
-            <>
+            <div className="form-container">
                 <h1>Administration</h1>
                 <p>Click a button below to toggle between Categories and Flagged Posts</p>
                 <Button primary onClick={this.handleCategoriesClick}>Categories </Button><Button primary>Flagged</Button >
@@ -35,7 +35,7 @@ class AdminCategoriesPage extends Component {
                         </li>
                     })}
                 </ul>
-            </>
+            </div>
         )
     }
 }

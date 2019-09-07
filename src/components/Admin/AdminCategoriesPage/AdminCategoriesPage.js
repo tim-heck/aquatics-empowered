@@ -59,35 +59,35 @@ class AdminCategoriesPage extends Component {
 
     render() {
         return (
-            <>
+            <div className="form-container">
                 <h1>Administration</h1>
                 <p>Click a button below to toggle between Categories and Flagged Posts</p>
                 <Button Primary>Categories </Button><Button Primary onClick={this.handleFlaggedClick}>Flagged</Button >
                 <br />
                 <h1>Add a Category</h1>
-                <p>Adding a category will add it to the category list that users select from when sharing a story. 
+                <p>Adding a category will add it to the category list that users select from when sharing a story.
                 </p>
                 <input onChange={this.handleChange} value={this.state.category}></input>
                 <button onClick={this.handleAddClick}>Add</button>
                 <h1>Currently Visible Categories</h1>
                 <ul>
                     {this.props.store.categories.categoriesReducer.map(category => {
-                    return <li key={category.id}>
-                    <h3>{category.category}</h3>
-                    <button onClick={()=> {this.handleHideClick(category)}}>HIDE</button>
-                    </li>   
+                        return <li key={category.id}>
+                            <h3>{category.category}</h3>
+                            <button onClick={() => { this.handleHideClick(category) }}>HIDE</button>
+                        </li>
                     })}
                 </ul>
                 <h1>Currently Hidden Categories</h1>
                 <ul>
                     {this.props.store.categories.hiddenCategoriesReducer.map(category => {
-                    return <li key={category.id}>
-                    <h3>{category.category}</h3>
-                    <button onClick={()=> {this.handleUnhideClick(category)}}>UNHIDE</button>
-                    </li>   
+                        return <li key={category.id}>
+                            <h3>{category.category}</h3>
+                            <button onClick={() => { this.handleUnhideClick(category) }}>UNHIDE</button>
+                        </li>
                     })}
                 </ul>
-            </>
+            </div>
         )
     }
 }
