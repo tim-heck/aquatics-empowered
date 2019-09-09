@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Icon } from 'semantic-ui-react';
 import './MobileNav.css';
-import FilterMenu from '../FilterMenu/FilterMenu';
 
 class MobileNav extends Component {
 
@@ -14,15 +13,6 @@ class MobileNav extends Component {
 
     closeMobileNav = () => {
         document.getElementById("mobile-nav").style.width = "0px";
-    }
-
-    openFiltersMenu = () => {
-        this.props.dispatch({ type: 'SET_STORIES', payload: [] })
-        document.getElementById("filter-menu").style.height = "100vh";
-    }
-
-    closeFiltersMenu = () => {
-        document.getElementById("filter-menu").style.height = "0px";
     }
 
     getAllStoriesOnClose = () => {
@@ -64,7 +54,6 @@ class MobileNav extends Component {
                         </li>
                     </ul>
                 </div>
-                <FilterMenu filterNone={this.getAllStoriesOnClose} close={this.closeFiltersMenu}/>
             </>
         )
     }
