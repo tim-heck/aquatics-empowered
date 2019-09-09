@@ -57,7 +57,9 @@ router.get(`/search`, (req, res) => {
 
     for (let i = 0; i < queryString.length; i++) {
 
-        values.push(`%${queryString[i][1]}%`)
+        if (queryString[i][1] !== '') {
+            values.push(`%${queryString[i][1]}%`)
+        }
 
     }
 
@@ -71,7 +73,7 @@ router.get(`/search`, (req, res) => {
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
         `;
 
-    for (let i = 1; i < queryString.length+1; i++) {
+    for (let i = 1; i < queryString.length + 1; i++) {
         if (i < 2) {
             sqlText += `
                 WHERE categories.category ILIKE $${i} OR
@@ -92,7 +94,7 @@ router.get(`/search`, (req, res) => {
     sqlText += `;`;
 
     console.log(sqlText);
-        
+
 
     pool.query(sqlText, values).then(result => {
         res.send(result.rows);
