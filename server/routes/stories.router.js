@@ -51,9 +51,9 @@ router.get('/filter/:category', (req, res) => {
 
 router.get(`/search`, (req, res) =>{
 
-    const searchQuery = req.query;
-    
-    console.log(req.query);
+    const searchQuery = `%${req.query.q}%`;
+
+    console.log(searchQuery);
     
     const sqlText = `
         SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
@@ -61,11 +61,17 @@ router.get(`/search`, (req, res) =>{
         FROM stories
         JOIN categories ON stories.category_id = categories.id
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
-        WHERE categories.category ILIKE '% $1 %' OR
-        stories.title ILIKE '% $1 %' OR
-        stories.name ILIKE '% $1 %' OR
-        stories.location ILIKE '% $1 %' OR
-        stories.message ILIKE '% $1 %';`;
+        WHERE categories.category ILIKE $1 OR
+        stories.title ILIKE $1 OR
+        stories.name ILIKE $1 OR
+        stories.location ILIKE $1 OR
+        stories.message ILIKE $1;`;
+    pool.query(sqlText, [searchQuery]).then(result =>{
+        res.send(result.rows);
+    }).catch(error => {
+        console.log('error with server side of database search function', error);
+        res.sendStatus(500);
+    })
 })
 
 // GET route for getting all stories that are flagged by users
