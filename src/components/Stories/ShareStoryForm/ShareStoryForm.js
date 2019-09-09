@@ -27,6 +27,9 @@ class ShareStoryForm extends Component {
     // Needed for Rich Text Editor
     componentDidMount() {
         this.attachQuillRefs();
+        this.props.dispatch({
+            type: 'FETCH_VISIBLE_CATEGORIES'
+        });
     }
 
     // Needed for Rich Text Editor
@@ -89,18 +92,12 @@ class ShareStoryForm extends Component {
     }
 
     render() {
-        // This is used in the category select in the form below
-        const categories = [
-            { key: 'ps', text: 'Public Service', value: '1' },
-            { key: 's', text: 'Seniors', value: '2' },
-            { key: 'y', text: 'Youth', value: '3' },
-            { key: 'r', text: 'Rehabilitation', value: '4' },
-            { key: 'an', text: 'Animals', value: '5' },
-            { key: 'ath', text: 'Athletes', value: '6' }
-        ];
-
-        // console.log(this.state)
-
+       
+        // Creates categories array that populates the select field in the form.
+        const categories = []
+        this.props.reduxStore.categories.categoriesReducer.map(category => {
+        return categories.push({text: category.category, value: category.id})})
+                       
         return (
             <div className="form-container">
                 <h3>Share your aquatic therapy story below!</h3>
@@ -137,7 +134,7 @@ class ShareStoryForm extends Component {
                         onChange={(event) => this.handleChangeFor('images', event)} />
                     <a href="http://www.google.com">Picture Terms and Conditions</a>
                     <br />
-                    <Checkbox label="I agree to share my images on H2Whoa" />
+                    <Checkbox label="I agree to share my images on H2Whoa!" />
                     <br />
                     <Form.Input placeholder="E-mail Address" label="Sign up for our newsletter?" width={4}
                         onChange={(event) => this.handleChangeFor('email', event)}
@@ -152,4 +149,8 @@ class ShareStoryForm extends Component {
     } // End Render
 } // End Class
 
-export default connect()(ShareStoryForm);
+const stateToProps = (reduxStore) => ({
+    reduxStore
+});
+
+export default connect(stateToProps)(ShareStoryForm);
