@@ -1,3 +1,5 @@
+// setting the emails taken from the stories table in the database
+
 const Csv = (state = [], action) => {
     switch (action.type) {
         case 'SET_EMAILS':
@@ -6,6 +8,5 @@ const Csv = (state = [], action) => {
             return state;
     }
 }
-
 
 export default Csv;
