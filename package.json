@@ -37,7 +37,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "react-csv-downloader": "^1.1.0"
   },
   "browserslist": [
     ">0.2%",
