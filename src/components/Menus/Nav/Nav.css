@@ -76,7 +76,7 @@
   float: right;
 }
 
-@media all and (min-width: 800px) {
+@media all and (min-width: 820px) {
   .nav {
     display: block;
   }

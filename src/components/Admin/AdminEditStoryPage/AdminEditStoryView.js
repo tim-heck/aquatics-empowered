@@ -203,8 +203,8 @@ class AdminEditStoryView extends Component {
         // This is used in the category select in the form below
         const categories = [];
 
-        this.props.reduxStore.categories.categoriesReducer.map((item, i) =>
-            categories.push({ text: item.category, value: i })
+        this.props.reduxStore.categories.categoriesReducer.map(item =>
+            categories.push({ text: item.category, value: item.id })
         );
 
         // below variable to be used to check if user is admin status or not
