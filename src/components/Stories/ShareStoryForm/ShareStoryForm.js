@@ -93,7 +93,7 @@ class ShareStoryForm extends Component {
 
     render() {
        
-        // Creates array of categories that populates the select field in the form.
+        // Creates categories array that populates the select field in the form.
         const categories = []
         this.props.reduxStore.categories.categoriesReducer.map(category => {
         return categories.push({text: category.category, value: category.id})})
