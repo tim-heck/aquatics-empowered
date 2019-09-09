@@ -4,6 +4,7 @@ import { Checkbox, Form, Select, Button, Dropdown } from 'semantic-ui-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './ShareStoryForm.css';
+import Swal from 'sweetalert2';
 
 class ShareStoryForm extends Component {
 
@@ -88,9 +89,18 @@ class ShareStoryForm extends Component {
             category_id: 0,
             flagged: false,
         })
-
+        Swal.fire({
+            title: 'Awesome!',
+            text: 'Thank you for sharing your story with us! Click the button below to check it out.',
+            type: 'success',
+            confirmButtonText: 'Go to Stories'
+        }).then((result)=>{
+            if (result.value){
+                this.props.history.push('/stories');
+            }    
+        });
     }
-
+            
     render() {
        
         // Creates categories array that populates the select field in the form.
@@ -141,7 +151,7 @@ class ShareStoryForm extends Component {
                         value={this.state.email} />
                     <Button primary>
                         Submit
-                            </Button>
+                    </Button>
                     <p>* indicates a required field</p>
                 </Form>
             </div>
