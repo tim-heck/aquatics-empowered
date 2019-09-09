@@ -49,24 +49,52 @@ router.get('/filter/:category', (req, res) => {
 
 // GET route for search function
 
-router.get(`/search`, (req, res) =>{
+router.get(`/search`, (req, res) => {
 
-    const searchQuery = `%${req.query.q}%`;
+    let values = [];
 
-    console.log(searchQuery);
-    
-    const sqlText = `
+    let queryString = Object.entries(req.query);
+
+    for (let i = 0; i < queryString.length; i++) {
+
+        values.push(`%${queryString[i][1]}%`)
+
+    }
+
+    console.log(values);
+
+    let sqlText = `
         SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
         stories.message, stories.email, categories.category, images.img_link
         FROM stories
         JOIN categories ON stories.category_id = categories.id
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
-        WHERE categories.category ILIKE $1 OR
-        stories.title ILIKE $1 OR
-        stories.name ILIKE $1 OR
-        stories.location ILIKE $1 OR
-        stories.message ILIKE $1;`;
-    pool.query(sqlText, [searchQuery]).then(result =>{
+        `;
+
+    for (let i = 1; i < queryString.length+1; i++) {
+        if (i < 2) {
+            sqlText += `
+                WHERE categories.category ILIKE $${i} OR
+                stories.title ILIKE $${i} OR
+                stories.name ILIKE $${i} OR
+                stories.location ILIKE $${i} OR
+                stories.message ILIKE $${i}`;
+        } else {
+            sqlText += ` 
+                OR categories.category ILIKE $${i} OR
+                stories.title ILIKE $${i} OR
+                stories.name ILIKE $${i} OR
+                stories.location ILIKE $${i} OR
+                stories.message ILIKE $${i}`;
+        }
+    }
+
+    sqlText += `;`;
+
+    console.log(sqlText);
+        
+
+    pool.query(sqlText, values).then(result => {
         res.send(result.rows);
     }).catch(error => {
         console.log('error with server side of database search function', error);
@@ -141,12 +169,12 @@ router.put('/update/:id', (req, res) => {
         SET "name" = $1, "location" = $2, "title" = $3, "aquatic_therapist" = $4, "message" = $5, "email" = $6, "category_id" = $7, "flagged" = false
         WHERE "id" = $8;`
     const values = [
-        req.body.name, 
-        req.body.location, 
-        req.body.title, 
-        req.body.aquatic_therapist, 
-        req.body.message, 
-        req.body.email, 
+        req.body.name,
+        req.body.location,
+        req.body.title,
+        req.body.aquatic_therapist,
+        req.body.message,
+        req.body.email,
         req.body.category_id,
         req.params.id
     ];

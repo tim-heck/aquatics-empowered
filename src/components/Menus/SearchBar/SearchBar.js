@@ -23,6 +23,33 @@ class SearchBar extends Component {
         
     }
 
+    // Want to check on setting state to parsed search query and how to go about doing that.
+    // add this function into handleChange? just the contents? what to do? what to do? what do?
+
+    // searchParse = (searchInput) => {
+
+    //     let array = searchInput.split('');
+
+    //     let query = '';
+
+    //     for (let i = 0; i < array.length; i++) {
+    //         query += 'q' + i + '=' + array[i];
+    //     }
+
+    //     this.setState({
+    //         searchInput: query
+    //     })
+
+    // }
+    
+//     let array = searchQuery.split('');
+
+// let values = '';
+
+// for (let i = 0; i < array.length; i++) {
+//     values += 'q' + i + '=' + values[i];
+// }
+    
     render() {
         console.log(this.state);
         
