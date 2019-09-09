@@ -10,16 +10,22 @@ class SearchBar extends Component {
     }
 
     search = () => {
-
+        this.props.dispatch({
+            type: 'SEARCH',
+            payload: this.state.searchInput
+        })
     }
 
     handleChange = (event) => {
         this.setState({
             searchInput: event.target.value
         })
+        
     }
 
     render() {
+        console.log(this.state);
+        
         return (
             <>
                 <Form id="search-bar" className="search-bar">

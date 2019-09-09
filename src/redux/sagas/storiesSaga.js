@@ -16,6 +16,9 @@ export default function* storiesSaga() {
     yield takeEvery('FETCH_FLAGGED_STORIES', fetchFlaggedStories)
     // Updates specific story
     yield takeEvery('UPDATE_STORY', updateStory);
+    // Sends Search Query
+    yield takeEvery('SEARCH', searchStories);
+
 }
 
 /**
@@ -109,5 +112,16 @@ function* updateStory(action) {
         yield put({ type: 'FETCH_FLAGGED_STORIES' });
     } catch (error) {
         console.log('Error with updating story', error);
+    }
+}
+
+function* searchStories(action) {
+    try{
+        const response = yield axios.get(`/api/stories/search?q=${action.payload}`)
+        yield put({
+            type:'SET_STORIES', 
+            payload: response.data})
+    } catch(error) {
+        console.log('error search database', error);
     }
 }

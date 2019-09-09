@@ -46,6 +46,28 @@ router.get('/filter/:category', (req, res) => {
     })
 })
 
+
+// GET route for search function
+
+router.get(`/search`, (req, res) =>{
+
+    const searchQuery = req.query;
+    
+    console.log(req.query);
+    
+    const sqlText = `
+        SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
+        stories.message, stories.email, categories.category, images.img_link
+        FROM stories
+        JOIN categories ON stories.category_id = categories.id
+        LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
+        WHERE categories.category ILIKE '% $1 %' OR
+        stories.title ILIKE '% $1 %' OR
+        stories.name ILIKE '% $1 %' OR
+        stories.location ILIKE '% $1 %' OR
+        stories.message ILIKE '% $1 %';`;
+})
+
 // GET route for getting all stories that are flagged by users
 router.get('/flagged', (req, res) => {
     const sqlText = `
