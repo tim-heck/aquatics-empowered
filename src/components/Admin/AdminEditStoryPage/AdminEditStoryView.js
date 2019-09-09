@@ -55,21 +55,9 @@ class AdminEditStoryView extends Component {
                 payload: this.props.reduxStore.stories.editStoryReducer.id
             })
         }
-        // this.props.dispatch({ type: 'FETCH_STORIES' });
-        // this.setState({
-        //     id: this.props.reduxStore.stories.storiesReducer.id,
-        //     name: this.props.reduxStore.stories.storiesReducer.name,
-        //     location: this.props.reduxStore.stories.storiesReducer.location,
-        //     title: this.props.reduxStore.stories.storiesReducer.title,
-        //     aquatic_therapist: this.props.reduxStore.stories.storiesReducer.aquatic_therapist,
-        //     message: this.props.reduxStore.stories.storiesReducer.message,
-        //     email: this.props.reduxStore.stories.storiesReducer.email,
-        //     category_id: this.props.reduxStore.stories.storiesReducer.category_id,
-        //     flagged: this.props.reduxStore.stories.storiesReducer.flagged
-        // });
 
-        // THIS IS IN THE DIDUPDATE BELOW... MIGHT MOVE IT
-        // IF IT DOESN'T DO WHAT IT SHOULD THERE
+        this.props.dispatch({ type: 'FETCH_VISIBLE_CATEGORIES' });
+
     }
 
     // Needed for Rich Text Editor
@@ -165,36 +153,64 @@ class AdminEditStoryView extends Component {
 
     renderUpdateButton = () => {
         if (this.state.flagged) {
+            if (Object.entries(this.props.reduxStore.stories.editStoryReducer).length > 0) {
+                return (
+                    <Button positive onClick={() => this.updateStory('flagged')}>
+                        Update and Unflag
+                    </Button>
+                );
+            } else {
+                return (
+                    <Button disabled positive onClick={() => this.updateStory('flagged')}>
+                        Update and Unflag
+                    </Button>
+                );
+            }
+        } else {
+            if (Object.entries(this.props.reduxStore.stories.editStoryReducer).length > 0) {
+                return (
+                    <Button basic onClick={() => this.updateStory('stories')}>
+                        Update
+                    </Button>
+                );
+            } else {
+                return (
+                    <Button disabled basic onClick={() => this.updateStory('stories')}>
+                        Update
+                    </Button>
+                );
+            }
+        }
+    }
+
+    checkEditStoryReducer = () => {
+        if (Object.entries(this.props.reduxStore.stories.editStoryReducer).length > 0) {
             return (
-                <Button positive onClick={() => this.updateStory('flagged')}>
-                    Update and Unflag
+                <Button negative onClick={this.handleStoryDelete}>
+                    Delete this story
                 </Button>
             );
         } else {
             return (
-                <Button basic onClick={() => this.updateStory('stories')}>
-                    Update
+                <Button disabled color='red' onClick={this.handleStoryDelete}>
+                    Delete this story
                 </Button>
             );
         }
     }
 
     render() {
-        console.log(this.state);
         // This is used in the category select in the form below
-        const categories = [
-            { text: 'Public Service', value: '1' },
-            { text: 'Seniors', value: '2' },
-            { text: 'Youth', value: '3' },
-            { text: 'Rehabilitation', value: '4' },
-            { text: 'Animals', value: '5' },
-            { text: 'Athletes', value: '6' }
-        ];
+        const categories = [];
+
+        this.props.reduxStore.categories.categoriesReducer.map((item, i) =>
+            categories.push({ text: item.category, value: i })
+        );
 
         // below variable to be used to check if user is admin status or not
         // let authStatus = this.props.reduxStore.userReducer.admin
         return (
-            <>
+            <div className="form-container">
                 {this.checkView()}
                 <h2>Edit This Story</h2>
                 <Form onSubmit={this.handleStoryEditSubmit}>
@@ -202,19 +218,19 @@ class AdminEditStoryView extends Component {
                         <Form.Input label="Name on submission" required placeholder={this.state.name} width={4}
                             onChange={(event) => this.handleChangeFor('name', event)}
                             value={this.state.name} />
-                        <Form.Input label="Location" required placeholder={this.state.location} width={5}
+                        <Form.Input label="Location" required placeholder={this.state.location} width={8}
                             onChange={(event) => this.handleChangeFor('location', event)}
                             value={this.state.location} />
                         {/* Select field that uses the categories variable above for the options */}
-                        <Form.Field control={Select} required label='Category' value={this.state.category_id}
-                            options={categories} placeholder={this.state.category}
-                            onChange={this.handleCategoryChange} />
+                        <Form.Field control={Select} required label='Category'
+                            options={categories} placeholder={this.state.category || 'Category'}
+                            onChange={this.handleCategoryChange} width={4} />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Input label="Story Title" required placeholder={this.state.title} width={6}
+                        <Form.Input label="Story Title" required placeholder={this.state.title} width={8}
                             onChange={(event) => this.handleChangeFor('title', event)}
                             value={this.state.title} />
-                        <Form.Input label="Aquatic Therapist" placeholder={this.state.aquatic_therapist} width={6}
+                        <Form.Input label="Aquatic Therapist" placeholder={this.state.aquatic_therapist} width={8}
                             onChange={(event) => this.handleChangeFor('aquatic_therapist', event)}
                             value={this.state.aquatic_therapist} />
                     </Form.Group>
@@ -257,13 +273,10 @@ class AdminEditStoryView extends Component {
                     <p>* indicates a required field</p>
                 </Form>
 
-                <Button negative onClick={this.handleStoryDelete}>
-                    Delete this story
-                </Button>
-            </>
+                {this.checkEditStoryReducer()}
+            </div>
         )
     }
-
 }
 
 const stateToProps = (reduxStore) => ({

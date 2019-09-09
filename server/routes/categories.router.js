@@ -4,7 +4,7 @@ const router = express.Router();
 
 // GET all visible categories 
 router.get('/', (req, res) => {
-    pool.query(`SELECT * FROM "categories" WHERE "hide_cat" = false;`)
+    pool.query(`SELECT * FROM "categories" WHERE "hide_cat" = false ORDER BY category ASC;`)
         .then((result) => {
             res.send(result.rows);
         })
