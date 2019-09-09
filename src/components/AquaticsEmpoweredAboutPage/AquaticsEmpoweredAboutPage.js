@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './AquaticsEmpowered.css'
 
+
+
 class AquaticsEmpoweredAboutPage extends Component {
 
     render() {
         return (
+
             <div className="container">
                 <h2>
                     <a className="external-link" href="http://aquaticsempowered.org">Aquatics Empowered</a>
@@ -20,6 +23,7 @@ class AquaticsEmpoweredAboutPage extends Component {
                     or raise the funds for a new body of water, whether it was a new or renovated pool, spa,
                     splash pad or other form of water.</p>
             </div>
+
         )
     }
 }
