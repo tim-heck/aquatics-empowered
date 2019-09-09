@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Header, Image, Modal, Icon } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css'
 
 class LandingPageModal extends Component {
 

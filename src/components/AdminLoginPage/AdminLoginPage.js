@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button, Form } from 'semantic-ui-react';
+import './AdminLoginPage.css';
 
 class LoginPage extends Component {
   state = {
@@ -31,7 +33,7 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="admin-login-form">
         {this.props.errors.loginMessage && (
           <h2
             className="alert"
@@ -40,40 +42,31 @@ class LoginPage extends Component {
             {this.props.errors.loginMessage}
           </h2>
         )}
-        <form onSubmit={this.login}>
+        <Form onSubmit={this.login}>
           <h1>Admin Login</h1>
+          <Form.Input
+            label="Username:"
+            required
+            type="text"
+            name="username"
+            value={this.state.username}
+            onChange={this.handleInputChangeFor('username')}
+          />
+          <Form.Input
+            label="Password:"
+            required
+            type="password"
+            name="password"
+            value={this.state.password}
+            onChange={this.handleInputChangeFor('password')}
+          />
           <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              className="log-in"
+            <Button
               type="submit"
-              name="submit"
-              value="Log In"
-            />
+            >Log In</Button>
           </div>
-        </form>
-        <center>
+        </Form>
+        {/* <center>
           <button
             type="button"
             className="link-button"
@@ -81,7 +74,7 @@ class LoginPage extends Component {
           >
             Register
           </button>
-        </center>
+        </center> */}
       </div>
     );
   }
