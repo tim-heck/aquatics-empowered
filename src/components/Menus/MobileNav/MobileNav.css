@@ -1,7 +1,7 @@
 .mobile-header {
     height: 60px;
     background-color: #36599c;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 
 .big.icon {
@@ -80,7 +80,7 @@
     margin-right: 30px;
 }
 
-@media all and (min-width: 800px) {
+@media all and (min-width: 820px) {
     .mobile-header {
         display: none;
     }

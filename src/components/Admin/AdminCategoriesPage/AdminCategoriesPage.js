@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid, Form } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-
 import Csv from '../AdminCategoriesPage/Csv';
 import './AdminPages.css';
-
 
 class AdminCategoriesPage extends Component {
 

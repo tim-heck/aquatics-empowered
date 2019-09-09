@@ -81,7 +81,7 @@ class StoryCard extends Component {
 
     editStory = (story) => {
         this.props.dispatch({ type: 'EDIT_STORY', payload: story })
-        this.props.redirectToEditPage();
+        this.props.directToEditPage();
     }
 
     deleteStory = (story) => {
