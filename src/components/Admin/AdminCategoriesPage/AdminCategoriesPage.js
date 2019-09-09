@@ -71,32 +71,39 @@ class AdminCategoriesPage extends Component {
                         <Button basic onClick={this.handleAddClick}>Add</Button>
                     </Form.Group>
                 </Form>
-                <h1>Currently Visible Categories</h1>
-                <ul className="categories-list">
-                    {this.props.store.categories.categoriesReducer.map(category =>
-                        <li key={category.id}>
-                            <h3>{category.category}</h3>
-                            <Button basic onClick={() => { this.handleHideClick(category) }}>Hide</Button>
-                        </li>
-                    )}
-                </ul>
-                <h1>Currently Hidden Categories</h1>
-                <ul className="categories-list">
-                    {this.props.store.categories.hiddenCategoriesReducer.map(category =>
-                        <li key={category.id}>
-                            <h3>{category.category}</h3>
-                            <Button basic onClick={() => { this.handleUnhideClick(category) }}>Unhide</Button>
-                        </li>
-                    )}
-                </ul>
-
-                <Csv />
-
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column width={6}>
+                            <h1>Currently Visible Categories</h1>
+                                <ul className="categories-list">
+                                    {this.props.store.categories.categoriesReducer.map(category =>
+                                    <li key={category.id}>
+                                    <h3>{category.category}</h3>
+                                    <Button basic onClick={() => { this.handleHideClick(category) }}>Hide</Button>
+                                    </li>
+                                    )}
+                                </ul>
+                        </Grid.Column>
+                        <Grid.Column width={6}>
+                            <h1>Currently Hidden Categories</h1>
+                                <ul className="categories-list">
+                                    {this.props.store.categories.hiddenCategoriesReducer.map(category =>
+                                    <li key={category.id}>
+                                    <h3>{category.category}</h3>
+                                    <Button basic onClick={() => { this.handleUnhideClick(category) }}>Unhide</Button>
+                                    </li>
+                                    )}
+                                </ul>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+                <center><h1>Download list of users' emails</h1>
+                <Csv /></center>
             </div>
             
-        )
-    }
-}
+        ); // End Return
+    } // End Render
+} //End Class
 
 const mapStateToProps = (store) => ({
     store
