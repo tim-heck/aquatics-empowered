@@ -1,0 +1,14 @@
+.categories-list, .flagged-list {
+    list-style-type: none;
+    padding: 0 0 0 15px;
+}
+
+.categories-list h3, .flagged-list h3 {
+    margin: 0;
+    display: inline-block;
+}
+
+.categories-list .button, .flagged-list .button {
+    display: inline-block;
+    margin: 0 0 10px 10px;
+}
