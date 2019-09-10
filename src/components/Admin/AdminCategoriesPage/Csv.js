@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Grid } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
 
 class AdminCategoriesPage extends Component {
     componentDidMount () {
@@ -19,14 +18,6 @@ class AdminCategoriesPage extends Component {
     }
 
     render() {
-     
-        let emails = []
-
-        this.props.store.csv.map((email, i) => {
-            emails.push(email)
-        });
-        console.log(emails);
-
         return (
             <>
                 <CSVLink onClick={this.handleEmailsClick} data={this.props.store.csv}>Download Emails</CSVLink> 

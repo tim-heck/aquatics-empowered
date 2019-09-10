@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'semantic-ui-react'
 import './HTFH.css'
 
 class HTFHAboutPage extends Component {

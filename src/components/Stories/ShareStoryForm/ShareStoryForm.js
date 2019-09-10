@@ -23,6 +23,7 @@ class ShareStoryForm extends Component {
             email: '',
             category_id: 0,
             flagged: false,
+            selectedFile: '',
         }
     }
 
@@ -105,8 +106,10 @@ class ShareStoryForm extends Component {
     getPresignedPUTURL = (event) => {
         const selectedFile = event.target.files[0];
         axios.get(`/api/aws/presignedPUTURL/${selectedFile.name}`).then(result =>
-            this.uploadSingleFile(result.data, selectedFile)
+            this.uploadSingleFile(result.data, selectedFile),
             // axios.put(result.data, selectedFile)
+            // console.log('successful put'),
+            this.getPresignedGETURL(selectedFile)
         ).catch(error => {
             console.log('error with getting presignedPUTURL', error);
         });
@@ -116,8 +119,25 @@ class ShareStoryForm extends Component {
         axios.put(putURL, file);
     }
 
-    getPresignedGETURL = () => {
-        
+    getPresignedGETURL = (file) => {
+        console.log(file);
+        axios.get(`/api/aws/presignedGETURL/${file.name}`).then(result => {
+            this.setState({
+                ...this.state,
+                getUrl: result.data
+            })
+        }).catch(error => {
+            console.log('error with getting presignedGETURL', error);
+        });
+    }
+
+    displayImage = () => {
+        if (this.state.getUrl) {
+            // console.log(this.state.getUrl);
+            return (
+                <img className="" src={this.state.getUrl} alt={this.state.selectedFile.name} />
+            );
+        }
     }
 
     render() {
@@ -164,6 +184,7 @@ class ShareStoryForm extends Component {
                         onChange={(event) => this.handleChangeFor('images', event)} /> */}
                     <label>Upload an Image:</label>
                     <input type="file" onChange={this.getPresignedPUTURL} />
+                    {this.displayImage()}
                     {/* <button className="ui button" onClick={this.getPresignedPUTURL}>Upload</button> */}
                     <br />
                     <a href="http://www.google.com">Picture Terms and Conditions</a>

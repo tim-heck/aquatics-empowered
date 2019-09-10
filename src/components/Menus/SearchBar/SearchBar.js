@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Checkbox, Form, Icon } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
 import './SearchBar.css'
 
 class SearchBar extends Component {
