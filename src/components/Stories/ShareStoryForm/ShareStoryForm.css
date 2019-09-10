@@ -1,0 +1,13 @@
+.form-container {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 1000px;
+}
+
+.ui.form .quill {
+    margin-bottom: 1em;
+}
+
+.ui.form .ql-container {
+    height: 200px;
+}

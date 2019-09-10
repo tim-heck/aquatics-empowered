@@ -1,13 +1,11 @@
 .center {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   width: 50%;
 }
 
-.button {
-    margin-left: auto;
-    margin-right: auto;
-    /* width: 20px;
-    height: 40px; */
+.container .ui.button {
+  width: 100%;
+  padding: 15px 20px;
+  margin-top: 20px;
 }

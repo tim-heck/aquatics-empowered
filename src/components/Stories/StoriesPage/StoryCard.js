@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CarouselProvider, Slide, Slider, Dot } from "pure-react-carousel";
 import { Card, Icon, Image, Button, Header, Modal, Container } from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css'
+// import 'semantic-ui-css/semantic.min.css'
 import "pure-react-carousel/dist/react-carousel.es.css";
+import Swal from 'sweetalert2';
 
 class StoryCard extends Component {
 
@@ -67,10 +68,10 @@ class StoryCard extends Component {
         if (this.props.reduxStore.user.admin) {
             return (
                 <Button.Group>
-                    <Button>
+                    <Button className="edit-button" onClick={() => this.editStory(this.props.story)}>
                         Edit Story
                     </Button>
-                    <Button color='red' onClick={() => this.deleteStory(this.props.story)}>
+                    <Button color="red" onClick={() => this.deleteStory(this.props.story)}>
                         Delete Story
                     </Button>
                 </Button.Group>
@@ -78,12 +79,23 @@ class StoryCard extends Component {
         }
     }
 
+    editStory = (story) => {
+        this.props.dispatch({ type: 'EDIT_STORY', payload: story })
+        this.props.directToEditPage();
+    }
+
     deleteStory = (story) => {
-        this.props.dispatch({type: 'DELETE_STORY', payload: story})
+        this.props.dispatch({ type: 'DELETE_STORY', payload: story })
     }
 
     flagStory = (story) => {
         this.props.dispatch({ type: 'FLAG_STORY', payload: story })
+        Swal.fire({
+            title: 'Success',
+            text: 'This story has been flagged for moderation',
+            type: 'success',
+            confirmButtontext: 'Ok'
+        })
     }
 
     render() {
@@ -101,7 +113,7 @@ class StoryCard extends Component {
                         <Slider>
                             {this.props.reduxStore.images.imagesReducer.map((image, i) =>
                                 <Slide key={image.id} tag="a" index={i}>
-                                    <Image src={image.img_link} onClick={this.openImagesModal} />
+                                    <Image className="story-image" src={image.img_link} onClick={this.openImagesModal} />
                                 </Slide>
                             )}
                         </Slider>
@@ -119,7 +131,7 @@ class StoryCard extends Component {
                         <h4 className="modal-meta">{this.props.story.location}</h4>
                         <h4 className="modal-meta">{this.props.story.category}</h4>
                         {this.checkSpecificTherapist(this.props.story.aquatic_therapist)}
-                        <p className="modal-message">{this.props.story.message}</p>
+                        <div className="modal-message" dangerouslySetInnerHTML={{ __html: this.props.story.message }}></div>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button basic onClick={this.closeStoryModal}>
@@ -166,9 +178,7 @@ class StoryCard extends Component {
                             <span>{this.props.story.category}</span>
                         </Card.Meta>
                         {this.checkTherapist(this.props.story.aquatic_therapist)}
-                        <Card.Description>
-                            {this.props.story.message}
-                        </Card.Description>
+                        <div className="description" dangerouslySetInnerHTML={{ __html: this.props.story.message }}></div>
                     </Card.Content>
                     <Card.Content extra>
                         <Button basic onClick={this.openStoryModal}>

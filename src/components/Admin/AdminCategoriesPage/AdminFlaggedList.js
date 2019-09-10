@@ -1,25 +1,46 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
+import './AdminPages.css';
 
 class AdminCategoriesPage extends Component {
+
+    componentDidMount = () => {
+        this.props.dispatch({ type: 'FETCH_FLAGGED_STORIES' });
+    }
 
     handleCategoriesClick = (event) => {
         this.props.history.push('/admin-categories')
     }
 
+    editFlaggedStory = (story) => {
+        this.props.dispatch({ type: 'EDIT_STORY', payload: story });
+        this.props.history.push('/edit-story');
+    }
 
     render() {
         return (
-            <>
+            <div className="form-container">
+                <h1>Administration</h1>
                 <p>Click a button below to toggle between Categories and Flagged Posts</p>
-                <Button Primary onClick={this.handleCategoriesClick}>Categories </Button><Button Primary>Flagged</Button >
+                <Button primary onClick={this.handleCategoriesClick}>Categories</Button><Button primary>Flagged</Button >
                 <br />
-                <h1> FLAAAAG </h1>      
-            </>
+                <h1>Flagged Posts</h1>
+                <ul className="flagged-list">
+                    {this.props.store.stories.flaggedStoriesReducer.map(story => {
+                        return <li key={story.id}>
+                            <h3>"{story.title}" by {story.name}</h3>
+                            <Button onClick={() => this.editFlaggedStory(story)}>View</Button>
+                        </li>
+                    })}
+                </ul>
+            </div>
         )
     }
 }
 
-export default connect()(AdminCategoriesPage);
+const mapStateToProps = (store) => ({
+    store
+});
+
+export default connect(mapStateToProps)(AdminCategoriesPage);

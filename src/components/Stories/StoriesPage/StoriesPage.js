@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 
 import StoryCard from './StoryCard';
 import LandingPageModal from '../../LandingPageModal/LandingPageModal';
+import MobileNav from '../../Menus/MobileNav/MobileNav';
+import DefaultCard from '../DefaultCard/DefaultCard';
 
-import { Card } from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css'
+import { Card, Icon, Image, Button } from 'semantic-ui-react'
 import '../StoriesPage.css'
 
 
@@ -16,13 +17,23 @@ class StoriesPage extends Component {
         this.props.dispatch({ type: 'FETCH_USER' });
     }
 
+    directToEditPage = () => {
+        this.props.history.push('/edit-story');
+    }
+
+    directToStoryForm = () => {
+        this.props.history.push('/share');
+    }
+
     render() {
         return (
             <>
-                <LandingPageModal />
+                {/* <LandingPageModal /> */}
+                {/* <MobileNav /> */}
                 <Card.Group centered>
-                    {this.props.reduxStore.stories.storiesReducer.map(item => 
-                        <StoryCard key={item.id} story={item}/>
+                    <DefaultCard directToStoryForm={this.directToStoryForm} />
+                    {this.props.reduxStore.stories.storiesReducer.map(item =>
+                        <StoryCard key={item.id} story={item} directToEditPage={this.directToEditPage} />
                     )}
                 </Card.Group>
             </>

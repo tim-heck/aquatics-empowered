@@ -1,44 +1,87 @@
 .nav-title {
-    font-size: 24px;
-    font-weight: 700;
-    display: inline-block;
-    color: #f2f2f2;
-    padding-left: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  display: inline-block;
+  color: #f2f2f2;
+  padding-left: 10px;
 }
 
 .nav {
   overflow: hidden;
-  background-color: #00acb0;
+  background-color: #36599c;
+  z-index: 200;
+  /* position: fixed; */
+  width: 100%;
+  top: 0;
   display: none;
-  margin-bottom: 60px;
+  height: 60px;
 }
 
 .nav-link {
   float: left;
-  color: #f2f2f2;
-  background-color: #00acb0;
+  color: #fff;
+  background-color: #36599c;
   text-align: center;
-  padding: 24px 10px;
+  padding: 20px 10px 21px;
   text-decoration: none;
   font-size: 15px;
+  /* text-transform: uppercase; */
+  /* border-bottom: 5px solid transparent; */
+  /* font-weight: 700; */
+  /* letter-spacing: 3.5px; */
+}
 
-  /* these last two make the logout button in
-  the nav bar look like another link */
-  border:none;
+.nav-link-button {
+  border: none;
+  padding-bottom: 20px;
   cursor: pointer;
-  outline:0;
+  outline: 0;
 }
 
 .nav-link:hover {
-  background-color: #008183;
+  color: #fff;
+  background-color: #294376;
 }
 
 .nav-right {
   float: right;
 }
 
-@media all and (min-width: 800px) {
+/* .active {
+  color: #66fcf1;
+  border-bottom: 5px solid #66fcf1;
+}
+
+.active:hover {
+  color: #66fcf1;
+  border-bottom: 5px solid #66fcf1;
+} */
+
+.logo {
+  width: 127px;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.filter-search-menu {
+  background-color: #294376;
+  width: 100%;
+  height: 60px;
+  padding-right: 20px;
+  /* margin-bottom: 40px; */
+  display: none;
+}
+
+.filter-search-menu .icon-group {
+  float: right;
+}
+
+@media all and (min-width: 820px) {
   .nav {
+    display: block;
+  }
+
+  .filter-search-menu {
     display: block;
   }
 }

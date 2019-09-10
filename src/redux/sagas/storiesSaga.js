@@ -8,6 +8,17 @@ export default function* storiesSaga() {
     yield takeEvery('DELETE_STORY', deleteStory);
     // Flaggs story for review
     yield takeEvery('FLAG_STORY', flagStory);
+    // Adds a story
+    yield takeEvery('ADD_STORY', addStory);
+    // Filters stories by users parameters
+    yield takeEvery('FILTER_STORIES', filterStories);
+    // Gets flagged stories for admin page
+    yield takeEvery('FETCH_FLAGGED_STORIES', fetchFlaggedStories)
+    // Updates specific story
+    yield takeEvery('UPDATE_STORY', updateStory);
+    // Sends Search Query
+    yield takeEvery('SEARCH', searchStories);
+
 }
 
 /**
@@ -20,6 +31,40 @@ function* fetchStories() {
         yield put({ type: 'SET_STORIES', payload: response.data });
     } catch (error) {
         console.log('Error with getting stories', error);
+    }
+}
+
+function* filterStories(action) {
+    const categoriesForFilter = Object.entries(action.payload);
+    console.log(categoriesForFilter);
+    try {
+        for (let i = 0; i < categoriesForFilter.length; i++) {
+            console.log(categoriesForFilter[i][1]);
+            if (categoriesForFilter[i][1]) {
+                console.log(categoriesForFilter[i][0]);
+                // objectToSend
+                const response = yield axios.get(`/api/stories/filter/${categoriesForFilter[i][0]}`);
+                console.log('response.data', response.data);
+                if (response.data.length !== 0) {
+                    console.log('made it')
+                    yield put({ type: 'ADD_FILTER', payload: response.data });
+                }
+            }
+        }
+        // Stores all data received in the stories reducer
+        // yield put({ type: 'SET_STORIES', payload: response.data });
+    } catch (error) {
+        console.log('Error with getting stories', error);
+    }
+}
+
+// Sends a GET request to /api/stories/flagged to get all flagged stories
+function* fetchFlaggedStories() {
+    try {
+        const response = yield axios.get('/api/stories/flagged');
+        yield put ({ type: 'SET_FLAGGED_STORIES', payload: response.data })
+    } catch (error) {
+        console.log('Error getting flagged posts', error);
     }
 }
 
@@ -45,8 +90,51 @@ function* flagStory(action) {
     try {
         yield axios.put(`/api/stories/flag/${action.payload.id}`, action.payload);
         // Gets updated list of stories
-        yield put({ type: 'FETCH_PRODUCTS' });
+        yield put({ type: 'FETCH_STORIES' });
     } catch (error) {
         console.log('Error with flagging story', error);
+    }
+}
+
+// Sets a POST request to /api/share to add a story
+function* addStory(action) {
+    try {
+        yield axios.post('/api/stories/share', action.payload);
+    } catch (error) {
+        console.log('Error with addStory saga', error);
+    }
+}
+
+function* updateStory(action) {
+    try {
+        yield axios.put(`/api/stories/update/${action.payload.id}`, action.payload);
+        yield put({ type: 'FETCH_STORIES' });
+        yield put({ type: 'FETCH_FLAGGED_STORIES' });
+    } catch (error) {
+        console.log('Error with updating story', error);
+    }
+}
+
+function* searchStories(action) {
+    try{
+
+        let array = action.payload.split( ' ' );
+
+        console.log('action.payload', action.payload, 'array', array);
+        
+        let searchString = '';
+
+        for (let i = 0; i < array.length; i++) {
+            searchString += 'q' + i + '=' + array[i] + '&';
+        }
+
+        console.log('searchString variable =', searchString);
+        
+        const response = yield axios.get(`/api/stories/search?${searchString}`)
+        yield put({
+            type:'SET_STORIES', 
+            payload: response.data})
+    } catch(error) {
+        console.log('error search database', error);
     }
 }

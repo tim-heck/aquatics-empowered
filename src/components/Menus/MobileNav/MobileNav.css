@@ -1,12 +1,24 @@
 .mobile-header {
     height: 60px;
     background-color: #36599c;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 
-.bars {
+.big.icon {
+    margin: 0 5px;
+}
+
+.bars,
+.tasks,
+.search {
     color: #fff;
     padding: 16px;
+}
+
+.bars:hover,
+.tasks:hover,
+.search:hover {
+    cursor: pointer;
 }
 
 .mobile-nav {
@@ -31,11 +43,19 @@
 .mobile-nav ul li {
     padding: 16px;
 }
+.mobile-nav ul li:hover {
+    background-color: #294376;
+    cursor: pointer;
+}
 
 .mobile-nav-link {
     color: #fff;
     display: block;
     min-width: 250px;
+}
+
+.mobile-nav-link:hover {
+    color: #fff;
 }
 
 .mobile-nav-closebtn {
@@ -46,11 +66,21 @@
     color: #fff;
 }
 
+.mobile-nav-closebtn:hover {
+    cursor: pointer;
+    color: rgba(255,255,255,.4);
+}
+
 .donate {
     background-color: #ffa969;
 }
 
-@media all and (min-width: 800px) {
+.right-mobile-header {
+    float: right;
+    margin-right: 30px;
+}
+
+@media all and (min-width: 820px) {
     .mobile-header {
         display: none;
     }

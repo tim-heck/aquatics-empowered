@@ -10,6 +10,29 @@ const storiesReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_STORIES':
             return action.payload;
+        case 'ADD_FILTER':
+            for (let i = 0; i < action.payload.length; i++) {
+                state = [...state, action.payload[i]]
+            }
+            return state;
+        default:
+            return state;
+    }
+}
+
+const flaggedStoriesReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_FLAGGED_STORIES':
+            return action.payload;
+        default:
+            return state;
+    }   
+}
+
+const editStoryReducer = (state = {}, action) =>  {
+    switch (action.type) {
+        case 'EDIT_STORY':
+            return action.payload;
         default:
             return state;
     }
@@ -22,4 +45,6 @@ const storiesReducer = (state = [], action) => {
  */
 export default combineReducers({
     storiesReducer,
+    flaggedStoriesReducer,
+    editStoryReducer,
 });

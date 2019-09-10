@@ -1,0 +1,25 @@
+.filter-menu {
+    padding: 0 30px;
+    height: 0px;
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    overflow-y: hidden;
+    width: 100%;
+    background-color: #fff;
+    transition: .5s ease-in-out;
+}
+
+.filter-menu .x {
+    float: right;
+}
+
+.filter-menu .x:hover {
+    cursor: pointer;
+    color: rgba(0,0,0,.4);
+}
+
+.filter-menu .button{
+    margin-top: 10px;
+}

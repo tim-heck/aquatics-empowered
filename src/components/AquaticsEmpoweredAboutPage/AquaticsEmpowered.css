@@ -1,0 +1,48 @@
+.container .external-link {
+    color: #000;
+    margin-bottom: 15px;
+    padding-left: 20px;
+    display: block;
+    text-align: left;
+}
+
+.external-link:hover {
+    color: #5ad2f4;
+}
+
+.container {
+    text-align: center;
+    margin: 0 auto;
+}
+
+img.about-item {
+    width: 100%;
+    max-width: 400px;
+}
+
+.about-item {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.about-text {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+@media all and (min-width: 800px) {
+    .container .about-item {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .about-text {
+        vertical-align: top;
+    }
+
+    .container .external-link {
+        margin-top: 20px;
+    }
+}
