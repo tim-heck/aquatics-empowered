@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Checkbox, Form, Select, Button, Dropdown } from 'semantic-ui-react';
+import { Checkbox, Form, Select, Button } from 'semantic-ui-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './ShareStoryForm.css';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 class ShareStoryForm extends Component {
 
@@ -94,20 +95,39 @@ class ShareStoryForm extends Component {
             text: 'Thank you for sharing your story with us! Click the button below to check it out.',
             type: 'success',
             confirmButtonText: 'Go to Stories'
-        }).then((result)=>{
-            if (result.value){
+        }).then((result) => {
+            if (result.value) {
                 this.props.history.push('/stories');
-            }    
+            }
         });
     }
-            
+
+    getPresignedPUTURL = (event) => {
+        const selectedFile = event.target.files[0];
+        axios.get(`/api/aws/presignedPUTURL/${selectedFile.name}`).then(result =>
+            this.uploadSingleFile(result.data, selectedFile)
+            // axios.put(result.data, selectedFile)
+        ).catch(error => {
+            console.log('error with getting presignedPUTURL', error);
+        });
+    };
+
+    uploadSingleFile = (putURL, file) => {
+        axios.put(putURL, file);
+    }
+
+    getPresignedGETURL = () => {
+        
+    }
+
     render() {
-       
+        console.log(this.state);
         // Creates categories array that populates the select field in the form.
         const categories = []
         this.props.reduxStore.categories.categoriesReducer.map(category => {
-        return categories.push({text: category.category, value: category.id})})
-                       
+            return categories.push({ text: category.category, value: category.id })
+        })
+
         return (
             <div className="form-container">
                 <h3>Share your aquatic therapy story below!</h3>
@@ -140,8 +160,12 @@ class ShareStoryForm extends Component {
                         value={this.state.message}
                         indent
                         onChange={() => this.handleMessageChange()} />
-                    <Form.Input label="Share images of your story?" placeholder="Images go here"
-                        onChange={(event) => this.handleChangeFor('images', event)} />
+                    {/* <Form.Input label="Share images of your story?" placeholder="Images go here"
+                        onChange={(event) => this.handleChangeFor('images', event)} /> */}
+                    <label>Upload an Image:</label>
+                    <input type="file" onChange={this.getPresignedPUTURL} />
+                    {/* <button className="ui button" onClick={this.getPresignedPUTURL}>Upload</button> */}
+                    <br />
                     <a href="http://www.google.com">Picture Terms and Conditions</a>
                     <br />
                     <Checkbox label="I agree to share my images on H2Whoa!" />
