@@ -25,7 +25,7 @@ class DefaultCard extends Component {
                     </Card.Content>
                 </Card>
             </>
-        )
+        );
     }
 }
 

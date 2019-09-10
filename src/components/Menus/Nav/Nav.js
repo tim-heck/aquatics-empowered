@@ -36,8 +36,11 @@ class Nav extends Component {
       <>
         <div className="nav">
           <Link to="/stories">
-            <img className="logo" src="images/aquatic-empowered.png" alt="Aquatics Empowered" />
+            <img className="logo-h2whoa" src="images/h2whoa-logo.png" alt="h2whoa" />
           </Link>
+          <div className="tag-line">
+            <span>Share a Story<br />Take a Story</span>
+          </div>
           <div className="nav-right">
             <NavLink className="nav-link" to="/stories">
               Stories
@@ -69,9 +72,15 @@ class Nav extends Component {
           </>
         )}
         <div className="filter-search-menu">
+          <div className="sponsored-by">
+            <h2>Sponsored By:</h2>
+          </div>
+          <Link to="/aquatics-empowered-about">
+            <img className="logo-aquatics-empowered" src="images/aquatic-empowered.png" alt="h2whoa" />
+          </Link>
           <div className="icon-group">
             <Icon name="tasks" size="big" onClick={this.openFiltersMenu} />
-            <Icon name="search" size="big" onClick={this.openSearch}/>
+            <Icon name="search" size="big" onClick={this.openSearch} />
           </div>
         </div>
         <SearchBar />

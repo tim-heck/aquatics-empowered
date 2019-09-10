@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CarouselProvider, Slide, Slider, Dot } from "pure-react-carousel";
 import { Card, Icon, Image, Button, Header, Modal, Container } from 'semantic-ui-react'
-// import 'semantic-ui-css/semantic.min.css'
 import "pure-react-carousel/dist/react-carousel.es.css";
 
 class StoryCard extends Component {

@@ -9,6 +9,7 @@ class MobileNav extends Component {
     openMobileNav = () => {
         document.getElementById("mobile-nav").style.width = "100%";
         this.closeFiltersMenu();
+        this.closeSearch();
     }
 
     closeMobileNav = () => {
@@ -20,6 +21,25 @@ class MobileNav extends Component {
         this.closeFiltersMenu();
     }
 
+    openFiltersMenu = () => {
+        this.props.dispatch({ type: 'SET_STORIES', payload: [] })
+        document.getElementById("filter-menu").style.height = "100vh";
+        this.closeSearch();
+    }
+
+    closeFiltersMenu = () => {
+        document.getElementById("filter-menu").style.height = "0px";
+    }
+
+    toggleSearch = () => {
+        document.getElementById("search-bar").classList.toggle("display-search");
+        this.closeFiltersMenu();
+    }
+
+    closeSearch = () => {
+        document.getElementById("search-bar").classList.remove("display-search");
+    }
+
     render() {
         return (
             <>
@@ -27,12 +47,20 @@ class MobileNav extends Component {
                     <Icon name="bars" size="big" onClick={this.openMobileNav}/>
                     <div className="right-mobile-header">
                         <Icon name="tasks" size="big" onClick={this.openFiltersMenu} />
-                        <Icon name="search" size="big" onClick={this.openSearch} />
+                        <Icon name="search" size="big" onClick={this.toggleSearch} />
                     </div>
                 </div>
                 <div id="mobile-nav" className="mobile-nav">
-                    <div className="mobile-nav-closebtn">
-                        <Icon name="x" size="big" onClick={this.closeMobileNav} />
+                    <div className="mobile-nav-top">
+                        <Link to="/stories">
+                            <img className="logo-h2whoa" src="images/h2whoa-logo.png" alt="h2whoa" />
+                        </Link>
+                        {/* <div className="tag-line">
+                            <h2>Share a Story. Take a Story.</h2>
+                        </div> */}
+                        <div className="mobile-nav-closebtn">
+                            <Icon name="x" size="big" onClick={this.closeMobileNav} />
+                        </div>
                     </div>
                     <ul>
                         <li>

@@ -1,7 +1,6 @@
 .mobile-header {
     height: 60px;
     background-color: #36599c;
-    /* margin-bottom: 30px; */
 }
 
 .big.icon {
@@ -78,6 +77,29 @@
 .right-mobile-header {
     float: right;
     margin-right: 30px;
+}
+
+.mobile-nav .logo-h2whoa {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 180px;
+    padding: 18px;
+}
+
+.mobile-nav .tag-line {
+    position: relative;
+    padding: 0 16px;
+    font-style: italic;
+    min-width: 300px;
+}
+
+.mobile-nav-top {
+    background-color: #294376;
+}
+
+.display-search {
+    height: 60px;
 }
 
 @media all and (min-width: 820px) {
