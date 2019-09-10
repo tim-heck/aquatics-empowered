@@ -64,7 +64,6 @@ class MobileNav extends Component {
                         </li>
                     </ul>
                 </div>
-                <FilterMenu filterNone={this.getAllStoriesOnClose} close={this.closeFiltersMenu}/>
             </>
         )
     }

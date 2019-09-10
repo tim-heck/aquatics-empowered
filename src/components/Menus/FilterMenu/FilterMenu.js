@@ -21,6 +21,9 @@ class FilterMenu extends Component {
 
     handleChange = (e, propToAdd) => {
         this.setState({
+            // from the event, e, the checked value can be found navigating through
+            // the nativeEvent to find the element being targeted by the event
+            // which happens to be the label and it's sibling is the input (checkbox)
             [propToAdd]: !e.nativeEvent.target.parentElement.children[0].checked
         })
     }
@@ -28,6 +31,15 @@ class FilterMenu extends Component {
     filterStories = () => {
         this.props.dispatch({ type: 'FILTER_STORIES', payload: this.state });
         this.props.close();
+    }
+
+    clearFilters = () => {
+        // grabs each checkbox and stores in an array
+        const checkboxes = document.getElementsByClassName('checkbox');
+        // loops through each checkbox, finds inpput child and changes checked value to false
+        for (let i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].children[0].checked = false;
+        }
     }
 
     render() {
@@ -44,6 +56,7 @@ class FilterMenu extends Component {
                         </Form.Field>
                     )}
                     <Button type='submit' onClick={this.filterStories}>Apply</Button>
+                    <Button onClick={this.clearFilters}>Clear Filters</Button>
                 </Form>
             </>
         )
