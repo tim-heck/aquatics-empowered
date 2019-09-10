@@ -23,14 +23,14 @@ class Nav extends Component {
     this.closeFiltersMenu();
   }
 
-  openSearch = () => {
-    document.getElementById("search-bar").style.height = "60px";
+  toggleSearch = () => {
+    document.getElementById("search-bar").classList.toggle("display-search");
+    this.closeFiltersMenu();
   }
 
   closeSearch = () => {
-    document.getElementById("search-bar").style.height = "0";
+    document.getElementById("search-bar").classList.remove("display-search");
   }
-
   render() {
     return (
       <>
@@ -80,7 +80,7 @@ class Nav extends Component {
           </Link>
           <div className="icon-group">
             <Icon name="tasks" size="big" onClick={this.openFiltersMenu} />
-            <Icon name="search" size="big" onClick={this.openSearch} />
+            <Icon name="search" size="big" onClick={this.toggleSearch} />
           </div>
         </div>
         <SearchBar />

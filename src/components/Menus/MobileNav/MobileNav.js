@@ -81,6 +81,17 @@ class MobileNav extends Component {
                                 target="_blank" rel="noopener noreferrer" onClick={this.closeMobileNav}>Donate</a>
                         </li>
                     </ul>
+                    <div className="mobile-nav-bottom">
+                        <div className="tag-line">
+                            <h2>Share a Story. Take a Story.</h2>
+                        </div>
+                        <div className="sponsored-by">
+                            <h2>Sponsored By:</h2>
+                            <Link to="/aquatics-empowered-about">
+                                <img className="logo-aquatics-empowered" src="images/aquatic-empowered.png" alt="h2whoa" />
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </>
         )
