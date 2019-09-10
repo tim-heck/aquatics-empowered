@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // GET all visible categories 
 router.get('/', (req, res) => {
@@ -15,7 +16,7 @@ router.get('/', (req, res) => {
 });
 
 // GET all hidden categories
-router.get('/hidden', (req, res) => {
+router.get('/hidden', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT * FROM "categories" WHERE "hide_cat" = true;`)
         .then((result) => {
             res.send(result.rows);
@@ -27,7 +28,7 @@ router.get('/hidden', (req, res) => {
 });
 
 // POST route that posts a new category
-router.post('/add',(req, res) => {
+router.post('/add', rejectUnauthenticated, (req, res) => {
     const sqlText = `INSERT INTO "categories" ("category")
     VALUES ($1);`
     const values = [req.body.category];
@@ -41,7 +42,7 @@ router.post('/add',(req, res) => {
 });
 
 // PUT route that changes a category to hidden
-router.put('/:id', (req, res) => {
+router.put('/:id', rejectUnauthenticated, (req, res) => {
     console.log('Updating category to hidden');
     const sqlText = `UPDATE "categories" SET "hide_cat"=$1 WHERE "id"=$2;`
     values = [true, req.params.id]
@@ -55,7 +56,7 @@ router.put('/:id', (req, res) => {
 })
 
 // PUT route that changes a category to visible
-router.put('/unhide/:id', (req, res) => {
+router.put('/unhide/:id', rejectUnauthenticated, (req, res) => {
     console.log('Updating category to visible');
     const sqlText = `UPDATE "categories" SET "hide_cat"=$1 WHERE "id"=$2;`
     values = [false, req.params.id]
@@ -68,7 +69,7 @@ router.put('/unhide/:id', (req, res) => {
         })
 })
 
-router.get('/emails', (req, res) => {
+router.get('/emails', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT "email" FROM "stories"; ;`)
         .then((result) => {
             console.log(result.rows);

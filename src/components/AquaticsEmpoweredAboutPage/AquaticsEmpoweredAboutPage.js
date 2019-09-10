@@ -11,7 +11,7 @@ class AquaticsEmpoweredAboutPage extends Component {
 
             <div className="container">
                 <h2>
-                    <a className="external-link" href="http://aquaticsempowered.org">Aquatics Empowered</a>
+                    <a className="external-link" href="http://aquaticsempowered.org" rel="noopener noreferrer" target="_blank">Aquatics Empowered</a>
                 </h2>
                 <img className="about-item center" src="/images/Troy.jpg" alt="Aquatics Empowered founder Troy Derheim" />
                 <p className="about-item about-text">We’ve been in the pool industry in the Midwest for 27 years. About 12 years ago, we started

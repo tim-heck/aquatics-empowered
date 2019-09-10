@@ -6,7 +6,7 @@ import LandingPageModal from '../../LandingPageModal/LandingPageModal';
 import MobileNav from '../../Menus/MobileNav/MobileNav';
 import DefaultCard from '../DefaultCard/DefaultCard';
 
-import { Card, Icon, Image, Button } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 import '../StoriesPage.css'
 
 

@@ -5,10 +5,11 @@
     z-index: 50;
     top: 0;
     left: 0;
-    overflow-y: hidden;
+    overflow: hidden;
     width: 100%;
     background-color: #fff;
     transition: .5s ease-in-out;
+    margin-top: 20px;
 }
 
 .filter-menu .x {
@@ -20,6 +21,6 @@
     color: rgba(0,0,0,.4);
 }
 
-.filter-menu .ui.button{
+.filter-menu .ui.button {
     margin-top: 10px;
 }
