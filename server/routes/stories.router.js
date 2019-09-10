@@ -150,18 +150,55 @@ router.put('/flag/:id', (req, res) => {
 })
 
 // POST route for adding a story to the app
-router.post('/share', (req, res) => {
-    const sqlText = `INSERT INTO "stories" ("name", "location", "title", "aquatic_therapist", "message", "email", "category_id", "flagged")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`
-    const values = [req.body.name, req.body.location, req.body.title, req.body.aquatic_therapist, req.body.message, req.body.email, req.body.category_id, req.body.flagged];
-    console.log(req.body.message)
-    pool.query(sqlText, values)
-        .then((results) => {
-            res.sendStatus(201);
-        }).catch((error) => {
-            console.log('Error with post', error);
-            res.sendStatus(500);
-        });
+router.post('/share', async (req, res) => {
+    const client = await pool.connect();
+
+    try {
+        const {
+            name,
+            location,
+            title,
+            aquatic_therapist,
+            message,
+            email,
+            category_id,
+            flagged,
+            images
+        } = req.body;
+        await client.query('BEGIN')
+        const storyInsertDetails = await client.query(`
+            INSERT INTO "stories" ("name", "location", "title", "aquatic_therapist", "message", "email", "category_id", "flagged")
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
+            RETURNING ID;`, [name, location, title, aquatic_therapist, message, email, category_id, flagged]);
+        const storyId = storyInsertDetails.rows[0].id;
+
+        await Promise.all(images.map(image => {
+            const insertImageText = `INSERT INTO "images" ("img_link", "story_id", "featured_img") VALUES ($1, $2, $3);`;
+            const insertImageValues = [image.name, storyId, true];
+            return client.query(insertImageText, insertImageValues);
+        }));
+
+        await client.query('COMMIT');
+        res.sendStatus(201);
+    } catch (err) {
+        await client.query('ROLLBACK')
+        console.log('Error POST /api/images', err);
+        res.sendStatus(500);
+    } finally {
+        client.release();
+    }
+
+    // const sqlText = `INSERT INTO "stories" ("name", "location", "title", "aquatic_therapist", "message", "email", "category_id", "flagged")
+    // VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
+    // const values = [req.body.name, req.body.location, req.body.title, req.body.aquatic_therapist, req.body.message, req.body.email, req.body.category_id, req.body.flagged];
+    // console.log(req.body.message)
+    // pool.query(sqlText, values)
+    //     .then((results) => {
+    //         res.sendStatus(201);
+    //     }).catch((error) => {
+    //         console.log('Error with post', error);
+    //         res.sendStatus(500);
+    //     });
 });
 
 // PUT route for adding a story to the app

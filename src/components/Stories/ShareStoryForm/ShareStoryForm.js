@@ -24,7 +24,7 @@ class ShareStoryForm extends Component {
             email: '',
             category_id: 0,
             flagged: false,
-            selectedFile: '',
+            images: [],
         }
     }
 
@@ -81,7 +81,7 @@ class ShareStoryForm extends Component {
         this.props.dispatch({
             type: 'ADD_STORY',
             payload: this.state,
-        })
+        });
         this.setState({
             name: '',
             location: '',
@@ -116,6 +116,12 @@ class ShareStoryForm extends Component {
                 console.log('error with getting presignedPUTURL', error);
             });
         }
+        this.setState({
+            images: [
+                ...this.state.images,
+                {name: event.target.files[0].name}
+            ]
+        })
     };
 
     uploadSingleFile = (putURL, file) => {
@@ -147,7 +153,7 @@ class ShareStoryForm extends Component {
                         <Slider>
                             <Slide tag="a" index={1}>
                                 <Image className="story-image" src={this.state.getUrl}
-                                    alt={this.state.selectedFile.name} />
+                                    alt={this.state.images[0].name} />
                             </Slide>
                         </Slider>
                         <Container textAlign="center">
@@ -210,7 +216,7 @@ class ShareStoryForm extends Component {
                     </label>
                     <input className="file-upload-btn" type="file" id="file-upload" onChange={this.getPresignedPUTURL} />
                     {this.displayImage()}
-                    <p>* By uploading an image you agree to the Terms and Conditions for 
+                    <p>* By uploading an image you agree to the Terms and Conditions for
                         H2Whoa! and Acquatics Empowered to use your images. To view the Terms and Conditions click <a href="#">here</a>.</p>
                     {/* <a href="http://www.google.com">Picture Terms and Conditions</a> */}
                     <Form.Input placeholder="E-mail Address" label="Sign up for our newsletter" width={4}

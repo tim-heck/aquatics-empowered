@@ -70,7 +70,7 @@ function* fetchFlaggedStories() {
 
 /**
  * Sends a DELETE request to /api/stories/:id to delete a story
- * @param {object} action story to be deleted
+ * @param {object} action contains a payload of the story to be deleted
  */
 function* deleteStory(action) {
     try {
