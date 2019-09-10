@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
         FROM stories
         JOIN categories ON stories.category_id = categories.id
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
-        ORDER BY id ASC;`;
+        ORDER BY post_date ASC;`;
     pool.query(sqlText).then(result => {
         res.send(result.rows);
     }).catch(error => {
