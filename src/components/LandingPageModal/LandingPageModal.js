@@ -3,24 +3,46 @@ import { connect } from 'react-redux';
 import { Button, Header, Image, Modal, Icon } from 'semantic-ui-react';
 
 const setCookie = () => {
-    // sets value variable to true to pass as template literal in document.cookie method below
-    let value = true;
-    // let d = new Date();
-        // d = new Date(d.getTime() + 1000*60*60*24)
-    document.cookie = `visited=${value}`;
+    // NOT USED sets value variable to true to pass as template literal in document.cookie method below
+    // let value = true;
+    let d = new Date();
+        d = new Date(d.getTime() + 1000*60*60*24*7)
+    document.cookie = 'visited=true; expires='+d.toGMTString()+';';
     // want to set a timed property for exipiration of cookie here as well, no luck so far...
 
 }
 
 const getCookie = (cookieName) => {
-    // Get name followed by anything except a semicolon
-    const cookieString = RegExp('' + cookieName + '[^;]+').exec(document.cookie);
+    // Get name and all data following the specified cookie
+    const cookieString = RegExp('' + cookieName ).exec(document.cookie);
+    
+    // Get name followed by anything except a semicolon <believe this breaks, doesn't pass info further>
+    // const cookieString = RegExp('' + cookieName + '[^;]+').exec(document.cookie);
     // Return everything after the equal sign, or an empty string if the cookie name not found
 
-    // if we include an expiration for the cookie, does this need to change..?
-    // it feels like it should change...
-
     return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./, '') : '');
+}
+
+
+function getSpecificCookie(cookieName, value) {
+    //Get original cookie string
+    var cookieArray = document.cookie.split(';'),
+        fc,
+        cookieNameRegEx = new RegExp(cookieName + '');
+    //Loop through cookies
+    for (let c = 0; c < cookieArray.length; c++) {
+
+        //If found save to variable and end loop
+        if (cookieNameRegEx.test(cookieArray[c])) {
+            fc = cookieArray[c].trim();
+            if (value) {
+                fc = fc.replace(cookieName + '=', '');
+            }
+            break;
+        }
+
+    }
+    return fc;
 }
 
 class LandingPageModal extends Component {
@@ -33,12 +55,13 @@ class LandingPageModal extends Component {
         // Calls the setCookie function declared above the class component
         setCookie();
 
-        // Calls the getCookie function ' same as above '
-        getCookie();
+        // Calls the getCookie function with the name of our new cookie as parameter
+        getCookie('visited');
         // This gets the session cookie we set up for the user;
         // cookie is used to trigger modal window being hidden while in session
 
-
+        // console.log('cookie info', getSpecificCookie('visited') );
+        
          
     }
 
