@@ -87,9 +87,9 @@ class MobileNav extends Component {
                         </div>
                         <div className="sponsored-by">
                             <h2>Sponsored By:</h2>
-                            <Link to="/aquatics-empowered-about">
+                            <a href="http://aquaticsempowered.org" rel="noopener noreferrer" target="_blank" >
                                 <img className="logo-aquatics-empowered" src="images/aquatic-empowered.png" alt="h2whoa" />
-                            </Link>
+                            </a>
                         </div>
                     </div>
                 </div>

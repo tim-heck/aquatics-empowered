@@ -75,9 +75,9 @@ class Nav extends Component {
           <div className="sponsored-by">
             <h2>Sponsored By:</h2>
           </div>
-          <Link to="/aquatics-empowered-about">
+          <a href="http://aquaticsempowered.org" rel="noopener noreferrer" target="_blank">
             <img className="logo-aquatics-empowered" src="images/aquatic-empowered.png" alt="h2whoa" />
-          </Link>
+          </a>
           <div className="icon-group">
             <Icon name="tasks" size="big" onClick={this.openFiltersMenu} />
             <Icon name="search" size="big" onClick={this.toggleSearch} />
