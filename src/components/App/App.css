@@ -32,3 +32,10 @@ body {
     color: #fff;
 }
 
+a {
+    color: #36599c;
+}
+
+a:hover {
+    color: #ffa969;
+}
