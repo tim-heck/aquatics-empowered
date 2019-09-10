@@ -2,13 +2,50 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Header, Image, Modal, Icon } from 'semantic-ui-react';
 
+const setCookie = () => {
+    // sets value variable to true to pass as template literal in document.cookie method below
+    let value = true;
+    // let d = new Date();
+        // d = new Date(d.getTime() + 1000*60*60*24)
+    document.cookie = `visited=${value}`;
+    // want to set a timed property for exipiration of cookie here as well, no luck so far...
+
+}
+
+const getCookie = (cookieName) => {
+    // Get name followed by anything except a semicolon
+    const cookieString = RegExp('' + cookieName + '[^;]+').exec(document.cookie);
+    // Return everything after the equal sign, or an empty string if the cookie name not found
+
+    // if we include an expiration for the cookie, does this need to change..?
+    // it feels like it should change...
+
+    return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./, '') : '');
+}
+
 class LandingPageModal extends Component {
 
     // THIS COMPONENT NEEDS A SESSION COOKIE INTEGRATED TO 
     // PREVENT MODAL FROM APPEARING AFTER FIRST SESSION
 
+    componentDidMount(){
+
+        // Calls the setCookie function declared above the class component
+        setCookie();
+
+        // Calls the getCookie function ' same as above '
+        getCookie();
+        // This gets the session cookie we set up for the user;
+        // cookie is used to trigger modal window being hidden while in session
+
+
+         
+    }
+
     state = {
         active: true,
+        visited: getCookie( 'visited' ) || false,
+
     }
 
     onCloseModal = () => {
@@ -17,6 +54,7 @@ class LandingPageModal extends Component {
         })
     }
 
+    
     // >UNTESTED< These functions are not used - history.push method routing >UNTESTED<
     // aboutAEButton =()=> {
     //     this.props.history.push('/aquatics-empowered-about')
@@ -27,6 +65,7 @@ class LandingPageModal extends Component {
     // }
 
     render() {
+
         return (
             <>
                 {/* THIS CODE IS BASED ON MODAL WINDOW EXAMPLES FROM SEMANTIC UI DOCS */}
