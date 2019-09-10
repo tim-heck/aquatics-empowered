@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { CarouselProvider, Slide, Slider, Dot } from "pure-react-carousel";
 import { Card, Icon, Image, Button, Header, Modal, Container } from 'semantic-ui-react'
 import "pure-react-carousel/dist/react-carousel.es.css";
+import Swal from 'sweetalert2';
 
 class StoryCard extends Component {
 
@@ -88,6 +89,12 @@ class StoryCard extends Component {
 
     flagStory = (story) => {
         this.props.dispatch({ type: 'FLAG_STORY', payload: story })
+        Swal.fire({
+            title: 'Success',
+            text: 'This story has been flagged for moderation',
+            type: 'success',
+            confirmButtontext: 'Ok'
+        })
     }
 
     render() {

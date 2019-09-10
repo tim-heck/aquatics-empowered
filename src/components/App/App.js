@@ -67,14 +67,14 @@ class App extends Component {
             />
 
 
-            {/* ---------TEMPORARY ADMIN ROUTES BELOW, CHANGE TO PROTECTED LATER------------ */}
-            <Route
+            {/* ---------PROTECTED ADMIN ROUTES BELOW----------- */}
+            <ProtectedRoute
               exact
               path="/admin-categories"
               component={AdminCategoriesPage}
             />
 
-             <Route
+             <ProtectedRoute
              exact
              path = "/admin-flagged-list"
              component = {AdminFlaggedList}

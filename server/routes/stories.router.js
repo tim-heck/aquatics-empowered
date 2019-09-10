@@ -1,6 +1,5 @@
 const express = require('express');
 const pool = require('../modules/pool');
-
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
@@ -23,6 +22,7 @@ router.get('/', (req, res) => {
         res.sendStatus(500);
     })
 })
+
 
 router.get('/filter/:category', (req, res) => {
     console.log('category', req.params.category);
@@ -57,7 +57,9 @@ router.get(`/search`, (req, res) => {
 
     for (let i = 0; i < queryString.length; i++) {
 
-        values.push(`%${queryString[i][1]}%`)
+        if (queryString[i][1] !== '') {
+            values.push(`%${queryString[i][1]}%`)
+        }
 
     }
 
@@ -71,7 +73,7 @@ router.get(`/search`, (req, res) => {
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
         `;
 
-    for (let i = 1; i < queryString.length+1; i++) {
+    for (let i = 1; i < queryString.length + 1; i++) {
         if (i < 2) {
             sqlText += `
                 WHERE categories.category ILIKE $${i} OR
@@ -92,7 +94,7 @@ router.get(`/search`, (req, res) => {
     sqlText += `;`;
 
     console.log(sqlText);
-        
+
 
     pool.query(sqlText, values).then(result => {
         res.send(result.rows);
@@ -162,8 +164,8 @@ router.post('/share', (req, res) => {
         });
 });
 
-// PUT route for adding a story to the app
-router.put('/update/:id', (req, res) => {
+// PUT route for updating a story on the app
+router.put('/update/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `
         UPDATE "stories" 
         SET "name" = $1, "location" = $2, "title" = $3, "aquatic_therapist" = $4, "message" = $5, "email" = $6, "category_id" = $7, "flagged" = false

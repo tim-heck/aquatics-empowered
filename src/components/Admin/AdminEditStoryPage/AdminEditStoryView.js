@@ -5,10 +5,9 @@ import { CarouselProvider, Slide, Slider, Dot } from "pure-react-carousel";
 import 'semantic-ui-css/semantic.min.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import Swal from 'sweetalert2';
 
 class AdminEditStoryView extends Component {
-
-    // Incorporate Sweet Alerts
 
     // Constructor for ReactQuill, needed for Rich Text Editor in form
     constructor(props) {
@@ -114,14 +113,20 @@ class AdminEditStoryView extends Component {
             type: 'DELETE_STORY',
             payload: this.state.id
         })
-        this.history.push('/stories');
+        Swal.fire({
+            title: 'Story Deleted',
+            text: 'Story successfully deleted',
+            type: 'success',
+            confirmButtonText: 'Ok'
+        })
+        this.props.history.push('/stories');
     }
 
     // Button to go back to stories page
     backToStoriesButton = () => {
         // NEED TO INCORPORATE SWEET ALERTS HERE INSTEAD OF WINDOW.CONFIRM FUNCTION
         // window.confirm("Leave without editing story?");
-        console.log('Headed back to the stories!');
+        
         this.props.history.push('/stories');
 
     }
