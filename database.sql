@@ -26,7 +26,7 @@ CREATE TABLE "stories" (
 
 CREATE TABLE "images" (
     "id" SERIAL PRIMARY KEY,
-    "img_link" VARCHAR (100) NOT NULL,
+    "img_link" VARCHAR (2000) NOT NULL,
     "story_id" INT REFERENCES "stories",
     "featured_img" BOOLEAN DEFAULT false
 );

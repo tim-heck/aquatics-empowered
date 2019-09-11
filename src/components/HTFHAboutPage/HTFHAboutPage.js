@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'semantic-ui-react'
 import './HTFH.css'
 
 class HTFHAboutPage extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container htfh-about">
                 <h2>
                     <a className="external-link" href="http://aquaticsempowered.org/hot-tubbing-for-hope/" >Hot Tubbing For Hope</a>
                 </h2>

@@ -11,3 +11,7 @@
 .ui.form .ql-container {
     height: 200px;
 }
+
+input[type="file"] {
+    display: none;
+}

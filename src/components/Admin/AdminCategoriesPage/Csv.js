@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Grid } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
 
 class AdminCategoriesPage extends Component {
-    
     // On component load, call a Saga that gets all e-mails
     componentDidMount () {
         this.props.dispatch({
@@ -13,7 +10,7 @@ class AdminCategoriesPage extends Component {
         }) 
     }
 
-    // This will get e-mails for the csv downloaded file from the database
+    // This will get emails for the csv downloaded file from the database
     handleEmailsClick = () => {
         console.log('clicked download emails')
         this.props.dispatch({
@@ -26,7 +23,6 @@ class AdminCategoriesPage extends Component {
         this.props.store.csv.map((email, i) => {
             emails.push(email)
         });
-        console.log(emails);
         return (
             <>
                 <CSVLink onClick={this.handleEmailsClick} data={this.props.store.csv}>Download Emails</CSVLink> 
@@ -34,7 +30,6 @@ class AdminCategoriesPage extends Component {
         )
     }
 }
-
 
 const mapStateToProps = (store) => ({
     store

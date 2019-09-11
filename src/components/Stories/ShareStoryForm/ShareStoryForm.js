@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Checkbox, Form, Select, Button, Dropdown } from 'semantic-ui-react';
+import { CarouselProvider, Slide, Slider, Dot } from "pure-react-carousel";
+import { Checkbox, Form, Select, Button, Image, Container } from 'semantic-ui-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './ShareStoryForm.css';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 class ShareStoryForm extends Component {
 
@@ -22,6 +24,7 @@ class ShareStoryForm extends Component {
             email: '',
             category_id: 0,
             flagged: false,
+            images: [],
         }
     }
 
@@ -78,7 +81,7 @@ class ShareStoryForm extends Component {
         this.props.dispatch({
             type: 'ADD_STORY',
             payload: this.state,
-        })
+        });
         this.setState({
             name: '',
             location: '',
@@ -94,20 +97,87 @@ class ShareStoryForm extends Component {
             text: 'Thank you for sharing your story with us! Click the button below to check it out.',
             type: 'success',
             confirmButtonText: 'Go to Stories'
-        }).then((result)=>{
-            if (result.value){
+        }).then((result) => {
+            if (result.value) {
                 this.props.history.push('/stories');
-            }    
+            }
         });
     }
-            
+
+    getPresignedPUTURL = (event) => {
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            axios.get(`/api/aws/presignedPUTURL/${selectedFile.name}`).then(result =>
+                this.uploadSingleFile(result.data, selectedFile),
+                // axios.put(result.data, selectedFile)
+                // console.log('successful put'),
+                
+            ).catch(error => {
+                console.log('error with getting presignedPUTURL', error);
+            });
+        }
+        this.setState({
+            images: [
+                ...this.state.images,
+                {name: event.target.files[0].name}
+            ]
+        })
+    };
+
+    uploadSingleFile = async (putURL, file) => {
+        await axios.put(putURL, file);
+        this.getPresignedGETURL(file);
+    }
+
+    getPresignedGETURL = (file) => {
+        axios.get(`/api/aws/presignedGETURL/${file.name}`).then(result => {
+            this.setState({
+                ...this.state,
+                getUrl: result.data
+            })
+        }).catch(error => {
+            console.log('error with getting presignedGETURL', error);
+        });
+    }
+
+    displayImage = () => {
+        if (this.state.getUrl) {
+            // console.log(this.state.getUrl);
+            return (
+                <>
+                    {/* <img className="" src={this.state.getUrl} alt={this.state.selectedFile.name} /> */}
+                    <CarouselProvider
+                        naturalSlideWidth={1}
+                        naturalSlideHeight={1}
+                        totalSlides={1}
+                    >
+                        <Slider>
+                            <Slide tag="a" index={1}>
+                                <Image className="story-image" src={this.state.getUrl}
+                                    alt={this.state.images[0].name} />
+                            </Slide>
+                        </Slider>
+                        <Container textAlign="center">
+                            <Button.Group size="mini">
+                                {[...Array(1).keys()].map(slide => (
+                                    <Button as={Dot} key={slide} icon="circle" slide={slide} />
+                                ))}
+                            </Button.Group>
+                        </Container>
+                    </CarouselProvider>
+                </>
+            );
+        }
+    }
+
     render() {
-       
+        console.log(this.state);
         // Creates categories array that populates the select field in the form.
         const categories = []
         this.props.reduxStore.categories.categoriesReducer.map(category => {
-        return categories.push({text: category.category, value: category.id})})
-                       
+            return categories.push({ text: category.category, value: category.id })
+        })
+
         return (
             <div className="form-container">
                 <h3>Share your aquatic therapy story below!</h3>
@@ -140,13 +210,17 @@ class ShareStoryForm extends Component {
                         value={this.state.message}
                         indent
                         onChange={() => this.handleMessageChange()} />
-                    <Form.Input label="Share images of your story?" placeholder="Images go here"
-                        onChange={(event) => this.handleChangeFor('images', event)} />
-                    <a href="http://www.google.com">Picture Terms and Conditions</a>
-                    <br />
-                    <Checkbox label="I agree to share my images on H2Whoa!" />
-                    <br />
-                    <Form.Input placeholder="E-mail Address" label="Sign up for our newsletter?" width={4}
+                    {/* <Form.Input label="Share images of your story?" placeholder="Images go here"
+                        onChange={(event) => this.handleChangeFor('images', event)} /> */}
+                    <label className="ui button" for="file-upload">
+                        Upload an Image
+                    </label>
+                    <input className="file-upload-btn" type="file" id="file-upload" onChange={this.getPresignedPUTURL} />
+                    {this.displayImage()}
+                    <p>* By uploading an image you agree to the Terms and Conditions for
+                        H2Whoa! and Acquatics Empowered to use your images. To view the Terms and Conditions click <a href="#">here</a>.</p>
+                    {/* <a href="http://www.google.com">Picture Terms and Conditions</a> */}
+                    <Form.Input placeholder="E-mail Address" label="Sign up for our newsletter" width={4}
                         onChange={(event) => this.handleChangeFor('email', event)}
                         value={this.state.email} />
                     <Button primary>

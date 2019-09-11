@@ -12,10 +12,10 @@ class StoryCard extends Component {
         showImages: false
     }
 
-    checkFeaturedImage = (image) => {
-        if (image) {
+    checkFeaturedImage = (url) => {
+        if (url) {
             return (
-                <Image src={image} wrapped ui={false} alt={this.props.story.title} onClick={this.openStoryModal} />
+                <Image src={url} wrapped ui={false} alt={this.props.story.title} onClick={this.openStoryModal} />
             );
         }
     }
@@ -97,7 +97,24 @@ class StoryCard extends Component {
         })
     }
 
+    displayImage = (image, modal) => {
+        if (modal === 'story') {
+            return (
+                <Image className="story-image" src={image.getUrl} onClick={this.openImagesModal} />
+            );
+        } else if (modal === 'image') {
+            return (
+                <Image src={image.getUrl} onClick={this.viewImages} />
+            );
+        } else {
+            return (
+                <></>
+            );
+        }
+    }
+
     render() {
+        console.log(this.props.reduxStore.images.imagesReducer);
         return (
             <>
                 <Modal className="story-modal" open={this.state.showStory} centered={false}>
@@ -112,7 +129,7 @@ class StoryCard extends Component {
                         <Slider>
                             {this.props.reduxStore.images.imagesReducer.map((image, i) =>
                                 <Slide key={image.id} tag="a" index={i}>
-                                    <Image className="story-image" src={image.img_link} onClick={this.openImagesModal} />
+                                    {this.displayImage(image, 'story')}
                                 </Slide>
                             )}
                         </Slider>
@@ -150,7 +167,7 @@ class StoryCard extends Component {
                         <Slider>
                             {this.props.reduxStore.images.imagesReducer.map((image, i) =>
                                 <Slide key={image.id} tag="a" index={i}>
-                                    <Image src={image.img_link} onClick={this.viewImages} />
+                                    {this.displayImage(image, 'image')}
                                 </Slide>
                             )}
                         </Slider>
@@ -164,7 +181,7 @@ class StoryCard extends Component {
                     </CarouselProvider>
                 </Modal>
                 <Card>
-                    {this.checkFeaturedImage(this.props.story.img_link)}
+                        {this.checkFeaturedImage(this.props.story.getUrl)}
                     <Card.Content>
                         <Card.Header>{this.props.story.title}<Icon name="flag" onClick={() => this.flagStory(this.props.story)} /></Card.Header>
                         <Card.Meta>

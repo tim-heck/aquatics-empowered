@@ -12,7 +12,7 @@ export default function* imagesSaga() {
 function* fetchImages(action) {
     try {
         const response = yield axios.get(`/api/images/${action.payload}`);
-        // Stores all data received in the stories reducer
+        // Stores all data received in the images reducer
         yield put({ type: 'SET_IMAGES', payload: response.data });
     } catch (error) {
         console.log('Error with getting stories', error);
