@@ -13,7 +13,6 @@ class StoryCard extends Component {
     }
 
     checkFeaturedImage = (url) => {
-        console.log(this.props.reduxStore.images.imagesReducer)
         if (url) {
             return (
                 <Image src={url} wrapped ui={false} alt={this.props.story.title} onClick={this.openStoryModal} />
