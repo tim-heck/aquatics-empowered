@@ -5,12 +5,15 @@ import 'semantic-ui-css/semantic.min.css';
 import { CSVLink, CSVDownload } from "react-csv";
 
 class AdminCategoriesPage extends Component {
+    
+    // On component load, call a Saga that gets all e-mails
     componentDidMount () {
         this.props.dispatch({
             type: 'GET_EMAILS'
         }) 
     }
-// This will get emails for the csv downloaded file from the database
+
+    // This will get e-mails for the csv downloaded file from the database
     handleEmailsClick = () => {
         console.log('clicked download emails')
         this.props.dispatch({
@@ -19,14 +22,11 @@ class AdminCategoriesPage extends Component {
     }
 
     render() {
-     
         let emails = []
-
         this.props.store.csv.map((email, i) => {
             emails.push(email)
         });
         console.log(emails);
-
         return (
             <>
                 <CSVLink onClick={this.handleEmailsClick} data={this.props.store.csv}>Download Emails</CSVLink> 

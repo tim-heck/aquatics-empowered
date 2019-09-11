@@ -30,10 +30,11 @@ class AdminEditStoryView extends Component {
         }
     }
 
-    // Needed for Rich Text Editor
+    // On component load, do the following things:
     componentDidMount() {
+        // Needed for Rich Text Editor
         this.attachQuillRefs();
-        console.log('editStory:', this.props.reduxStore.stories.editStoryReducer)
+        // Sets state to these values if there are objects in reducer
         if (Object.entries(this.props.reduxStore.stories.editStoryReducer).length > 0) {
             this.setState({
                 id: this.props.reduxStore.stories.editStoryReducer.id,
@@ -48,13 +49,13 @@ class AdminEditStoryView extends Component {
                 flagged: this.props.reduxStore.stories.editStoryReducer.flagged,
                 showImages: false,
             });
-
+            // Sends story id to a Saga which is used to grab the corresponding story's image
             this.props.dispatch({
                 type: 'FETCH_IMAGES',
                 payload: this.props.reduxStore.stories.editStoryReducer.id
             })
         }
-
+        // Calls Saga that GETS all visible categories
         this.props.dispatch({ type: 'FETCH_VISIBLE_CATEGORIES' });
 
     }
@@ -70,6 +71,7 @@ class AdminEditStoryView extends Component {
         this.quillRef = this.reactQuillRef.getEditor();
     }
 
+    // Sets state to new values in form fields
     handleChangeFor = (propertyToChange, event) => {
         this.setState({
             ...this.state,
@@ -96,6 +98,10 @@ class AdminEditStoryView extends Component {
         })
     }
 
+    // When user clicks update button, sets the state with the updated information to a Saga 
+    // that runs PUT route, updating the story's information.
+    // If the story was flagged, then load the AdminFlaggedList component
+    // else, load the Stories component
     updateStory = (checkRedirect) => {
         this.props.dispatch({ type: 'UPDATE_STORY', payload: this.state });
         if (checkRedirect === 'flagged') {
@@ -106,13 +112,15 @@ class AdminEditStoryView extends Component {
 
     }
 
+    // When user clicks delete story, sends the story id to a Saga
+    // that runs a DELETE route, deleting the story
+    // Then load Stories component
     handleStoryDelete = (event) => {
-        // NEED TO INCORPORATE SWEET ALERTS HERE INSTEAD OF WINDOW.CONFIRM FUNCTION
-        // window.confirm("Are you sure you wish to delete this story completely? This action can't be undone.")
         this.props.dispatch({
             type: 'DELETE_STORY',
             payload: this.state.id
         })
+        // Sweet Alert popup
         Swal.fire({
             title: 'Story Deleted',
             text: 'Story successfully deleted',
@@ -124,11 +132,7 @@ class AdminEditStoryView extends Component {
 
     // Button to go back to stories page
     backToStoriesButton = () => {
-        // NEED TO INCORPORATE SWEET ALERTS HERE INSTEAD OF WINDOW.CONFIRM FUNCTION
-        // window.confirm("Leave without editing story?");
-        
         this.props.history.push('/stories');
-
     }
 
     // Button to go back to Flagged Post list page
@@ -137,10 +141,10 @@ class AdminEditStoryView extends Component {
         this.props.history.push('/admin-flagged-list');
     }
 
+    // Conditional Render of 'update flagged post' edit story page
+    // Admin can update the content of a selected story  
+    // AND unflag or delete the post entirely
     checkView = () => {
-        // Conditional Render of 'update flagged post' edit story page
-        // Admin can update the content of a selected story  
-        // AND unflag or delete the post entirely
         if (this.state.flagged) {
             return (
                 <Button basic onClick={this.backToFlaggedPostsButton}>
@@ -156,6 +160,9 @@ class AdminEditStoryView extends Component {
         }
     }
 
+    // Conditional Render of Update and Unflag button
+    // Button that renders is based on whether or not objects are in reducer and
+    // whether or not flagged property in state is true
     renderUpdateButton = () => {
         if (this.state.flagged) {
             if (Object.entries(this.props.reduxStore.stories.editStoryReducer).length > 0) {
@@ -207,7 +214,6 @@ class AdminEditStoryView extends Component {
     render() {
         // This is used in the category select in the form below
         const categories = [];
-
         this.props.reduxStore.categories.categoriesReducer.map(item =>
             categories.push({ text: item.category, value: item.id })
         );
@@ -268,10 +274,6 @@ class AdminEditStoryView extends Component {
                             </Button.Group>
                         </Container>
                     </CarouselProvider>
-
-                    {/* <Form.Input label="Edit Images" placeholder="Images go here"
-                        onChange={(event) => this.handleChangeFor('images', event)} /> */}
-                    {/* <a href="http://www.google.com">Picture Terms and Conditions</a> */}
                     <br />
                     <h4>Email:{this.state.email}</h4>
                     {this.renderUpdateButton()}

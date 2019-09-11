@@ -7,10 +7,12 @@ import './AdminPages.css';
 
 class AdminCategoriesPage extends Component {
 
+    // Declares an initial state with an empty category property
     state = {
         category: '',
     }
 
+    // On component load, call Sagas that get both Hidden and Visible categories
     componentDidMount = () => {
         this.props.dispatch({
             type: 'FETCH_HIDDEN_CATEGORIES'
@@ -20,6 +22,9 @@ class AdminCategoriesPage extends Component {
         })
     }
 
+    // When user clicks the add category button, dispatch state to a Saga that
+    // POSTS the new category to the database
+    // then reset the category property in state
     handleAddClick = () => {
         console.log('clicked add')
         this.props.dispatch({
@@ -31,16 +36,20 @@ class AdminCategoriesPage extends Component {
         })
     }
 
+    // Sets state when user inputs text into form field
     handleChange = (event) => {
         this.setState({
             category: event.target.value,
         })
     }
 
+    // When user clicks flagged button, load the AdminFlaggedList component page
     handleFlaggedClick = (event) => {
         this.props.history.push('/admin-flagged-list')
     }
 
+    // When user clicks hide button next to a category, send category id to a Saga that
+    // runs a PUT route, updating the category from Visible to Hidden
     handleHideClick = (category) => {
         this.props.dispatch({
             type: 'HIDE_CATEGORY',
@@ -48,6 +57,8 @@ class AdminCategoriesPage extends Component {
         })
     }
 
+    // When user clicks unhide button next to a category, send category id to a Saga that
+    // run a PUT route, updating the category from Hidden to Visible
     handleUnhideClick = (category) => {
         console.log(category)
         this.props.dispatch({
