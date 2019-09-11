@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import 'semantic-ui-css/semantic.min.css';
 import { CSVLink } from "react-csv";
 
 class AdminCategoriesPage extends Component {
+
     componentDidMount () {
         this.props.dispatch({
             type: 'GET_EMAILS'
         }) 
     }
-// This will get emails for the csv downloaded file from the database
+
+    // This will get emails for the csv downloaded file from the database
     handleEmailsClick = () => {
         console.log('clicked download emails')
         this.props.dispatch({
@@ -25,7 +26,6 @@ class AdminCategoriesPage extends Component {
         )
     }
 }
-
 
 const mapStateToProps = (store) => ({
     store

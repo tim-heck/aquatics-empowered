@@ -18,14 +18,13 @@ router.get('/', (req, res) => {
     pool.query(sqlText).then(result => {
         res.send(result.rows);
     }).catch(error => {
-        console.log(error);
+        console.log('error when getting stories', error);
         res.sendStatus(500);
     })
 })
 
 
 router.get('/filter/:category', (req, res) => {
-    console.log('category', req.params.category);
     const sqlText = `
         SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
         stories.message, stories.email, categories.category, images.img_link
@@ -36,12 +35,11 @@ router.get('/filter/:category', (req, res) => {
     // snippet got capitalizing the first letter of each word found here
     // https://stackoverflow.com/questions/4878756/how-to-capitalize-first-letter-of-each-word-like-a-2-word-city
     const categoryToCheck = req.params.category.replace(/_/g, ' ').split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
-    console.log(categoryToCheck);
     pool.query(sqlText, [categoryToCheck]).then(result => {
         console.log(result.rows);
         res.send(result.rows);
     }).catch(error => {
-        console.log(error);
+        console.log('error when getting category filters', error);
         res.sendStatus(500);
     })
 })
@@ -52,18 +50,13 @@ router.get('/filter/:category', (req, res) => {
 router.get(`/search`, (req, res) => {
 
     let values = [];
-
     let queryString = Object.entries(req.query);
 
     for (let i = 0; i < queryString.length; i++) {
-
         if (queryString[i][1] !== '') {
             values.push(`%${queryString[i][1]}%`)
         }
-
     }
-
-    console.log(values);
 
     let sqlText = `
         SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
@@ -92,9 +85,6 @@ router.get(`/search`, (req, res) => {
     }
 
     sqlText += `;`;
-
-    console.log(sqlText);
-
 
     pool.query(sqlText, values).then(result => {
         res.send(result.rows);
@@ -187,18 +177,6 @@ router.post('/share', async (req, res) => {
     } finally {
         client.release();
     }
-
-    // const sqlText = `INSERT INTO "stories" ("name", "location", "title", "aquatic_therapist", "message", "email", "category_id", "flagged")
-    // VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
-    // const values = [req.body.name, req.body.location, req.body.title, req.body.aquatic_therapist, req.body.message, req.body.email, req.body.category_id, req.body.flagged];
-    // console.log(req.body.message)
-    // pool.query(sqlText, values)
-    //     .then((results) => {
-    //         res.sendStatus(201);
-    //     }).catch((error) => {
-    //         console.log('Error with post', error);
-    //         res.sendStatus(500);
-    //     });
 });
 
 // PUT route for updating a story on the app
