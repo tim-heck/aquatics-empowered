@@ -12,16 +12,24 @@ class StoryCard extends Component {
         showImages: false
     }
 
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_IMAGES', payload: this.props.story.id });
+    }
+
     checkFeaturedImage = (image) => {
-        if (image) {
+        console.log(this.props.reduxStore.images.imagesReducer);
+        if (image.featured_img) {
             return (
-                <Image src={image} wrapped ui={false} alt={this.props.story.title} onClick={this.openStoryModal} />
+                <Image key={image.id} src={image.getUrl} wrapped ui={false} alt={this.props.story.title} onClick={this.openStoryModal} />
+            );
+        } else {
+            return (
+                <></>
             );
         }
     }
 
     openStoryModal = () => {
-        this.props.dispatch({ type: 'FETCH_IMAGES', payload: this.props.story.id });
         this.setState({
             showStory: true
         })
@@ -97,7 +105,24 @@ class StoryCard extends Component {
         })
     }
 
+    displayImage = (image, modal) => {
+        if (modal === 'story') {
+            return (
+                <Image className="story-image" src={image.getUrl} onClick={this.openImagesModal} />
+            );
+        } else if (modal === 'image') {
+            return (
+                <Image src={image.getUrl} onClick={this.viewImages} />
+            );
+        } else {
+            return (
+                <></>
+            );
+        }
+    }
+
     render() {
+        console.log(this.state);
         return (
             <>
                 <Modal className="story-modal" open={this.state.showStory} centered={false}>
@@ -112,7 +137,7 @@ class StoryCard extends Component {
                         <Slider>
                             {this.props.reduxStore.images.imagesReducer.map((image, i) =>
                                 <Slide key={image.id} tag="a" index={i}>
-                                    <Image className="story-image" src={image.img_link} onClick={this.openImagesModal} />
+                                    {this.displayImage(image, 'story')}
                                 </Slide>
                             )}
                         </Slider>
@@ -150,7 +175,7 @@ class StoryCard extends Component {
                         <Slider>
                             {this.props.reduxStore.images.imagesReducer.map((image, i) =>
                                 <Slide key={image.id} tag="a" index={i}>
-                                    <Image src={image.img_link} onClick={this.viewImages} />
+                                    {this.displayImage(image, 'image')}
                                 </Slide>
                             )}
                         </Slider>
@@ -164,7 +189,9 @@ class StoryCard extends Component {
                     </CarouselProvider>
                 </Modal>
                 <Card>
-                    {this.checkFeaturedImage(this.props.story.img_link)}
+                    {this.props.reduxStore.images.imagesReducer.map(image =>
+                        this.checkFeaturedImage(image)
+                    )}
                     <Card.Content>
                         <Card.Header>{this.props.story.title}<Icon name="flag" onClick={() => this.flagStory(this.props.story)} /></Card.Header>
                         <Card.Meta>
