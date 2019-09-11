@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { CSVLink } from "react-csv";
 
 class AdminCategoriesPage extends Component {
-
+    // On component load, call a Saga that gets all e-mails
     componentDidMount () {
         this.props.dispatch({
             type: 'GET_EMAILS'
@@ -19,6 +19,10 @@ class AdminCategoriesPage extends Component {
     }
 
     render() {
+        let emails = []
+        this.props.store.csv.map((email, i) => {
+            emails.push(email)
+        });
         return (
             <>
                 <CSVLink onClick={this.handleEmailsClick} data={this.props.store.csv}>Download Emails</CSVLink> 
