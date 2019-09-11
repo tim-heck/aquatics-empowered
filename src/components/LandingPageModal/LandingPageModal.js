@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Button, Header, Image, Modal, Icon } from 'semantic-ui-react';
 
 const setCookie = () => {
-    // NOT USED sets value variable to true to pass as template literal in document.cookie method below
-    // let value = true;
+   // this d variable is setting the expiration of the cookie created
+   // the current cookie lifespan is set to 7 days
     let d = new Date();
         d = new Date(d.getTime() + 1000*60*60*24*7)
     document.cookie = 'visited=true; expires='+d.toGMTString()+';';
-    // want to set a timed property for exipiration of cookie here as well, no luck so far...
+    
 
 }
 
@@ -23,32 +23,7 @@ const getCookie = (cookieName) => {
     return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./, '') : '');
 }
 
-
-function getSpecificCookie(cookieName, value) {
-    //Get original cookie string
-    var cookieArray = document.cookie.split(';'),
-        fc,
-        cookieNameRegEx = new RegExp(cookieName + '');
-    //Loop through cookies
-    for (let c = 0; c < cookieArray.length; c++) {
-
-        //If found save to variable and end loop
-        if (cookieNameRegEx.test(cookieArray[c])) {
-            fc = cookieArray[c].trim();
-            if (value) {
-                fc = fc.replace(cookieName + '=', '');
-            }
-            break;
-        }
-
-    }
-    return fc;
-}
-
 class LandingPageModal extends Component {
-
-    // THIS COMPONENT NEEDS A SESSION COOKIE INTEGRATED TO 
-    // PREVENT MODAL FROM APPEARING AFTER FIRST SESSION
 
     componentDidMount(){
 
@@ -77,16 +52,6 @@ class LandingPageModal extends Component {
         })
     }
 
-    
-    // >UNTESTED< These functions are not used - history.push method routing >UNTESTED<
-    // aboutAEButton =()=> {
-    //     this.props.history.push('/aquatics-empowered-about')
-    // }
-
-    // aboutHFHButton = () => {
-    //     this.props.history.push('/hot-tubbing-for-hope-about')
-    // }
-
     render() {
 
         return (
@@ -113,11 +78,6 @@ class LandingPageModal extends Component {
                         <Button primary onClick={this.onCloseModal}>
                             Head To Stories <Icon name="chevron right" />
                         </Button>
-                        {/* >UNTESTED< THE CODE BELOW IS A BEGINNING TO ADD HISTORY.PUSH METHOD ROUTING TO ABOUT PAGES >UNTESTED< */}
-                        {/* <Button emphasis="negative" onClick={this.aboutAEButton}
-                                >Learn about Aquatics Empowered</Button>
-                        <Button emphasis="negative" onClick={this.aboutHFHButton}
-                                >Learn about Hot Tubbing For Hope</Button> */}
                     </Modal.Actions>
                 </Modal>
 
