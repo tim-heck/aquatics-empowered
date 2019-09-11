@@ -12,24 +12,17 @@ class StoryCard extends Component {
         showImages: false
     }
 
-    componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_IMAGES', payload: this.props.story.id });
-    }
-
-    checkFeaturedImage = (image) => {
-        console.log(this.props.reduxStore.images.imagesReducer);
-        if (image.featured_img) {
+    checkFeaturedImage = (url) => {
+        console.log(this.props.reduxStore.images.imagesReducer)
+        if (url) {
             return (
-                <Image key={image.id} src={image.getUrl} wrapped ui={false} alt={this.props.story.title} onClick={this.openStoryModal} />
-            );
-        } else {
-            return (
-                <></>
+                <Image src={url} wrapped ui={false} alt={this.props.story.title} onClick={this.openStoryModal} />
             );
         }
     }
 
     openStoryModal = () => {
+        this.props.dispatch({ type: 'FETCH_IMAGES', payload: this.props.story.id });
         this.setState({
             showStory: true
         })
@@ -122,7 +115,7 @@ class StoryCard extends Component {
     }
 
     render() {
-        console.log(this.state);
+        console.log(this.props.reduxStore.images.imagesReducer);
         return (
             <>
                 <Modal className="story-modal" open={this.state.showStory} centered={false}>
@@ -189,9 +182,7 @@ class StoryCard extends Component {
                     </CarouselProvider>
                 </Modal>
                 <Card>
-                    {this.props.reduxStore.images.imagesReducer.map(image =>
-                        this.checkFeaturedImage(image)
-                    )}
+                        {this.checkFeaturedImage(this.props.story.getUrl)}
                     <Card.Content>
                         <Card.Header>{this.props.story.title}<Icon name="flag" onClick={() => this.flagStory(this.props.story)} /></Card.Header>
                         <Card.Meta>

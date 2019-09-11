@@ -1,13 +1,14 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const aws = require('../modules/aws');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 /**
  * GET route for all stoies with the category and featured image (if there is one)
  * Featured image will be NULL if one does not exist
  */
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const sqlText = `
         SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
         stories.message, stories.email, stories.category_id, stories.flagged, categories.category, images.img_link
@@ -15,12 +16,24 @@ router.get('/', (req, res) => {
         JOIN categories ON stories.category_id = categories.id
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
         ORDER BY post_date ASC;`;
-    pool.query(sqlText).then(result => {
-        res.send(result.rows);
-    }).catch(error => {
+    try {
+        const response = await pool.query(sqlText);
+        for (let i = 0; i < response.rows.length; i++) {
+            if (response.rows[i].img_link) {
+                response.rows[i].getUrl = aws.getPresignedGetUrl(response.rows[i].img_link);
+            }
+        }
+        res.send(response.rows);
+    } catch (error) {
         console.log('error when getting stories', error);
-        res.sendStatus(500);
-    })
+    }
+    
+    // pool.query(sqlText).then(result => {
+    //     res.send(result.rows);
+    // }).catch(error => {
+    //     console.log('error when getting stories', error);
+    //     res.sendStatus(500);
+    // })
 })
 
 
