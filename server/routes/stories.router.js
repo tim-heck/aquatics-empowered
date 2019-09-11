@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
     })
 })
 
-
+// GET route for getting filtered stories
 router.get('/filter/:category', (req, res) => {
     console.log('category', req.params.category);
     const sqlText = `
@@ -48,22 +48,22 @@ router.get('/filter/:category', (req, res) => {
 
 
 // GET route for search function
-
 router.get(`/search`, (req, res) => {
-
+// establish an array to store values to be used to query database    
     let values = [];
-
+// declare queryString variable by using Object.entries() method to mutate req.query to array of arrays    
     let queryString = Object.entries(req.query);
-
+// loop through array of arrays and find values at index of queryString words 
+// interior array holds key:value pair array entries, which will be used to search database
     for (let i = 0; i < queryString.length; i++) {
-
         if (queryString[i][1] !== '') {
             values.push(`%${queryString[i][1]}%`)
         }
-
     }
+    // console.log(values);
 
-    console.log(values);
+// First we establish base sql query here; 
+// this which will be appended onto for each key:value pair (q1: entered search keyword)
 
     let sqlText = `
         SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
@@ -72,7 +72,8 @@ router.get(`/search`, (req, res) => {
         JOIN categories ON stories.category_id = categories.id
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
         `;
-
+// Loop through the queryString (entered search words on client-side)
+// concat. on additional sql query text for each word searched (separated by spaces, breaking at a space without proceeding character)
     for (let i = 1; i < queryString.length + 1; i++) {
         if (i < 2) {
             sqlText += `
@@ -90,11 +91,9 @@ router.get(`/search`, (req, res) => {
                 stories.message ILIKE $${i}`;
         }
     }
+// once the loop hits else clause and breaks, we concat. on the ending semi-colon
 
     sqlText += `;`;
-
-    console.log(sqlText);
-
 
     pool.query(sqlText, values).then(result => {
         res.send(result.rows);
@@ -164,7 +163,7 @@ router.post('/share', (req, res) => {
         });
 });
 
-// PUT route for updating a story on the app
+// PUT route for updating a story on the app. Targets story by its id.
 router.put('/update/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `
         UPDATE "stories" 
