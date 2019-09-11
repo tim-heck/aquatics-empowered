@@ -23,21 +23,24 @@ class Nav extends Component {
     this.closeFiltersMenu();
   }
 
-  openSearch = () => {
-    document.getElementById("search-bar").style.height = "60px";
+  toggleSearch = () => {
+    document.getElementById("search-bar").classList.toggle("display-search");
+    this.closeFiltersMenu();
   }
 
   closeSearch = () => {
-    document.getElementById("search-bar").style.height = "0";
+    document.getElementById("search-bar").classList.remove("display-search");
   }
-
   render() {
     return (
       <>
         <div className="nav">
           <Link to="/stories">
-            <img className="logo" src="images/aquatic-empowered.png" alt="Aquatics Empowered" />
+            <img className="logo-h2whoa" src="images/h2whoa-logo.png" alt="h2whoa" />
           </Link>
+          <div className="tag-line">
+            <span>Share a Story<br />Take a Story</span>
+          </div>
           <div className="nav-right">
             <NavLink className="nav-link" to="/stories">
               Stories
@@ -69,9 +72,15 @@ class Nav extends Component {
           </>
         )}
         <div className="filter-search-menu">
+          <div className="sponsored-by">
+            <h2>Sponsored By:</h2>
+          </div>
+          <a href="http://aquaticsempowered.org" rel="noopener noreferrer" target="_blank">
+            <img className="logo-aquatics-empowered" src="images/aquatic-empowered.png" alt="h2whoa" />
+          </a>
           <div className="icon-group">
             <Icon name="tasks" size="big" onClick={this.openFiltersMenu} />
-            <Icon name="search" size="big" onClick={this.openSearch}/>
+            <Icon name="search" size="big" onClick={this.toggleSearch} />
           </div>
         </div>
         <SearchBar />

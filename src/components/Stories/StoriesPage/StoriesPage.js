@@ -9,12 +9,39 @@ import DefaultCard from '../DefaultCard/DefaultCard';
 import { Card } from 'semantic-ui-react'
 import '../StoriesPage.css'
 
+// this function is from ::> https://stackoverflow.com/questions/28306186/how-to-call-to-a-specific-cookie-in-js
+// function loops through cookies and parses the loop
+function getSpecificCookie(cookieName, value) {
+    //Get original cookie string
+    var cookieArray = document.cookie.split(';'),
+        fc,
+        cookieNameRegEx = new RegExp(cookieName + '');
+    //Loop through cookies
+    for (let c = 0; c < cookieArray.length; c++) {
+
+        //If found save to variable and end loop
+        if (cookieNameRegEx.test( cookieArray[c] ) ) {
+            fc = cookieArray[c].trim();
+            if (value) {
+                fc = fc.replace(cookieName + '=', '');
+            }
+            break;
+        }
+
+    }
+    return fc;
+}
+
+let cookie = getSpecificCookie('visited');
 
 class StoriesPage extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_STORIES' });
         this.props.dispatch({ type: 'FETCH_USER' });
+
+        console.log('the cookie i want is visited.. variable cookie is set to this:', cookie );
+     
     }
 
     directToEditPage = () => {
@@ -25,10 +52,17 @@ class StoriesPage extends Component {
         this.props.history.push('/share');
     }
 
+    checkVisited = () => {
+        if ( cookie !== 'visited=true') {
+            return <LandingPageModal />
+        }
+    }
+
     render() {
         return (
             <>
                 {/* <LandingPageModal /> */}
+                {this.checkVisited()}
                 {/* <MobileNav /> */}
                 <Card.Group centered>
                     <DefaultCard directToStoryForm={this.directToStoryForm} />

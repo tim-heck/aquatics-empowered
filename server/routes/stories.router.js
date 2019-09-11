@@ -1,6 +1,5 @@
 const express = require('express');
 const pool = require('../modules/pool');
-
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
@@ -15,7 +14,7 @@ router.get('/', (req, res) => {
         FROM stories
         JOIN categories ON stories.category_id = categories.id
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
-        ORDER BY id ASC;`;
+        ORDER BY post_date ASC;`;
     pool.query(sqlText).then(result => {
         res.send(result.rows);
     }).catch(error => {
@@ -23,6 +22,7 @@ router.get('/', (req, res) => {
         res.sendStatus(500);
     })
 })
+
 
 router.get('/filter/:category', (req, res) => {
     console.log('category', req.params.category);
@@ -201,8 +201,8 @@ router.post('/share', async (req, res) => {
     //     });
 });
 
-// PUT route for adding a story to the app
-router.put('/update/:id', (req, res) => {
+// PUT route for updating a story on the app
+router.put('/update/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `
         UPDATE "stories" 
         SET "name" = $1, "location" = $2, "title" = $3, "aquatic_therapist" = $4, "message" = $5, "email" = $6, "category_id" = $7, "flagged" = false

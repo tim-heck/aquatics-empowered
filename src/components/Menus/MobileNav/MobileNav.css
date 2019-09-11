@@ -1,7 +1,6 @@
 .mobile-header {
     height: 60px;
     background-color: #36599c;
-    /* margin-bottom: 30px; */
 }
 
 .big.icon {
@@ -43,6 +42,7 @@
 .mobile-nav ul li {
     padding: 16px;
 }
+
 .mobile-nav ul li:hover {
     background-color: #294376;
     cursor: pointer;
@@ -68,7 +68,7 @@
 
 .mobile-nav-closebtn:hover {
     cursor: pointer;
-    color: rgba(255,255,255,.4);
+    color: rgba(255, 255, 255, .4);
 }
 
 .donate {
@@ -80,7 +80,44 @@
     margin-right: 30px;
 }
 
-@media all and (min-width: 820px) {
+.mobile-nav .logo-h2whoa {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 180px;
+    padding: 18px;
+}
+
+.mobile-nav .tag-line {
+    position: relative;
+    padding: 0 16px;
+    font-style: italic;
+    min-width: 320px;
+    text-align: center;
+    width: 100%;
+}
+
+.mobile-nav .sponsored-by {
+    display: block;
+    margin-top: 30px;
+}
+
+.mobile-nav-top {
+    background-color: #294376;
+}
+
+.mobile-nav-bottom {
+    width: 100%;
+    min-width: 320px;
+    margin: 50px auto 0;
+    max-width: 320px;
+}
+
+.display-search {
+    height: 60px;
+}
+
+@media all and (min-width: 992px) {
     .mobile-header {
         display: none;
     }
