@@ -12,6 +12,7 @@ class Nav extends Component {
   openFiltersMenu = () => {
     this.props.dispatch({ type: 'SET_STORIES', payload: [] })
     document.getElementById("filter-menu").style.height = "100vh";
+    this.closeSearch();
   }
 
   closeFiltersMenu = () => {

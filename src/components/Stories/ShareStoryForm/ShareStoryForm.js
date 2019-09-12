@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CarouselProvider, Slide, Slider, Dot } from "pure-react-carousel";
-import { Checkbox, Form, Select, Button, Image, Container } from 'semantic-ui-react';
+import { Form, Select, Button, Image, Container } from 'semantic-ui-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './ShareStoryForm.css';
@@ -170,8 +170,20 @@ class ShareStoryForm extends Component {
         }
     }
 
+    fillDummyData = () => {
+        this.setState({
+            name: 'Charles Anderson',
+            location: 'Saint Paul, MN',
+            title: 'Rufus The Dog',
+            aquatic_therapist: 'Vonni Goetting',
+            message: 'Our sweet Aussie Rufus was in terrible shape. He tore both CCL’s in the same year. He lost almost all his independence – unable to move from lying to standing position, walk up stairs, walk independently. We bought a sling to support his back end and thought he would never be independently ambulatory again. Rufus and our family were heartbroken. Our Vet recommended Vonni. After a few sessions we saw improvement – after a couple months Rufus could stand up, climb stairs and go for short walks without help. Now Rufus can go for long walks and his energy level is pre-injury. I can’t begin to express how grateful and happy we are.',
+            email: 'charles@anderson.com',
+            category_id: 0,
+            flagged: false,
+        });
+    }
+
     render() {
-        console.log(this.state);
         // Creates categories array that populates the select field in the form.
         const categories = []
         this.props.reduxStore.categories.categoriesReducer.map(category => {
@@ -180,7 +192,7 @@ class ShareStoryForm extends Component {
 
         return (
             <div className="form-container">
-                <h3>Share your aquatic therapy story below!</h3>
+                <h3 onClick={this.fillDummyData}>Share your aquatic therapy story below!</h3>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group>
                         <Form.Input label="What's your name?" required placeholder="Name" width={4}
@@ -212,7 +224,7 @@ class ShareStoryForm extends Component {
                         onChange={() => this.handleMessageChange()} />
                     {/* <Form.Input label="Share images of your story?" placeholder="Images go here"
                         onChange={(event) => this.handleChangeFor('images', event)} /> */}
-                    <label className="ui button" for="file-upload">
+                    <label className="ui button" htmlFor="file-upload">
                         Upload an Image
                     </label>
                     <input className="file-upload-btn" type="file" id="file-upload" onChange={this.getPresignedPUTURL} />
