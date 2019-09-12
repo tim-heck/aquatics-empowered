@@ -5,12 +5,6 @@ import './FilterMenu.css'
 
 class FilterMenu extends Component {
 
-    /*
-        Loop on back-end through payload to check if checked value is true
-        Send GET query to table for each checked
-        Push to reducer
-    */
-
     state = {
         
     }

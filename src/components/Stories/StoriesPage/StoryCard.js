@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CarouselProvider, Slide, Slider, Dot } from "pure-react-carousel";
-import { Card, Icon, Image, Button, Header, Modal, Container } from 'semantic-ui-react'
+import { Card, Icon, Image, Button } from 'semantic-ui-react'
 import "pure-react-carousel/dist/react-carousel.es.css";
 import Swal from 'sweetalert2';
+import StoryModal from './StoryModal';
+import ImagesModal from './ImagesModal';
 
 class StoryCard extends Component {
 
@@ -34,6 +35,7 @@ class StoryCard extends Component {
     }
 
     openImagesModal = () => {
+        this.props.dispatch({ type: 'FETCH_IMAGES', payload: this.props.story.id });
         this.setState({
             showImages: true
         })
@@ -114,74 +116,15 @@ class StoryCard extends Component {
     }
 
     render() {
-        console.log(this.props.reduxStore.images.imagesReducer);
         return (
             <>
-                <Modal className="story-modal" open={this.state.showStory} centered={false}>
-                    <Icon name="close" onClick={this.closeStoryModal} />
-                    <Header content={this.props.story.title} />
-                    {/* CarouselProvider component found at: https://codesandbox.io/s/43pv7wm6n9?from-embed */}
-                    <CarouselProvider
-                        naturalSlideWidth={1}
-                        naturalSlideHeight={1}
-                        totalSlides={this.props.reduxStore.images.imagesReducer.length}
-                    >
-                        <Slider>
-                            {this.props.reduxStore.images.imagesReducer.map((image, i) =>
-                                <Slide key={image.id} tag="a" index={i}>
-                                    {this.displayImage(image, 'story')}
-                                </Slide>
-                            )}
-                        </Slider>
-                        <Container textAlign="center">
-                            <Button.Group size="mini">
-                                {[...Array(this.props.reduxStore.images.imagesReducer.length).keys()].map(slide => (
-                                    <Button as={Dot} key={slide} icon="circle" slide={slide} />
-                                ))}
-                            </Button.Group>
-                        </Container>
-                    </CarouselProvider>
-                    <Modal.Content>
-                        <h3>{this.props.story.title}<Icon name="flag" onClick={() => this.flagStory(this.props.story)} /></h3>
-                        <h4 className="modal-meta">{this.props.story.name}</h4>
-                        <h4 className="modal-meta">{this.props.story.location}</h4>
-                        <h4 className="modal-meta">{this.props.story.category}</h4>
-                        {this.checkSpecificTherapist(this.props.story.aquatic_therapist)}
-                        <div className="modal-message" dangerouslySetInnerHTML={{ __html: this.props.story.message }}></div>
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Button basic onClick={this.closeStoryModal}>
-                            Back to Stories
-                        </Button>
-                        {this.checkAdmin()}
-                    </Modal.Actions>
-                </Modal>
-                <Modal className="images-modal" open={this.state.showImages} centered={false}>
-                    {/* CarouselProvider component found at: https://codesandbox.io/s/43pv7wm6n9?from-embed */}
-                    <Icon name="close" onClick={this.closeImagesModal} />
-                    <CarouselProvider
-                        naturalSlideWidth={1}
-                        naturalSlideHeight={1}
-                        totalSlides={this.props.reduxStore.images.imagesReducer.length}
-                    >
-                        <Slider>
-                            {this.props.reduxStore.images.imagesReducer.map((image, i) =>
-                                <Slide key={image.id} tag="a" index={i}>
-                                    {this.displayImage(image, 'image')}
-                                </Slide>
-                            )}
-                        </Slider>
-                        <Container textAlign="center">
-                            <Button.Group size="mini">
-                                {[...Array(this.props.reduxStore.images.imagesReducer.length).keys()].map(slide => (
-                                    <Button as={Dot} key={slide} icon="circle" slide={slide} />
-                                ))}
-                            </Button.Group>
-                        </Container>
-                    </CarouselProvider>
-                </Modal>
+                <StoryModal showModal={this.state.showStory} closeStoryModal={this.closeStoryModal} 
+                    story={this.props.story} checkAdmin={this.checkAdmin} checkSpecificTherapist={this.checkSpecificTherapist}
+                    flagStory={this.flagStory} displayImage={this.displayImage} />
+                <ImagesModal closeImagesModal={this.closeImagesModal} 
+                    showModal={this.state.showImages} displayImage={this.displayImage}/>
                 <Card>
-                        {this.checkFeaturedImage(this.props.story.getUrl)}
+                    {this.checkFeaturedImage(this.props.story.getUrl)}
                     <Card.Content>
                         <Card.Header>{this.props.story.title}<Icon name="flag" onClick={() => this.flagStory(this.props.story)} /></Card.Header>
                         <Card.Meta>
