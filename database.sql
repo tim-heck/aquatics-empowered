@@ -28,7 +28,8 @@ CREATE TABLE "images" (
     "id" SERIAL PRIMARY KEY,
     "img_link" VARCHAR (2000) NOT NULL,
     "story_id" INT REFERENCES "stories",
-    "featured_img" BOOLEAN DEFAULT false
+    -- featured_img set to true since we are only allowing a single file upload right now
+    "featured_img" BOOLEAN DEFAULT true
 );
 
 INSERT INTO "categories" ("category")

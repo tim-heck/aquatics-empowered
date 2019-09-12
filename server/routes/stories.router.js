@@ -27,13 +27,6 @@ router.get('/', async (req, res) => {
     } catch (error) {
         console.log('error when getting stories', error);
     }
-
-    // pool.query(sqlText).then(result => {
-    //     res.send(result.rows);
-    // }).catch(error => {
-    //     console.log('error when getting stories', error);
-    //     res.sendStatus(500);
-    // })
 })
 
 // GET route for getting filtered stories
@@ -49,7 +42,6 @@ router.get('/filter/:category', (req, res) => {
     // https://stackoverflow.com/questions/4878756/how-to-capitalize-first-letter-of-each-word-like-a-2-word-city
     const categoryToCheck = req.params.category.replace(/_/g, ' ').split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
     pool.query(sqlText, [categoryToCheck]).then(result => {
-        console.log(result.rows);
         res.send(result.rows);
     }).catch(error => {
         console.log('error when getting category filters', error);
@@ -135,14 +127,21 @@ router.get('/flagged', (req, res) => {
  * DELETE route for deleting a specific story
  * Removes a specific story based on the id
  */
-router.delete('/:id', rejectUnauthenticated, (req, res) => {
-    const sqlText = `DELETE FROM stories WHERE id = $1;`;
-    pool.query(sqlText, [req.params.id]).then(result => {
+router.delete('/:id', rejectUnauthenticated, async (req, res) => {
+    let connection = await pool.connect();
+    try {
+        await connection.query('BEGIN');
+        await connection.query(`DELETE FROM images WHERE story_id = $1;`, [req.params.id]);
+        await connection.query(`DELETE FROM stories WHERE id = $1;`, [req.params.id]);
+        await connection.query('COMMIT');
         res.sendStatus(200);
-    }).catch(error => {
+    } catch (error) {
+        await pool.query('ROLLBACK')
         console.log(error);
         res.sendStatus(500);
-    })
+    } finally {
+        connection.release();
+    }
 })
 
 /**

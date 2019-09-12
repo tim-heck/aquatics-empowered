@@ -38,10 +38,7 @@ class StoriesPage extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_STORIES' });
-        this.props.dispatch({ type: 'FETCH_USER' });
-
-        console.log('the cookie i want is visited.. variable cookie is set to this:', cookie );
-     
+        this.props.dispatch({ type: 'FETCH_USER' });     
     }
 
     directToEditPage = () => {
@@ -61,7 +58,6 @@ class StoriesPage extends Component {
     render() {
         return (
             <>
-                {/* <LandingPageModal /> */}
                 {this.checkVisited()}
                 {/* <MobileNav /> */}
                 <Card.Group centered>

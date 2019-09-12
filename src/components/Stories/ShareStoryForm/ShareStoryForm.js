@@ -224,7 +224,7 @@ class ShareStoryForm extends Component {
                         onChange={() => this.handleMessageChange()} />
                     {/* <Form.Input label="Share images of your story?" placeholder="Images go here"
                         onChange={(event) => this.handleChangeFor('images', event)} /> */}
-                    <label className="ui button" htmlFor="file-upload">
+                    <label className="ui primary button" htmlFor="file-upload">
                         Upload an Image
                     </label>
                     <input className="file-upload-btn" type="file" id="file-upload" onChange={this.getPresignedPUTURL} />

@@ -86,17 +86,22 @@ class StoryCard extends Component {
     }
 
     deleteStory = (story) => {
-        this.props.dispatch({ type: 'DELETE_STORY', payload: story })
+        // Sweet Alert popup
+        Swal.fire({
+            title: `Delete ${story.title}`,
+            text: 'Are you sure you want to delete this story?',
+            type: 'warning',
+            confirmButtonText: 'Yes',
+            showCancelButton: true,
+            cancelButtonColor: '#db2828',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            this.props.dispatch({ type: 'DELETE_STORY', payload: story });
+        })
     }
 
     flagStory = (story) => {
         this.props.dispatch({ type: 'FLAG_STORY', payload: story })
-        Swal.fire({
-            title: 'Success',
-            text: 'This story has been flagged for moderation',
-            type: 'success',
-            confirmButtontext: 'Ok'
-        })
     }
 
     displayImage = (image, modal) => {

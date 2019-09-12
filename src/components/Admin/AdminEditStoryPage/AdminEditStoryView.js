@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Select, Button, Image, Container } from 'semantic-ui-react';
 import { CarouselProvider, Slide, Slider, Dot } from "pure-react-carousel";
-import 'semantic-ui-css/semantic.min.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Swal from 'sweetalert2';
+import './AdminEditStoryView.css';
 
 class AdminEditStoryView extends Component {
 
@@ -77,7 +77,6 @@ class AdminEditStoryView extends Component {
             ...this.state,
             [propertyToChange]: event.target.value
         })
-        console.log(`Typing in ${event.target.value} and adding new ${propertyToChange}`);
     }
 
     // Sets message property in state 
@@ -118,15 +117,8 @@ class AdminEditStoryView extends Component {
     handleStoryDelete = (event) => {
         this.props.dispatch({
             type: 'DELETE_STORY',
-            payload: this.state.id
-        })
-        // Sweet Alert popup
-        Swal.fire({
-            title: 'Story Deleted',
-            text: 'Story successfully deleted',
-            type: 'success',
-            confirmButtonText: 'Ok'
-        })
+            payload: this.state
+        });
         this.props.history.push('/stories');
     }
 
@@ -137,7 +129,6 @@ class AdminEditStoryView extends Component {
 
     // Button to go back to Flagged Post list page
     backToFlaggedPostsButton = () => {
-        console.log('Headed back to the list of flagged posts!');
         this.props.history.push('/admin-flagged-list');
     }
 
@@ -173,7 +164,7 @@ class AdminEditStoryView extends Component {
                 );
             } else {
                 return (
-                    <Button disabled positive onClick={() => this.updateStory('flagged')}>
+                    <Button disabled positive>
                         Update and Unflag
                     </Button>
                 );
@@ -187,7 +178,7 @@ class AdminEditStoryView extends Component {
                 );
             } else {
                 return (
-                    <Button disabled basic onClick={() => this.updateStory('stories')}>
+                    <Button disabled basic>
                         Update
                     </Button>
                 );
@@ -204,9 +195,25 @@ class AdminEditStoryView extends Component {
             );
         } else {
             return (
-                <Button disabled color='red' onClick={this.handleStoryDelete}>
+                <Button disabled color='red'>
                     Delete this story
                 </Button>
+            );
+        }
+    }
+
+    deleteSpecificImage = (image) => {
+        this.props.dispatch({ type: 'DELETE_IMAGE', payload: image });
+    }
+
+    renderDeleteImageButton = (id) => {
+        if (this.props.reduxStore.images.imagesReducer.length > 0) {
+            return (
+                <Button color="red" onClick={() => this.deleteSpecificImage(id)}>Delete Image</Button>
+            );
+        } else {
+            return (
+                <Button disabled color="red">Delete Image</Button>
             );
         }
     }
@@ -261,9 +268,14 @@ class AdminEditStoryView extends Component {
                         totalSlides={this.props.reduxStore.images.imagesReducer.length} >
                         <Slider>
                             {this.props.reduxStore.images.imagesReducer.map((image, i) =>
-                                <Slide key={image.id} tag="a" index={i}>
-                                    <Image src={image.img_link} />
-                                </Slide>
+                                <>
+                                    <Slide key={image.id} tag="a" index={i}>
+                                        <Image src={image.getUrl} />
+                                        <div className="image-delete-btn">
+                                            {this.renderDeleteImageButton(image)}
+                                        </div>
+                                    </Slide>
+                                </>
                             )}
                         </Slider>
                         <Container textAlign="center">
@@ -275,7 +287,7 @@ class AdminEditStoryView extends Component {
                         </Container>
                     </CarouselProvider>
                     <br />
-                    <h4>Email:{this.state.email}</h4>
+                    <h4>Email: {this.state.email}</h4>
                     {this.renderUpdateButton()}
                     <p>* indicates a required field</p>
                 </Form>

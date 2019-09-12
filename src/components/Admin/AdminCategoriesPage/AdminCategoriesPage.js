@@ -71,7 +71,7 @@ class AdminCategoriesPage extends Component {
             <div className="form-container">
                 <h1>Administration</h1>
                 <p>Click a button below to toggle between Categories and Flagged Posts</p>
-                <Button Primary>Categories</Button><Button Primary onClick={this.handleFlaggedClick}>Flagged</Button >
+                <Button primary>Categories</Button><Button primary onClick={this.handleFlaggedClick}>Flagged</Button >
                 <br />
                 <h1>Add a Category</h1>
                 <p>Adding a category will add it to the category list that users select from when sharing a story.</p>

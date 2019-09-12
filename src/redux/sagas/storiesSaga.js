@@ -1,5 +1,6 @@
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default function* storiesSaga() {
     // Gets a list of the stories
@@ -18,7 +19,6 @@ export default function* storiesSaga() {
     yield takeEvery('UPDATE_STORY', updateStory);
     // Sends Search Query
     yield takeEvery('SEARCH', searchStories);
-
 }
 
 /**
@@ -46,7 +46,6 @@ function* filterStories(action) {
                 const response = yield axios.get(`/api/stories/filter/${categoriesForFilter[i][0]}`);
                 console.log('response.data', response.data);
                 if (response.data.length !== 0) {
-                    console.log('made it')
                     yield put({ type: 'ADD_FILTER', payload: response.data });
                 }
             }
@@ -75,10 +74,22 @@ function* fetchFlaggedStories() {
 function* deleteStory(action) {
     try {
         yield axios.delete(`/api/stories/${action.payload.id}`);
+        Swal.fire({
+            title: 'Story Deleted',
+            text: 'Story successfully deleted',
+            type: 'success',
+            confirmButtonText: 'Ok'
+        });
         // Gets updated list of stories
         yield put({ type: 'FETCH_STORIES' });
     } catch (error) {
         console.log('Error with deleting story', error);
+        Swal.fire({
+            title: 'Oh no!',
+            text: error,
+            type: 'error',
+            confirmButtonText: 'Ok'
+        });
     }
 }
 
@@ -89,10 +100,22 @@ function* deleteStory(action) {
 function* flagStory(action) {
     try {
         yield axios.put(`/api/stories/flag/${action.payload.id}`, action.payload);
+        Swal.fire({
+            title: 'Success',
+            text: 'This story has been flagged for moderation',
+            type: 'success',
+            confirmButtontext: 'Ok'
+        })
         // Gets updated list of stories
         yield put({ type: 'FETCH_STORIES' });
     } catch (error) {
         console.log('Error with flagging story', error);
+        Swal.fire({
+            title: 'Oh no!',
+            text: error,
+            type: 'error',
+            confirmButtontext: 'Ok'
+        })
     }
 }
 
@@ -117,19 +140,11 @@ function* updateStory(action) {
 
 function* searchStories(action) {
     try{
-
-        let array = action.payload.split( ' ' );
-
-        console.log('action.payload', action.payload, 'array', array);
-        
+        let array = action.payload.split(' ');
         let searchString = '';
-
         for (let i = 0; i < array.length; i++) {
             searchString += 'q' + i + '=' + array[i] + '&';
         }
-
-        console.log('searchString variable =', searchString);
-        
         const response = yield axios.get(`/api/stories/search?${searchString}`)
         yield put({
             type:'SET_STORIES', 
