@@ -1,5 +1,6 @@
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export default function* storiesSaga() {
     // Gets a list of the stories
@@ -46,7 +47,6 @@ function* filterStories(action) {
                 const response = yield axios.get(`/api/stories/filter/${categoriesForFilter[i][0]}`);
                 console.log('response.data', response.data);
                 if (response.data.length !== 0) {
-                    console.log('made it')
                     yield put({ type: 'ADD_FILTER', payload: response.data });
                 }
             }
@@ -75,10 +75,22 @@ function* fetchFlaggedStories() {
 function* deleteStory(action) {
     try {
         yield axios.delete(`/api/stories/${action.payload.id}`);
+        Swal.fire({
+            title: 'Story Deleted',
+            text: 'Story successfully deleted',
+            type: 'success',
+            confirmButtonText: 'Ok'
+        })
         // Gets updated list of stories
         yield put({ type: 'FETCH_STORIES' });
     } catch (error) {
         console.log('Error with deleting story', error);
+        Swal.fire({
+            title: 'Oh no!',
+            text: error,
+            type: 'error',
+            confirmButtonText: 'Ok'
+        })
     }
 }
 

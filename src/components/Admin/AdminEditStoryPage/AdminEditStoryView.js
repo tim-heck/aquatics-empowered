@@ -117,7 +117,7 @@ class AdminEditStoryView extends Component {
     handleStoryDelete = (event) => {
         this.props.dispatch({
             type: 'DELETE_STORY',
-            payload: this.state.id
+            payload: this.state
         })
         // Sweet Alert popup
         Swal.fire({
