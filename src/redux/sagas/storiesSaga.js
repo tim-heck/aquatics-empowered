@@ -117,19 +117,11 @@ function* updateStory(action) {
 
 function* searchStories(action) {
     try{
-
-        let array = action.payload.split( ' ' );
-
-        console.log('action.payload', action.payload, 'array', array);
-        
+        let array = action.payload.split(' ');
         let searchString = '';
-
         for (let i = 0; i < array.length; i++) {
             searchString += 'q' + i + '=' + array[i] + '&';
         }
-
-        console.log('searchString variable =', searchString);
-        
         const response = yield axios.get(`/api/stories/search?${searchString}`)
         yield put({
             type:'SET_STORIES', 
