@@ -42,7 +42,6 @@ router.get('/filter/:category', (req, res) => {
     // https://stackoverflow.com/questions/4878756/how-to-capitalize-first-letter-of-each-word-like-a-2-word-city
     const categoryToCheck = req.params.category.replace(/_/g, ' ').split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
     pool.query(sqlText, [categoryToCheck]).then(result => {
-        console.log(result.rows);
         res.send(result.rows);
     }).catch(error => {
         console.log('error when getting category filters', error);

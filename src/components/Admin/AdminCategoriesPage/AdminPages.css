@@ -8,7 +8,7 @@
     display: inline-block;
 }
 
-.categories-list .button, .flagged-list .button {
+.categories-list .ui.button, .flagged-list .ui.button {
     display: inline-block;
     margin: 0 0 10px 10px;
 }
