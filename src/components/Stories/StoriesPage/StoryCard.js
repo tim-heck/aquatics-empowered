@@ -102,12 +102,6 @@ class StoryCard extends Component {
 
     flagStory = (story) => {
         this.props.dispatch({ type: 'FLAG_STORY', payload: story })
-        Swal.fire({
-            title: 'Success',
-            text: 'This story has been flagged for moderation',
-            type: 'success',
-            confirmButtontext: 'Ok'
-        })
     }
 
     displayImage = (image, modal) => {

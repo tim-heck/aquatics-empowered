@@ -19,7 +19,6 @@ export default function* storiesSaga() {
     yield takeEvery('UPDATE_STORY', updateStory);
     // Sends Search Query
     yield takeEvery('SEARCH', searchStories);
-
 }
 
 /**
@@ -80,7 +79,7 @@ function* deleteStory(action) {
             text: 'Story successfully deleted',
             type: 'success',
             confirmButtonText: 'Ok'
-        })
+        });
         // Gets updated list of stories
         yield put({ type: 'FETCH_STORIES' });
     } catch (error) {
@@ -90,7 +89,7 @@ function* deleteStory(action) {
             text: error,
             type: 'error',
             confirmButtonText: 'Ok'
-        })
+        });
     }
 }
 
@@ -101,10 +100,22 @@ function* deleteStory(action) {
 function* flagStory(action) {
     try {
         yield axios.put(`/api/stories/flag/${action.payload.id}`, action.payload);
+        Swal.fire({
+            title: 'Success',
+            text: 'This story has been flagged for moderation',
+            type: 'success',
+            confirmButtontext: 'Ok'
+        })
         // Gets updated list of stories
         yield put({ type: 'FETCH_STORIES' });
     } catch (error) {
         console.log('Error with flagging story', error);
+        Swal.fire({
+            title: 'Oh no!',
+            text: error,
+            type: 'error',
+            confirmButtontext: 'Ok'
+        })
     }
 }
 

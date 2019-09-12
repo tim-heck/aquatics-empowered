@@ -118,14 +118,7 @@ class AdminEditStoryView extends Component {
         this.props.dispatch({
             type: 'DELETE_STORY',
             payload: this.state
-        })
-        // Sweet Alert popup
-        Swal.fire({
-            title: 'Story Deleted',
-            text: 'Story successfully deleted',
-            type: 'success',
-            confirmButtonText: 'Ok'
-        })
+        });
         this.props.history.push('/stories');
     }
 
