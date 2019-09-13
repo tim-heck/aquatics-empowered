@@ -70,7 +70,8 @@ class LandingPageModal extends Component {
 
                         <Modal.Description>
                             <Header>Hot Tubbing For Hope! 11/15/19 - 11/17/19</Header>
-                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            <p> JOIN US FOR THIS WONDERFUL EVENT TO SPREAD AND INCREASE AWARENESS FOR THE BENEFITS OF AQUATIC THERAPY AND AQUATIC ACTIVITIES!
+                                START A TEAM, JOIN AN EXISTING TEAM, DONATE, OR HELP US SHARE THIS EVENT! MORE INFORMATION CAN BE FOUND AT <a href="http://aquaticsempowered.org/hot-tubbing-for-hope/">Hot Tubbing For Hope! </a>
                             </p>
                         </Modal.Description>
                     </Modal.Content>
