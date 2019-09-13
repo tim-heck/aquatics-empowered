@@ -61,7 +61,7 @@ class App extends Component {
             />
             {/* This route is for an administrator (only current users w/ log in creds),
             to view the form to edit a submitted story's content and images */}
-            <Route
+            <ProtectedRoute
               exact
               path="/edit-story"
               component={AdminEditStoryView}
