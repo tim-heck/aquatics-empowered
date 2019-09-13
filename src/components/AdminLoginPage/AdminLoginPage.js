@@ -61,7 +61,7 @@ class LoginPage extends Component {
             onChange={this.handleInputChangeFor('password')}
           />
           <div>
-            <Button
+            <Button primary
               type="submit"
             >Log In</Button>
           </div>

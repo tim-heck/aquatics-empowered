@@ -28,7 +28,7 @@
 }
 
 .nav-link-button {
-  border: none;
+  border: 2px solid transparent;
   padding-bottom: 20px;
   cursor: pointer;
   outline: 0;

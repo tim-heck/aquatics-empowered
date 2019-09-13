@@ -58,6 +58,9 @@ class Nav extends Component {
             <a className="nav-link donate"
               href="https://ssl.charityweb.net/aquaticsempowered/hottubbingforhope/"
               target="_blank" rel="noopener noreferrer">Donate</a>
+            <NavLink className="nav-link" to="/admin">
+              Admin
+            </NavLink>
             {/* Show the link to the info page and the logout button if the user is logged in */}
             {this.props.user.id && (
               <>
