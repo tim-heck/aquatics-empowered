@@ -69,7 +69,7 @@ router.put('/unhide/:id', (req, res) => {
 })
 
 router.get('/emails', (req, res) => {
-    pool.query(`SELECT "email" FROM "stories"; ;`)
+    pool.query(`SELECT "email" FROM "stories";`)
         .then((result) => {
             console.log(result.rows);
             res.send(result.rows);
