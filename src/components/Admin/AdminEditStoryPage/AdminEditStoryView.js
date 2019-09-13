@@ -115,11 +115,20 @@ class AdminEditStoryView extends Component {
     // that runs a DELETE route, deleting the story
     // Then load Stories component
     handleStoryDelete = (event) => {
-        this.props.dispatch({
-            type: 'DELETE_STORY',
-            payload: this.state
-        });
-        this.props.history.push('/stories');
+        Swal.fire({
+            title: `Delete ${this.state.title}`,
+            text: 'Are you sure you want to delete this story?',
+            type: 'warning',
+            confirmButtonText: 'Yes',
+            showCancelButton: true,
+            cancelButtonColor: '#db2828',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.value) {
+                this.props.dispatch({ type: 'DELETE_STORY', payload: this.state });
+                this.props.history.push('/stories');
+            }
+        })
     }
 
     // Button to go back to stories page
@@ -203,7 +212,20 @@ class AdminEditStoryView extends Component {
     }
 
     deleteSpecificImage = (image) => {
-        this.props.dispatch({ type: 'DELETE_IMAGE', payload: image });
+        Swal.fire({
+            title: `Delete ${image.img_link}`,
+            text: 'Are you sure you want to delete this story?',
+            type: 'warning',
+            confirmButtonText: 'Yes',
+            showCancelButton: true,
+            cancelButtonColor: '#db2828',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.value) {
+                this.props.dispatch({ type: 'DELETE_IMAGE', payload: image });
+            }
+        }) 
+        // this.props.dispatch({ type: 'DELETE_IMAGE', payload: image });
     }
 
     renderDeleteImageButton = (id) => {

@@ -96,7 +96,9 @@ class StoryCard extends Component {
             cancelButtonColor: '#db2828',
             cancelButtonText: 'Cancel'
         }).then((result) => {
-            this.props.dispatch({ type: 'DELETE_STORY', payload: story });
+            if (result.value) {
+                this.props.dispatch({ type: 'DELETE_STORY', payload: story });
+            }
         })
     }
 

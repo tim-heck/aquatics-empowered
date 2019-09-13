@@ -131,10 +131,22 @@ function* addStory(action) {
 function* updateStory(action) {
     try {
         yield axios.put(`/api/stories/update/${action.payload.id}`, action.payload);
+        Swal.fire({
+            title: 'Success',
+            text: 'The story has been updated!',
+            type: 'success',
+            confirmButtontext: 'Ok'
+        })
         yield put({ type: 'FETCH_STORIES' });
         yield put({ type: 'FETCH_FLAGGED_STORIES' });
     } catch (error) {
         console.log('Error with updating story', error);
+        Swal.fire({
+            title: 'Oh no!',
+            text: error,
+            type: 'error',
+            confirmButtontext: 'Ok'
+        })
     }
 }
 
@@ -147,8 +159,8 @@ function* searchStories(action) {
         }
         const response = yield axios.get(`/api/stories/search?${searchString}`)
         yield put({
-            type:'SET_STORIES', 
-            payload: response.data})
+            type:'FETCH_STORIES', 
+            payload: response.data});
     } catch(error) {
         console.log('error search database', error);
     }
