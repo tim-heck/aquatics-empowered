@@ -32,7 +32,7 @@ class SearchBar extends Component {
                         <input className="search-element" placeholder="Search"
                             onChange={(event) => this.handleChange(event)}
                             value={this.state.searchInput}></input>
-                        <Button className="search-element" type='submit' onClick={this.search}>Search</Button>
+                        <Button primary className="search-element" type='submit' onClick={this.search}>Search</Button>
                     </div>
                 </Form>
             </>
