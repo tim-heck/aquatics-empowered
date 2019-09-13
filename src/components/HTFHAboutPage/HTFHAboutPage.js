@@ -15,7 +15,7 @@ class HTFHAboutPage extends Component {
                     <p className="about-text">Come join us November 15, 16, and 17th to help fundraise for the first ever Hot Tubbing for Hope.
                         We will raise money to help promote and expand the launch of aquatics empowered helping other
                         charities worldwide and small towns establish and maintain aquatic therapy resources.</p>
-                    <a className="ui button" href="https://ssl.charityweb.net/aquaticsempowered/hottubbingforhope/" 
+                    <a className="ui primary button" href="https://ssl.charityweb.net/aquaticsempowered/hottubbingforhope/" 
                     rel="noopener noreferrer" target="_blank">Donate</a>
                 </div>
             </div>

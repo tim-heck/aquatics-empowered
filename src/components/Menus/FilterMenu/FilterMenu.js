@@ -49,7 +49,7 @@ class FilterMenu extends Component {
                             />
                         </Form.Field>
                     )}
-                    <Button type='submit' onClick={this.filterStories}>Apply</Button>
+                    <Button primary type='submit' onClick={this.filterStories}>Apply</Button>
                     {/* <Button onClick={this.clearFilters}>Clear Filters</Button> */}
                 </Form>
             </>

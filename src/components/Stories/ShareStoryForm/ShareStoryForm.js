@@ -111,17 +111,18 @@ class ShareStoryForm extends Component {
                 this.uploadSingleFile(result.data, selectedFile),
                 // axios.put(result.data, selectedFile)
                 // console.log('successful put'),
-                
+
             ).catch(error => {
                 console.log('error with getting presignedPUTURL', error);
             });
+
+            this.setState({
+                images: [
+                    ...this.state.images,
+                    { name: event.target.files[0].name }
+                ]
+            })
         }
-        this.setState({
-            images: [
-                ...this.state.images,
-                {name: event.target.files[0].name}
-            ]
-        })
     };
 
     uploadSingleFile = async (putURL, file) => {
