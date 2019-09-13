@@ -159,7 +159,7 @@ function* searchStories(action) {
         }
         const response = yield axios.get(`/api/stories/search?${searchString}`)
         yield put({
-            type:'FETCH_STORIES', 
+            type:'SET_STORIES', 
             payload: response.data});
     } catch(error) {
         console.log('error search database', error);

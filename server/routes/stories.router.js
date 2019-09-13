@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 })
 
 // GET route for getting filtered stories
-router.get('/filter/:category', (req, res) => {
+router.get('/filter/:category', async (req, res) => {
     const sqlText = `
         SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
         stories.message, stories.email, categories.category, images.img_link
@@ -41,17 +41,24 @@ router.get('/filter/:category', (req, res) => {
     // snippet got capitalizing the first letter of each word found here
     // https://stackoverflow.com/questions/4878756/how-to-capitalize-first-letter-of-each-word-like-a-2-word-city
     const categoryToCheck = req.params.category.replace(/_/g, ' ').split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
-    pool.query(sqlText, [categoryToCheck]).then(result => {
-        res.send(result.rows);
-    }).catch(error => {
+
+    try {
+        const response = await pool.query(sqlText, [categoryToCheck]);
+        for (let i = 0; i < response.rows.length; i++) {
+            if (response.rows[i].img_link) {
+                response.rows[i].getUrl = aws.getPresignedGetUrl(response.rows[i].img_link);
+            }
+        }
+        res.send(response.rows);
+    } catch (error) {
         console.log('error when getting category filters', error);
         res.sendStatus(500);
-    })
+    }
 })
 
 
 // GET route for search function
-router.get(`/search`, (req, res) => {
+router.get(`/search`, async (req, res) => {
     // establish an array to store values to be used to query database    
     let values = [];
     // declare queryString variable by using Object.entries() method to mutate req.query to array of arrays    
@@ -70,7 +77,7 @@ router.get(`/search`, (req, res) => {
 
     let sqlText = `
         SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
-        stories.message, stories.email, categories.category, images.img_link
+        stories.message, stories.email, stories.category_id, stories.flagged, categories.category, images.img_link
         FROM stories
         JOIN categories ON stories.category_id = categories.id
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
@@ -98,12 +105,18 @@ router.get(`/search`, (req, res) => {
 
     sqlText += `;`;
 
-    pool.query(sqlText, values).then(result => {
-        res.send(result.rows);
-    }).catch(error => {
+    try {
+        const response = await pool.query(sqlText, values);
+        for (let i = 0; i < response.rows.length; i++) {
+            if (response.rows[i].img_link) {
+                response.rows[i].getUrl = aws.getPresignedGetUrl(response.rows[i].img_link);
+            }
+        }
+        res.send(response.rows);
+    } catch (error) {
         console.log('error with server side of database search function', error);
         res.sendStatus(500);
-    })
+    }
 })
 
 // GET route for getting all stories that are flagged by users
