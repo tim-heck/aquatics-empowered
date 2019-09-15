@@ -12,6 +12,11 @@
     height: 200px;
 }
 
+img.ui.image {
+    max-height: 340px;
+    margin: 0 auto;
+}
+
 input[type="file"] {
     display: none;
 }
