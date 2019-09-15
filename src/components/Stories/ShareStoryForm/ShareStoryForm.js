@@ -171,16 +171,36 @@ class ShareStoryForm extends Component {
         }
     }
 
-    fillDummyData = () => {
+    fillName = () => {
         this.setState({
             name: 'Tim Heck',
+        });
+    }
+    fillLocation = () => {
+        this.setState({
             location: 'Minneapolis, MN',
-            title: 'Rufus The Dog',
+        });
+    }
+
+    fillTitle = () => {
+        this.setState({
+            title: 'Rufus the Dog',
+        });
+    }
+    fillTherapist = () => {
+        this.setState({
             aquatic_therapist: 'Vonni Goetting',
+        });
+    }
+
+    fillStory = () => {
+        this.setState({
             message: 'Our sweet Aussie Rufus was in terrible shape. He tore both CCL’s in the same year. He lost almost all his independence – unable to move from lying to standing position, walk up stairs, walk independently. We bought a sling to support his back end and thought he would never be independently ambulatory again. Rufus and our family were heartbroken. Our Vet recommended Vonni. After a few sessions we saw improvement – after a couple months Rufus could stand up, climb stairs and go for short walks without help. Now Rufus can go for long walks and his energy level is pre-injury. I can’t begin to express how grateful and happy we are.',
+        });
+    }
+    fillEmail = () => {
+        this.setState({
             email: 'tim@heck.com',
-            category_id: 0,
-            flagged: false,
         });
     }
 
@@ -198,10 +218,10 @@ class ShareStoryForm extends Component {
                     <Form.Group>
                         <Form.Input label="What's your name?" required placeholder="Name" width={4}
                             onChange={(event) => this.handleChangeFor('name', event)}
-                            value={this.state.name} />
+                            value={this.state.name} onClick={this.fillName}/>
                         <Form.Input label="Where do you live?" required placeholder="Location" width={8}
                             onChange={(event) => this.handleChangeFor('location', event)}
-                            value={this.state.location} />
+                            value={this.state.location} onClick={this.fillLocation}/>
                         {/* Select field that uses the categories variable above for the options */}
                         <Form.Field placeholder="Category" control={Select} required label="Choose a category"
                             options={categories} onChange={this.handleCategoryChange} width={4} />
@@ -209,13 +229,13 @@ class ShareStoryForm extends Component {
                     <Form.Group>
                         <Form.Input label="Give your story a title." required placeholder="Title" width={8}
                             onChange={(event) => this.handleChangeFor('title', event)}
-                            value={this.state.title} />
+                            value={this.state.title} onClick={this.fillTitle}/>
                         <Form.Input label="Want to share the name of your therapist?" placeholder="Therapist" width={8}
                             onChange={(event) => this.handleChangeFor('aquatic_therapist', event)}
-                            value={this.state.aquatic_therapist} />
+                            value={this.state.aquatic_therapist} onClick={this.fillTherapist}/>
                     </Form.Group>
                     {/* Rich Text Editor input field */}
-                    <Form.Field required label="Share your story!" />
+                    <Form.Field required label="Share your story!" onClick={this.fillStory}/>
                     <ReactQuill
                         ref={(el) => { this.reactQuillRef = el }}
                         theme={'snow'}
@@ -235,7 +255,7 @@ class ShareStoryForm extends Component {
                     {/* <a href="http://www.google.com">Picture Terms and Conditions</a> */}
                     <Form.Input placeholder="E-mail Address" label="Sign up for our newsletter" width={4}
                         onChange={(event) => this.handleChangeFor('email', event)}
-                        value={this.state.email} />
+                        value={this.state.email} onClick={this.fillEmail}/>
                     <Button primary>
                         Submit
                     </Button>
