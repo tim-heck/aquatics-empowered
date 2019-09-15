@@ -126,7 +126,7 @@ class AdminEditStoryView extends Component {
         }).then((result) => {
             if (result.value) {
                 this.props.dispatch({ type: 'DELETE_STORY', payload: this.state });
-                this.props.history.push('/stories');
+                this.props.history.push('/admin-categories');
             }
         })
     }
