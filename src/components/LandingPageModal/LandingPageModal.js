@@ -3,57 +3,28 @@ import { connect } from 'react-redux';
 import { Button, Header, Image, Modal, Icon } from 'semantic-ui-react';
 
 const setCookie = () => {
-   // this d variable is setting the expiration of the cookie created
-   // the current cookie lifespan is set to 7 days
+    // this d variable is setting the expiration of the cookie created
+    // the current cookie lifespan is set to 7 days
     let d = new Date();
-        d = new Date(d.getTime() + 1000*60*60*24*7)
-    document.cookie = 'visited=true; expires='+d.toGMTString()+';';
-    
-
-}
-
-const getCookie = (cookieName) => {
-    // Get name and all data following the specified cookie
-    const cookieString = RegExp('' + cookieName ).exec(document.cookie);
-    
-    // Get name followed by anything except a semicolon <believe this breaks, doesn't pass info further>
-    // const cookieString = RegExp('' + cookieName + '[^;]+').exec(document.cookie);
-    // Return everything after the equal sign, or an empty string if the cookie name not found
-
-    return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./, '') : '');
+    d = new Date(d.getTime() + 1000 * 60 * 60 * 24 * 7)
+    document.cookie = 'visited=true; expires=' + d.toGMTString() + ';';
 }
 
 class LandingPageModal extends Component {
 
-    componentDidMount(){
-
-        // Calls the setCookie function declared above the class component
-        setCookie();
-
-        // Calls the getCookie function with the name of our new cookie as parameter
-        getCookie('visited');
-        // This gets the session cookie we set up for the user;
-        // cookie is used to trigger modal window being hidden while in session
-
-        // console.log('cookie info', getSpecificCookie('visited') );
-        
-         
-    }
-
     state = {
         active: true,
-        visited: getCookie( 'visited' ) || false,
-
     }
 
     onCloseModal = () => {
+        // Calls the setCookie function declared above the class component
+        setCookie();
         this.setState({
             active: false
         })
     }
 
     render() {
-
         return (
             <>
                 {/* THIS CODE IS BASED ON MODAL WINDOW EXAMPLES FROM SEMANTIC UI DOCS */}
@@ -70,9 +41,9 @@ class LandingPageModal extends Component {
 
                         <Modal.Description>
                             <Header>H2WHOA! The official App for Hot Tubbing For Hope!</Header>
-                            <p> H2WHOA! is a social media platform that serves as a centralized location for the sharing of stories of aquatic therapy and its many benefits!</p> 
+                            <p> H2WHOA! is a social media platform that serves as a centralized location for the sharing of stories of aquatic therapy and its many benefits!</p>
                             <a href="http://aquaticsempowered.org/hot-tubbing-for-hope/">Hot Tubbing For Hope! </a>
-                            <br/>
+                            <br />
                             <br />
                             <p> Come share your story with us, and see all the stories others have shared!</p>
                         </Modal.Description>

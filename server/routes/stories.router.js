@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
         FROM stories
         JOIN categories ON stories.category_id = categories.id
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
-        ORDER BY post_date ASC;`;
+        ORDER BY post_date DESC;`;
     try {
         const response = await pool.query(sqlText);
         for (let i = 0; i < response.rows.length; i++) {
@@ -37,7 +37,8 @@ router.get('/filter/:category', async (req, res) => {
         FROM stories
         JOIN categories ON stories.category_id = categories.id
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
-        WHERE categories.category = $1;`;
+        WHERE categories.category = $1
+        ORDER BY post_date DESC;`;
     // snippet got capitalizing the first letter of each word found here
     // https://stackoverflow.com/questions/4878756/how-to-capitalize-first-letter-of-each-word-like-a-2-word-city
     const categoryToCheck = req.params.category.replace(/_/g, ' ').split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
@@ -103,7 +104,7 @@ router.get(`/search`, async (req, res) => {
     }
     // once the loop hits else clause and breaks, we concat. on the ending semi-colon
 
-    sqlText += `;`;
+    sqlText += `ORDER BY post_date DESC;`;
 
     try {
         const response = await pool.query(sqlText, values);
