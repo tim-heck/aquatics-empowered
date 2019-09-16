@@ -125,10 +125,11 @@ class AdminEditStoryView extends Component {
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.value) {
+                this.props.dispatch({ type: 'UPDATE_STORY', payload: this.state });
                 this.props.dispatch({ type: 'DELETE_STORY', payload: this.state });
                 this.props.history.push('/admin-flagged-list');
             }
-        })
+        });
     }
 
     // Button to go back to stories page
