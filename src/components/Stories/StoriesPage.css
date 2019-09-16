@@ -62,9 +62,9 @@
     margin: 15px 0;
 }
 
-.carousel__slide {
-    /* height: 600px; */
-}
+/* .carousel__slide {
+    height: 600px;
+} */
 
 .ui.modals.dimmer {
     padding: 30px;
@@ -119,6 +119,15 @@
 
 .ui.centered.cards .extra.content {
     background-color: #fff !important;
+}
+
+/* .ui.card {
+    max-height: 600px;
+} */
+
+.ui.card .image {
+    max-height: 300px;
+    overflow: hidden;
 }
 
 .ui.card .ui.basic.button.plus-button {
