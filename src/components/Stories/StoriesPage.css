@@ -121,9 +121,9 @@
     background-color: #fff !important;
 }
 
-/* .ui.card {
-    max-height: 600px;
-} */
+.ui.card {
+    min-height: 635px;
+}
 
 .ui.card .image {
     max-height: 300px;
