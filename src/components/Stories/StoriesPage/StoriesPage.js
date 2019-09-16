@@ -32,13 +32,13 @@ function getSpecificCookie(cookieName, value) {
     return fc;
 }
 
-let cookie = getSpecificCookie('visited');
+let cookie = '';
 
 class StoriesPage extends Component {
-
+    
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_STORIES' });
-        this.props.dispatch({ type: 'FETCH_USER' });     
+        this.props.dispatch({ type: 'FETCH_USER' });   
     }
 
     directToEditPage = () => {
@@ -50,6 +50,7 @@ class StoriesPage extends Component {
     }
 
     checkVisited = () => {
+        cookie = getSpecificCookie('visited');
         if ( cookie !== 'visited=true') {
             return <LandingPageModal />
         }
