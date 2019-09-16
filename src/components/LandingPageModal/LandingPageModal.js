@@ -69,10 +69,12 @@ class LandingPageModal extends Component {
                             src="http://aquaticsempowered.org/wp-content/uploads/2019/07/hot-tubbing-for-hope.jpg" />
 
                         <Modal.Description>
-                            <Header>Hot Tubbing For Hope! 11/15/19 - 11/17/19</Header>
-                            <p> JOIN US FOR THIS WONDERFUL EVENT TO SPREAD AND INCREASE AWARENESS FOR THE BENEFITS OF AQUATIC THERAPY AND AQUATIC ACTIVITIES!
-                                START A TEAM, JOIN AN EXISTING TEAM, DONATE, OR HELP US SHARE THIS EVENT! MORE INFORMATION CAN BE FOUND AT <a href="http://aquaticsempowered.org/hot-tubbing-for-hope/">Hot Tubbing For Hope! </a>
-                            </p>
+                            <Header>H2WHOA! The official App for Hot Tubbing For Hope!</Header>
+                            <p> H2WHOA! is a social media platform that serves as a centralized location for the sharing of stories of aquatic therapy and its many benefits!</p> 
+                            <a href="http://aquaticsempowered.org/hot-tubbing-for-hope/">Hot Tubbing For Hope! </a>
+                            <br/>
+                            <br />
+                            <p> Come share your story with us, and see all the stories others have shared!</p>
                         </Modal.Description>
                     </Modal.Content>
                     <Modal.Actions>
