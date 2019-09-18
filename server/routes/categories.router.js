@@ -3,7 +3,10 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-// GET all visible categories 
+/**
+ * GET route for all visible categories 
+ * Selects all categories that users CAN choose from when submitting a story
+ */ 
 router.get('/', (req, res) => {
     pool.query(`SELECT * FROM "categories" WHERE "hide_cat" = false ORDER BY category ASC;`)
         .then((result) => {
@@ -15,7 +18,10 @@ router.get('/', (req, res) => {
         });
 });
 
-// GET all hidden categories
+/**
+ * GET route for all hidden categories 
+ * Selects all categories that users CANNOT choose from when submitting a story
+ */
 router.get('/hidden', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT * FROM "categories" WHERE "hide_cat" = true;`)
         .then((result) => {
@@ -27,10 +33,12 @@ router.get('/hidden', rejectUnauthenticated, (req, res) => {
         });
 });
 
-// POST route that posts a new category
+/**
+ * POST route that posts a new category
+ * Adds the admin entered category to the datebase
+ */
 router.post('/add', rejectUnauthenticated, (req, res) => {
-    const sqlText = `INSERT INTO "categories" ("category")
-    VALUES ($1);`
+    const sqlText = `INSERT INTO "categories" ("category") VALUES ($1);`
     const values = [req.body.category];
     pool.query(sqlText, values)
     .then((results) => {
@@ -41,7 +49,9 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
     });
 });
 
-// PUT route that changes a category to hidden
+/**
+ * PUT route that changes a category to hidden
+ */
 router.put('/:id', rejectUnauthenticated, (req, res) => {
     console.log('Updating category to hidden');
     const sqlText = `UPDATE "categories" SET "hide_cat"=$1 WHERE "id"=$2;`
@@ -55,7 +65,9 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
         })
 })
 
-// PUT route that changes a category to visible
+/**
+ * PUT route that changes a category to visible
+ */
 router.put('/unhide/:id', rejectUnauthenticated, (req, res) => {
     console.log('Updating category to visible');
     const sqlText = `UPDATE "categories" SET "hide_cat"=$1 WHERE "id"=$2;`
@@ -69,7 +81,9 @@ router.put('/unhide/:id', rejectUnauthenticated, (req, res) => {
         })
 })
 
-// GET all e-mails for CSV download
+/**
+ *  GET all e-mails for CSV download
+ */
 router.get('/emails', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT "email" FROM "stories";`)
         .then((result) => {
@@ -80,7 +94,5 @@ router.get('/emails', rejectUnauthenticated, (req, res) => {
             res.sendStatus(500);
         });
 });
-
-
 
 module.exports = router;

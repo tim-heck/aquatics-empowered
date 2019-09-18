@@ -18,6 +18,8 @@ router.get('/', async (req, res) => {
         ORDER BY post_date DESC;`;
     try {
         const response = await pool.query(sqlText);
+        // Adds the getUrl property to the object passed back
+        // along with the presignedGETUrl value
         for (let i = 0; i < response.rows.length; i++) {
             if (response.rows[i].img_link) {
                 response.rows[i].getUrl = aws.getPresignedGetUrl(response.rows[i].img_link);
@@ -45,6 +47,8 @@ router.get('/filter/:category', async (req, res) => {
 
     try {
         const response = await pool.query(sqlText, [categoryToCheck]);
+        // Adds the getUrl property to the object passed back
+        // along with the presignedGETUrl value
         for (let i = 0; i < response.rows.length; i++) {
             if (response.rows[i].img_link) {
                 response.rows[i].getUrl = aws.getPresignedGetUrl(response.rows[i].img_link);
@@ -58,7 +62,9 @@ router.get('/filter/:category', async (req, res) => {
 })
 
 
-// GET route for search function
+/**
+ * GET route for searching through the stories
+ */
 router.get(`/search`, async (req, res) => {
     // establish an array to store values to be used to query database    
     let values = [];
@@ -71,11 +77,8 @@ router.get(`/search`, async (req, res) => {
             values.push(`%${queryString[i][1]}%`)
         }
     }
-    // console.log(values);
-
     // First we establish base sql query here; 
     // this which will be appended onto for each key:value pair (q1: entered search keyword)
-
     let sqlText = `
         SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
         stories.message, stories.email, stories.category_id, stories.flagged, categories.category, images.img_link
@@ -84,7 +87,7 @@ router.get(`/search`, async (req, res) => {
         LEFT JOIN images ON images.story_id = stories.id AND featured_img = true
         `;
     // Loop through the queryString (entered search words on client-side)
-    // concat. on additional sql query text for each word searched (separated by spaces, breaking at a space without proceeding character)
+    // concat on additional sql query text for each word searched (separated by spaces, breaking at a space without proceeding character)
     for (let i = 1; i < queryString.length + 1; i++) {
         if (i < 2) {
             sqlText += `
@@ -102,12 +105,13 @@ router.get(`/search`, async (req, res) => {
                 stories.message ILIKE $${i}`;
         }
     }
-    // once the loop hits else clause and breaks, we concat. on the ending semi-colon
-
+    // once the loop hits else clause and breaks, we concat on the ORDER BY and ending semi-colon
     sqlText += `ORDER BY post_date DESC;`;
 
     try {
         const response = await pool.query(sqlText, values);
+        // Adds the getUrl property to the object passed back
+        // along with the presignedGETUrl value
         for (let i = 0; i < response.rows.length; i++) {
             if (response.rows[i].img_link) {
                 response.rows[i].getUrl = aws.getPresignedGetUrl(response.rows[i].img_link);
@@ -120,7 +124,9 @@ router.get(`/search`, async (req, res) => {
     }
 })
 
-// GET route for getting all stories that are flagged by users
+/**
+ * GET route for getting all stories that are flagged by users
+ */
 router.get('/flagged', (req, res) => {
     const sqlText = `
         SELECT stories.id, stories.name, stories.location, stories.title, stories.aquatic_therapist, 
@@ -140,6 +146,7 @@ router.get('/flagged', (req, res) => {
 /**
  * DELETE route for deleting a specific story
  * Removes a specific story based on the id
+ * Along with the images belonging to that story
  */
 router.delete('/:id', rejectUnauthenticated, async (req, res) => {
     let connection = await pool.connect();
@@ -172,7 +179,9 @@ router.put('/flag/:id', (req, res) => {
     })
 })
 
-// POST route for adding a story to the app
+/**
+ * POST route for adding a story to the app
+ */
 router.post('/share', async (req, res) => {
     const client = await pool.connect();
 
@@ -189,12 +198,15 @@ router.post('/share', async (req, res) => {
             images
         } = req.body;
         await client.query('BEGIN')
+        // This query inserts the story data into the database
+        // returns the ID of that story to insert images in the next query
         const storyInsertDetails = await client.query(`
             INSERT INTO "stories" ("name", "location", "title", "aquatic_therapist", "message", "email", "category_id", "flagged")
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
             RETURNING ID;`, [name, location, title, aquatic_therapist, message, email, category_id, flagged]);
         const storyId = storyInsertDetails.rows[0].id;
 
+        // This query inserts the image data into the database
         await Promise.all(images.map(image => {
             const insertImageText = `INSERT INTO "images" ("img_link", "story_id", "featured_img") VALUES ($1, $2, $3);`;
             const insertImageValues = [image.name, storyId, true];
@@ -212,7 +224,9 @@ router.post('/share', async (req, res) => {
     }
 });
 
-// PUT route for updating a story on the app. Targets story by its id.
+/**
+ * PUT route for updating a story on the app. Targets story by its id.
+ */
 router.put('/update/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `
         UPDATE "stories" 

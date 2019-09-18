@@ -104,10 +104,11 @@ class ShareStoryForm extends Component {
         });
     }
 
-    // This is for AWS image upload functionality
+    // Function that runs when a file is chosen for upload for AWS
     getPresignedPUTURL = (event) => {
         const selectedFile = event.target.files[0];
         if (selectedFile) {
+            // Get request is sent for the presignedPUTUrl for the uploadSingleFile function
             axios.get(`/api/aws/presignedPUTURL/${selectedFile.name}`).then(result =>
                 this.uploadSingleFile(result.data, selectedFile),
             ).catch(error => {
@@ -122,11 +123,8 @@ class ShareStoryForm extends Component {
         }
     };
 
-    uploadSingleFile = async (putURL, file) => {
-        await axios.put(putURL, file);
-        this.getPresignedGETURL(file);
-    }
-
+    // Sends a GET request for the presignedGETUrl and stores it in the local state
+    // The file is the image that is trying to be found in the S3 bucket
     getPresignedGETURL = (file) => {
         axios.get(`/api/aws/presignedGETURL/${file.name}`).then(result => {
             this.setState({
@@ -138,6 +136,19 @@ class ShareStoryForm extends Component {
         });
     }
 
+    // Function that uses the presignedPUTUrl to send a PUT request
+    // to upload the image to the S3 bucket
+    // putURL: presignedPUTUrl
+    // file: the image that is trying to be uploaded to the S3 bucket
+    uploadSingleFile = async (putURL, file) => {
+        await axios.put(putURL, file);
+        // Fetches the presignedGETUrl in order to display it later
+        // on the page
+        this.getPresignedGETURL(file);
+    }
+
+    // If getUrl exists in the state, a carousel will display with only 1 image
+    // with the assigned getUrl
     displayImage = () => {
         if (this.state.getUrl) {
             return (
