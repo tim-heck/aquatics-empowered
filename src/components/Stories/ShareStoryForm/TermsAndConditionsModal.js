@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Icon, Button, Header, Modal } from 'semantic-ui-react'
 
 class TermsAndConditionsModal extends Component {

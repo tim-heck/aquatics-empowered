@@ -66,6 +66,17 @@ class LoginPage extends Component {
             >Log In</Button>
           </div>
         </Form>
+        {/* button below allows for admin registration */}
+        {/* it is currently commented out so non-admin cannot create accounts */}
+        {/* <center>
+          <Button
+            primary
+            className="register-btn"
+            onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}
+          >
+            Register
+          </Button>
+        </center> */}
       </div>
     );
   }

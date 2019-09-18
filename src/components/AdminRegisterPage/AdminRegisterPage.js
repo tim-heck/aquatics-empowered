@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { Button, Form } from 'semantic-ui-react';
 
 class RegisterPage extends Component {
   state = {
@@ -30,7 +31,7 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="admin-login-form">
         {this.props.errors.registrationMessage && (
           <h2
             className="alert"
@@ -39,47 +40,39 @@ class RegisterPage extends Component {
             {this.props.errors.registrationMessage}
           </h2>
         )}
-        <form onSubmit={this.registerUser}>
-          <h1>Register User</h1>
-          <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              className="register"
-              type="submit"
-              name="submit"
-              value="Register"
+        <Form onSubmit={this.registerUser}>
+          <h1>Register Admin</h1>
+            <Form.Input
+              label="Username:"
+              required
+              type="text"
+              name="username"
+              value={this.state.username}
+              onChange={this.handleInputChangeFor('username')}
             />
+            <Form.Input
+              label="Password:"
+              required
+              type="password"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleInputChangeFor('password')}
+            />
+
+          <div>
+            <Button primary
+              type="submit"
+            >Register</Button>
           </div>
-        </form>
+        </Form>
         <center>
-          <button
-            type="button"
-            className="link-button"
+          <Button
+            primary
+            className="login-btn"
             onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
           >
             Login
-          </button>
+          </Button>
         </center>
       </div>
     );
