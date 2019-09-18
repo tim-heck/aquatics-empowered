@@ -19,9 +19,9 @@ class AdminCategoriesPage extends Component {
 
     render() {
         let emails = []
-        this.props.store.csv.map((email, i) => {
+        this.props.store.csv.map(email => 
             emails.push(email)
-        });
+        );
         return (
             <>
                 <CSVLink onClick={this.handleEmailsClick} data={this.props.store.csv}>Download Emails</CSVLink> 
