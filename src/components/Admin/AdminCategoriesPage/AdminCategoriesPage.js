@@ -25,7 +25,6 @@ class AdminCategoriesPage extends Component {
     // POSTS the new category to the database
     // then reset the category property in state
     handleAddClick = () => {
-        console.log('clicked add')
         this.props.dispatch({
             type: 'ADD_CATEGORY',
             payload: this.state,
@@ -59,7 +58,6 @@ class AdminCategoriesPage extends Component {
     // When user clicks unhide button next to a category, send category id to a Saga that
     // run a PUT route, updating the category from Hidden to Visible
     handleUnhideClick = (category) => {
-        console.log(category)
         this.props.dispatch({
             type: 'UNHIDE_CATEGORY',
             payload: category.id
