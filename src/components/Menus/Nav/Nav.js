@@ -77,7 +77,7 @@ class Nav extends Component {
         )}
         <div className="filter-search-menu">
           <div className="sponsored-by">
-            <h2>Sponsored By:</h2>
+            <h2>Brought to you by:</h2>
           </div>
           <a href="http://aquaticsempowered.org" rel="noopener noreferrer" target="_blank">
             <img className="logo-aquatics-empowered" src="images/aquatic-empowered.png" alt="h2whoa" />
