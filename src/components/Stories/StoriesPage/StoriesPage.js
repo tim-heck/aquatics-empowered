@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import StoryCard from './StoryCard';
 import LandingPageModal from '../../LandingPageModal/LandingPageModal';
-// import MobileNav from '../../Menus/MobileNav/MobileNav';
 import DefaultCard from '../DefaultCard/DefaultCard';
 import { Card } from 'semantic-ui-react'
 import '../StoriesPage.css'

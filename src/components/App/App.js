@@ -5,11 +5,9 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import {connect} from 'react-redux';
 import Nav from '../Menus/Nav/Nav';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-
 import InfoPage from '../InfoPage/InfoPage';
 import AquaticsEmpoweredAboutPage from '../AquaticsEmpoweredAboutPage/AquaticsEmpoweredAboutPage';
 import HTFHAboutPage from '../HTFHAboutPage/HTFHAboutPage';
@@ -19,7 +17,6 @@ import MobileNav from '../Menus/MobileNav/MobileNav';
 import AdminEditStoryView from '../Admin/AdminEditStoryPage/AdminEditStoryView';
 import AdminCategoriesPage from '../Admin/AdminCategoriesPage/AdminCategoriesPage';
 import AdminFlaggedList from '../Admin/AdminCategoriesPage/AdminFlaggedList';
-
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -66,15 +63,12 @@ class App extends Component {
               path="/edit-story"
               component={AdminEditStoryView}
             />
-
-
             {/* ---------PROTECTED ADMIN ROUTES BELOW----------- */}
             <ProtectedRoute
               exact
               path="/admin-categories"
               component={AdminCategoriesPage}
             />
-
              <ProtectedRoute
              exact
              path = "/admin-flagged-list"
