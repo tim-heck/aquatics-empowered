@@ -12,7 +12,6 @@ class AdminCategoriesPage extends Component {
 
     // This will get emails for the csv downloaded file from the database
     handleEmailsClick = () => {
-        console.log('clicked download emails')
         this.props.dispatch({
             type: 'GET_EMAILS' 
         })

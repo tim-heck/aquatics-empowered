@@ -71,9 +71,8 @@ router.put('/unhide/:id', rejectUnauthenticated, (req, res) => {
 
 // GET all e-mails for CSV download
 router.get('/emails', rejectUnauthenticated, (req, res) => {
-    pool.query(`SELECT "email" FROM "stories"; ;`)
+    pool.query(`SELECT "email" FROM "stories";`)
         .then((result) => {
-            console.log(result.rows);
             res.send(result.rows);
         })
         .catch(error => {

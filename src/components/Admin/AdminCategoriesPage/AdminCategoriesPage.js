@@ -83,7 +83,7 @@ class AdminCategoriesPage extends Component {
                 </Form>
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column width={6}>
+                        <Grid.Column width={8}>
                             <h1>Currently Visible Categories</h1>
                                 <ul className="categories-list">
                                     {this.props.store.categories.categoriesReducer.map(category =>
@@ -94,7 +94,7 @@ class AdminCategoriesPage extends Component {
                                     )}
                                 </ul>
                         </Grid.Column>
-                        <Grid.Column width={6}>
+                        <Grid.Column width={8}>
                             <h1>Currently Hidden Categories</h1>
                                 <ul className="categories-list">
                                     {this.props.store.categories.hiddenCategoriesReducer.map(category =>
