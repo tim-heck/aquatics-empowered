@@ -55,9 +55,6 @@ class MobileNav extends Component {
                         <Link to="/stories">
                             <img className="logo-h2whoa" src="images/h2whoa-logo.png" alt="h2whoa" />
                         </Link>
-                        {/* <div className="tag-line">
-                            <h2>Share a Story. Take a Story.</h2>
-                        </div> */}
                         <div className="mobile-nav-closebtn">
                             <Icon name="x" size="big" onClick={this.closeMobileNav} />
                         </div>
@@ -86,7 +83,7 @@ class MobileNav extends Component {
                             <h2>Share a Story. Take a Story.</h2>
                         </div>
                         <div className="sponsored-by">
-                            <h2>Sponsored By:</h2>
+                            <h2>Brought to you by:</h2>
                             <a href="http://aquaticsempowered.org" rel="noopener noreferrer" target="_blank" >
                                 <img className="logo-aquatics-empowered" src="images/aquatic-empowered.png" alt="h2whoa" />
                             </a>

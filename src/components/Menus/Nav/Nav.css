@@ -10,7 +10,6 @@
   overflow: hidden;
   background-color: #36599c;
   z-index: 200;
-  /* position: fixed; */
   width: 100%;
   top: 0;
   display: none;
@@ -43,15 +42,6 @@
   float: right;
 }
 
-/* .active {
-  color: #66fcf1;
-  border-bottom: 5px solid #66fcf1;
-}
-
-.active:hover {
-  color: #66fcf1;
-  border-bottom: 5px solid #66fcf1;
-} */
 
 .logo-h2whoa {
   width: 240px;
