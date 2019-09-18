@@ -19,3 +19,8 @@
     margin: 5px;
     margin-bottom: 10px;
 }
+
+.admin-login-form .ui.button.register-btn,
+.admin-login-form .ui.button.login-btn {
+    margin-top: 20px;
+}
