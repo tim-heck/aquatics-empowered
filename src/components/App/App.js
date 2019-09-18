@@ -8,7 +8,6 @@ import {
 import {connect} from 'react-redux';
 import Nav from '../Menus/Nav/Nav';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-import InfoPage from '../InfoPage/InfoPage';
 import AquaticsEmpoweredAboutPage from '../AquaticsEmpoweredAboutPage/AquaticsEmpoweredAboutPage';
 import HTFHAboutPage from '../HTFHAboutPage/HTFHAboutPage';
 import ShareStoryForm from '../Stories/ShareStoryForm/ShareStoryForm';
@@ -82,13 +81,6 @@ class App extends Component {
               exact
               path="/admin"
               component={AdminCategoriesPage}
-            />
-            {/* This works the same as the other protected route, except that if the user is logged in,
-            they will see the info page instead. */}
-            <ProtectedRoute
-              exact
-              path="/info"
-              component={InfoPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

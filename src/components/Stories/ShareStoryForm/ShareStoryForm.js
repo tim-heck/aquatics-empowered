@@ -7,6 +7,7 @@ import 'react-quill/dist/quill.snow.css';
 import './ShareStoryForm.css';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import TermsAndConditionsModal from './TermsAndConditionsModal';
 
 class ShareStoryForm extends Component {
 
@@ -25,6 +26,7 @@ class ShareStoryForm extends Component {
             category_id: 0,
             flagged: false,
             images: [],
+            showModal: false
         }
     }
 
@@ -177,6 +179,18 @@ class ShareStoryForm extends Component {
         }
     }
 
+    openTermsAndConditions = () => {
+        this.setState({
+            showModal: true
+        })
+    }
+
+    closeTermsAndConditions = () => {
+        this.setState({
+            showModal: false
+        })
+    }
+
     render() {
         // Creates categories array that populates the select field in the form.
         const categories = []
@@ -224,7 +238,9 @@ class ShareStoryForm extends Component {
                     <input className="file-upload-btn" type="file" id="file-upload" onChange={this.getPresignedPUTURL} />
                     {this.displayImage()}
                     <p>* By uploading an image you agree to the Terms and Conditions for
-                        H2Whoa! and Acquatics Empowered to use your images. To view the Terms and Conditions click <a href="#">here</a>.</p>
+                        H2Whoa! and Acquatics Empowered to use your images. To view the Terms and 
+                        Conditions click <span className="link-look" onClick={this.openTermsAndConditions}>here</span>.</p>
+                    <TermsAndConditionsModal showModal={this.state.showModal} close={this.closeTermsAndConditions}/>
                     {/* <a href="http://www.google.com">Picture Terms and Conditions</a> */}
                     <Form.Input placeholder="E-mail Address" label="Sign up for our newsletter" width={4}
                         onChange={(event) => this.handleChangeFor('email', event)}

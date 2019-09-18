@@ -20,3 +20,12 @@ img.ui.image {
 input[type="file"] {
     display: none;
 }
+
+.link-look {
+    color: #36599c;
+}
+
+.link-look:hover {
+    color: #294376;
+    cursor: pointer;
+}
