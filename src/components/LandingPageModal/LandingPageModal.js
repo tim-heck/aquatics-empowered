@@ -34,11 +34,8 @@ class LandingPageModal extends Component {
                     <Icon name="close" onClick={this.onCloseModal} />
                     <Modal.Header>Welcome to H2WHOA!</Modal.Header>
                     <Modal.Content image>
-                        {/*????? NEED TO CHANGE IMAGE HERE TO DIFFERENT IMAGE, POSSIBLY ART OR POSTER FOR EVENT???? */}
-
-                        <Image size="medium"
+                    <Image size="medium"
                             src="http://aquaticsempowered.org/wp-content/uploads/2019/07/hot-tubbing-for-hope.jpg" />
-
                         <Modal.Description>
                             <Header>H2WHOA! The official App for Hot Tubbing For Hope!</Header>
                             <p> H2WHOA! is a social media platform that serves as a centralized location for the sharing of stories of aquatic therapy and its many benefits!</p>

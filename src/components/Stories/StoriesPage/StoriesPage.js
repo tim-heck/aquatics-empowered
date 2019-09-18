@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import StoryCard from './StoryCard';
 import LandingPageModal from '../../LandingPageModal/LandingPageModal';
-// import MobileNav from '../../Menus/MobileNav/MobileNav';
 import DefaultCard from '../DefaultCard/DefaultCard';
-
 import { Card } from 'semantic-ui-react'
 import '../StoriesPage.css'
 
@@ -18,7 +15,6 @@ function getSpecificCookie(cookieName, value) {
         cookieNameRegEx = new RegExp(cookieName + '');
     //Loop through cookies
     for (let c = 0; c < cookieArray.length; c++) {
-
         //If found save to variable and end loop
         if (cookieNameRegEx.test( cookieArray[c] ) ) {
             fc = cookieArray[c].trim();
@@ -27,7 +23,6 @@ function getSpecificCookie(cookieName, value) {
             }
             break;
         }
-
     }
     return fc;
 }

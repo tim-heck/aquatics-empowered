@@ -12,7 +12,6 @@
 }
 
 .flag:hover {
-    /* color: #5ad2f4; */
     color: #db2828;
     cursor: pointer;
 }

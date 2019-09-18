@@ -11,32 +11,47 @@ H2Whoa is an web application that will raise awareness of Aquatics Empowered as 
 - Redux
 - Postgresql
 - Material UI
+- AWS S3 and IAM
 
 ## Getting Started
 
+Installing (CLI) dependancies will use:
 - [Brew](https://brew.sh)
+- [Npm] (https://www.npmjs.com/)
+
+Development database solution:
 - [postgreSQL](https://www.postgresql.org)
 
 Steps to get the development environment running.
 
-1. Download this project.
-2. `npm install`
-3. `npm start`
+1. Download this project
+2. `brew install awscli` {executing this command will install AWS CLI on local machine}
+3. `npm install` {executing this command will use Node Package Manager to install dependancies}
+4. `npm start` {executing this command will 'spin up' or start the application via localhost:3000 url}
+
 
 ## Screen Shot
 
-![Aquatics Empowered](/images/INSERT HERE.jpg)
 
 
-## Feature 
-- [x] Add Stories and Images
+
+## Features 
+- [x] Add Stories with Images
+- [x] Upload Images to AWS S3
 - [x] Delete Stories and Images
-- [x] Admin Login
+- [x] Administrative Portal
 - [x] Story Filter
-- [x] ????
+- [x] Search Bar
+## Usage
+
+
+
+
 
 ## Deployment
 To try this app yourself go to (https://INSERT HERE.herokuapp.com/);
+
+View the google document regarding Heroku Deployment for further instruction and information
 
 ## Authors
 * Tim Heck

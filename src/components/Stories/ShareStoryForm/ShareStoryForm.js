@@ -104,7 +104,7 @@ class ShareStoryForm extends Component {
         });
     }
 
-    // Function that runs when a file is chosen for upload
+    // Function that runs when a file is chosen for upload for AWS
     getPresignedPUTURL = (event) => {
         const selectedFile = event.target.files[0];
         if (selectedFile) {
@@ -114,7 +114,6 @@ class ShareStoryForm extends Component {
             ).catch(error => {
                 console.log('error with getting presignedPUTURL', error);
             });
-
             this.setState({
                 images: [
                     ...this.state.images,
@@ -176,39 +175,6 @@ class ShareStoryForm extends Component {
                 </>
             );
         }
-    }
-
-    fillName = () => {
-        this.setState({
-            name: 'Tim Heck',
-        });
-    }
-    fillLocation = () => {
-        this.setState({
-            location: 'Minneapolis, MN',
-        });
-    }
-
-    fillTitle = () => {
-        this.setState({
-            title: 'Rufus the Dog',
-        });
-    }
-    fillTherapist = () => {
-        this.setState({
-            aquatic_therapist: 'Vonni Goetting',
-        });
-    }
-
-    fillStory = () => {
-        this.setState({
-            message: 'Our sweet Aussie Rufus was in terrible shape. He tore both CCL’s in the same year. He lost almost all his independence – unable to move from lying to standing position, walk up stairs, walk independently. We bought a sling to support his back end and thought he would never be independently ambulatory again. Rufus and our family were heartbroken. Our Vet recommended Vonni. After a few sessions we saw improvement – after a couple months Rufus could stand up, climb stairs and go for short walks without help. Now Rufus can go for long walks and his energy level is pre-injury. I can’t begin to express how grateful and happy we are.',
-        });
-    }
-    fillEmail = () => {
-        this.setState({
-            email: 'tim@heck.com',
-        });
     }
 
     render() {

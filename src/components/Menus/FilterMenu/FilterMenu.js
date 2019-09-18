@@ -43,14 +43,12 @@ class FilterMenu extends Component {
                     <h2>Filter by Category<Icon name="x" onClick={this.props.filterNone} /></h2>
                     {this.props.reduxStore.categories.categoriesReducer.map(item =>
                         <Form.Field key={item.id} onClick={(e) => this.handleChange(e, item.category.replace(/ /g, '_').toLowerCase())}>
-                            {/* item.category.replace(/ /g, '_').toLowerCase() */}
                             <Checkbox 
                                 label={item.category}
                             />
                         </Form.Field>
                     )}
                     <Button primary type='submit' onClick={this.filterStories}>Apply</Button>
-                    {/* <Button onClick={this.clearFilters}>Clear Filters</Button> */}
                 </Form>
             </>
         )
