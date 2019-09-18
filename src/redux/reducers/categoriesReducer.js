@@ -17,7 +17,6 @@ const hiddenCategoriesReducer = (state = [], action) => {
         default:
             return state;
     }
-
 }
 
 
