@@ -82,7 +82,7 @@ Administrative users will have several dedicated features to moderate the conten
 
 
 ## Deployment
-To try this app yourself go to (https://INSERT HERE.herokuapp.com/);
+To try this app yourself click [here](https://safe-mesa-71604.herokuapp.com).
 
 View the google document regarding Heroku Deployment for further instruction and information
 
