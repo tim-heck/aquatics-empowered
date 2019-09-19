@@ -103,6 +103,9 @@ Create S3 Bucket:
 Authenticate User:
     https://docs.aws.amazon.com/AmazonS3/latest/dev/example-walkthroughs-managing-access-example1.html
 
+PresignedUrls:
+    https://medium.com/@aidan.hallett/securing-aws-s3-uploads-using-presigned-urls-aa821c13ae8d
+
 
 1. Create FREE AWS Account.
 
@@ -112,7 +115,9 @@ Authenticate User:
 
 4. Create an .env file in the repo and create a variable called BUCKET_NAME and set it to the name of your bucket, another variable called S3_ACCESS_KEY and set it to the user's access key, and a last variable called S3_SECRET_KEY and set it to the user's secret access key.
 
-5. Test an upload to see if it goes to the bucket.
+5. Follow the 'How do I create a presigned URL then?' section in the PresignedUrls link to set up the necessary policy for the user.
+
+6. Test an upload to see if it goes to the bucket.
 
 ## Deployment
 To try this app yourself! https://safe-mesa-71604.herokuapp.com
