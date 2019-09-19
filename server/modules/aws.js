@@ -21,7 +21,7 @@ module.exports = {
      */
     getPresignedGetUrl: function (image_name) {
         let presignedGETURL = s3.getSignedUrl('getObject', {
-            Bucket: 'htfh', // bucket name
+            Bucket: process.env.BUCKET_NAME, // bucket name
             Key: image_name, // filename
             Expires: 300 // time to expire in seconds
         });
@@ -35,7 +35,7 @@ module.exports = {
      */
     getPresignedPutUrl: function (image_name) {
         let presignedPUTURL = s3.getSignedUrl('putObject', {
-            Bucket: 'htfh', // bucket name
+            Bucket: process.env.BUCKET_NAME, // bucket name
             Key: image_name, // filename
             Expires: 300 // time to expire in seconds
         });
