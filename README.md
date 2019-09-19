@@ -20,7 +20,7 @@ H2Whoa is an web application that will raise awareness of Aquatics Empowered as 
 
 Installing (CLI) dependancies will use:
 - [Brew](https://brew.sh)
-- [Npm] (https://www.npmjs.com/)
+- [Npm](https://www.npmjs.com/)
 
 Development database solution:
 - [postgreSQL](https://www.postgresql.org)
@@ -36,7 +36,7 @@ Steps to get the development environment running.
 
 ## Screen Shot
 
-![Screen Capture](images/H2WOAHSCREENCAP.png)
+![Screen Capture](public/images/H2WOAHSCREENCAP.png)
 
 
 ## Features 
