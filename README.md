@@ -75,9 +75,9 @@ Administrative users will have several dedicated features to moderate the conten
     - Deleting flagged post from database is supported in this release
 
 4. Stories Page Admin View
-    >>> Story cards on the Stories Page will render with additional button-operated options
-        - Editing Stories for content or site philosophy violation via 'Edit Story' button
-        - Delete Story card that has been flagged, or violates site philosophy 'Delete Story' button
+    - Story cards on the Stories Page will render with additional button-operated options
+    - Editing Stories for content or site philosophy violation via 'Edit Story' button
+    - Delete Story card that has been flagged, or violates site philosophy 'Delete Story' button
 
 
 
