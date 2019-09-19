@@ -33,11 +33,18 @@ Steps to get the development environment running.
 4. `npm run server` 
 5. `npm run client` 
 
+## Development Setup Instructions
+
+* Create a `.env` file at the root of the project and paste this line into the file:
+    ```
+    SERVER_SESSION_SECRET=superDuperSecret
+    ```
+    While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
+* Start postgres if not running already by using `brew services start postgresql`
 
 ## Screen Shot
 
 ![Screen Capture](public/images/h2whoa-stories-page.png)
-
 
 ## Features 
 - [x] Add Stories with Images
@@ -79,10 +86,31 @@ Administrative users will have several dedicated features to moderate the conten
     - Editing Stories for content or site philosophy violation via 'Edit Story' button
     - Delete Story card that has been flagged, or violates site philosophy 'Delete Story' button
 
+# AWS Steps
 
+Links:
+Create AWS Account: 
+    https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/
+
+Create S3 Bucket:
+    https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html
+
+Authenticate User:
+    https://docs.aws.amazon.com/AmazonS3/latest/dev/example-walkthroughs-managing-access-example1.html
+
+
+1. Create FREE AWS Account.
+
+2. Follow the link above to create an S3 Bucket.
+
+3. Use the link under Authenticate User to create User and authorize access to the Bucket.
+
+4. Create an .env file in the repo and create a variable called BUCKET_NAME and set it to the name of your bucket, another variable called S3_ACCESS_KEY and set it to the user's access key, and a last variable called S3_SECRET_KEY and set it to the user's secret access key.
+
+5. Test an upload to see if it goes to the bucket.
 
 ## Deployment
-To try this app yourself click [here](https://safe-mesa-71604.herokuapp.com).
+To try this app yourself! https://safe-mesa-71604.herokuapp.com
 
 View the google document regarding Heroku Deployment for further instruction and information
 
