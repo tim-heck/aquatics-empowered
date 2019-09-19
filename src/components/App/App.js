@@ -20,10 +20,6 @@ import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
-  }
-
   render() {
     return (
       <Router>
