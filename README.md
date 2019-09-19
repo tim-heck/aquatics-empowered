@@ -27,11 +27,16 @@ Development database solution:
 
 Steps to get the development environment running.
 
-1. Download this project
-2. `brew install awscli` {executing this command will install AWS CLI on local machine}
-3. `npm install` {executing this command will use Node Package Manager to install dependancies}
-4. `npm run server` 
-5. `npm run client` 
+1. Don't Fork or Clone. Instead, click the `Clone or Download` button and select `Download Zip`.
+2. Unzip the project and start with the code in that folder.
+3. `brew install awscli` {executing this command will install AWS CLI on local machine}
+4. `npm install` {executing this command will use Node Package Manager to install dependancies}
+5. `npm run server` 
+6. `npm run client` 
+
+## Create database and table
+
+Create a new database called `aquatics_empowered` and add the sql code from the `database.sql` file in the project code and execute the statements it. This will get your database setup correctly.
 
 ## Development Setup Instructions
 
