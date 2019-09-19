@@ -30,7 +30,8 @@ Steps to get the development environment running.
 1. Download this project
 2. `brew install awscli` {executing this command will install AWS CLI on local machine}
 3. `npm install` {executing this command will use Node Package Manager to install dependancies}
-4. `npm start` {executing this command will 'spin up' or start the application via localhost:3000 url}
+4. `npm run server` 
+5. `npm run client` 
 
 
 ## Screen Shot
