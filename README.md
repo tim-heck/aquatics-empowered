@@ -36,7 +36,7 @@ Steps to get the development environment running.
 
 ## Screen Shot
 
-![Screen Capture](public/images/H2WOAHSCREENCAP.png)
+![Screen Capture](public/images/h2whoa-stories-page.png)
 
 
 ## Features 
